@@ -312,7 +312,7 @@ public class ModificarVehiculo_frm extends javax.swing.JFrame {
                 && !camaraTrasera.equals("")
                 && !wifi.equals("")
                 && !monitoreoSatelital.equals("")) {
-            lista_vehiculos.modificar(new NodoVehiculos(numeroPlaca.getText(),
+            /*lista_vehiculos.modificar(new NodoVehiculos(numeroPlaca.getText(),
                     marca.getText(),
                     modelo.getText(),
                     Integer.parseInt(annio.getText()),
@@ -329,7 +329,7 @@ public class ModificarVehiculo_frm extends javax.swing.JFrame {
                     camaraTrasera.getText(),
                     wifi.getText(),
                     monitoreoSatelital.getText()
-            ));
+            ));*/
 
         }
         limpiar_cajar();

@@ -352,7 +352,7 @@ public void limpiar_cajar(){
                 && !camaraTrasera.equals("")
                 && !wifi.equals("")
                 && !monitoreoSatelital.equals("")) {
-            lista_vehiculos.insertar(new NodoVehiculos(numeroPlaca.getText(),
+            /*lista_vehiculos.insertar(new NodoVehiculos(numeroPlaca.getText(),
                     marca.getText(),
                     modelo.getText(),
                     Integer.parseInt(annio.getText()),
@@ -369,7 +369,7 @@ public void limpiar_cajar(){
                     camaraTrasera.getText(),
                     wifi.getText(),
                     monitoreoSatelital.getText()
-            ));
+            ));*/
 
         }
         limpiar_cajar();
