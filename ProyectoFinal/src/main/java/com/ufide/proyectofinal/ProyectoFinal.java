@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Project/Maven2/JavaApp/src/main/java/${packagePath}/${mainClassName}.java to edit this template
  */
-
 package com.ufide.proyectofinal;
 
 /**
@@ -12,6 +11,11 @@ package com.ufide.proyectofinal;
 public class ProyectoFinal {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        MenuInicial obj_seccion = new MenuInicial();
+        obj_seccion.setTitle("Menu Principal");
+
+        obj_seccion.setLocationRelativeTo(null);
+
+        obj_seccion.setVisible(true);
     }
 }

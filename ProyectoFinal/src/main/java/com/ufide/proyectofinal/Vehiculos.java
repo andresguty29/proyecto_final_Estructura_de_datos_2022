@@ -6,7 +6,7 @@ public class Vehiculos {
     String numeroPlaca;
     String marca;
     String modelo;
-    String annio;
+    int annio;
     String color;
     String cilindrada;
     String tipoCombustible;
@@ -24,7 +24,7 @@ public class Vehiculos {
     public Vehiculos() {
     }
 
-    public Vehiculos(String numeroPlaca, String marca, String modelo, String annio, String color, String cilindrada, String tipoCombustible, int capacidadPasajeros, double precioAlquierXDia, String estado, boolean arranqueSinLLave, boolean cargadorInalambrico, boolean navegadorTraffico, boolean sensores, boolean camaraTrasera, boolean wifi, boolean monitoreoSatelital) {
+    public Vehiculos(String numeroPlaca, String marca, String modelo, int annio, String color, String cilindrada, String tipoCombustible, int capacidadPasajeros, double precioAlquierXDia, String estado, boolean arranqueSinLLave, boolean cargadorInalambrico, boolean navegadorTraffico, boolean sensores, boolean camaraTrasera, boolean wifi, boolean monitoreoSatelital) {
         this.numeroPlaca = numeroPlaca;
         this.marca = marca;
         this.modelo = modelo;
@@ -68,11 +68,11 @@ public class Vehiculos {
         this.modelo = modelo;
     }
 
-    public String getAnnio() {
+    public int getAnnio() {
         return annio;
     }
 
-    public void setAnnio(String annio) {
+    public void setAnnio(int annio) {
         this.annio = annio;
     }
 
