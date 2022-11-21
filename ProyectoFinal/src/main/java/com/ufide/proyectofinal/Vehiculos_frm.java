@@ -4,18 +4,25 @@
  */
 package com.ufide.proyectofinal;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author User
  */
 public class Vehiculos_frm extends javax.swing.JDialog {
-
+    public static ListaVehiculos lista_vehiculos = new ListaVehiculos();
+    public static DefaultTableModel modeloTabla = new DefaultTableModel();
+    
+    
     /**
      * Creates new form Vehi
      */
     public Vehiculos_frm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        iniciarTablaVehiculos();
     }
 
     /**
@@ -87,8 +94,8 @@ public class Vehiculos_frm extends javax.swing.JDialog {
         cbxWifi = new javax.swing.JCheckBox();
         cbxMonitoreoSatelital = new javax.swing.JCheckBox();
         jLabel23 = new javax.swing.JLabel();
-        btnGuardar1 = new javax.swing.JButton();
-        btnLimpiar1 = new javax.swing.JButton();
+        btnLimp = new javax.swing.JButton();
+        btnGuard = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         btnConsultar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
@@ -301,12 +308,6 @@ public class Vehiculos_frm extends javax.swing.JDialog {
 
         jLabel13.setText("Marca:");
 
-        txtMarca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMarcaActionPerformed(evt);
-            }
-        });
-
         jLabel14.setText("Modelo:");
 
         jLabel15.setText("Año:");
@@ -314,12 +315,6 @@ public class Vehiculos_frm extends javax.swing.JDialog {
         jLabel17.setText("Color:");
 
         jLabel18.setText("Cilindrada:");
-
-        txtNumeroPlaca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNumeroPlacaActionPerformed(evt);
-            }
-        });
 
         jLabel19.setText("Tipo de Combustible:");
 
@@ -347,17 +342,12 @@ public class Vehiculos_frm extends javax.swing.JDialog {
 
         jLabel23.setText("Extras: ");
 
-        btnGuardar1.setText("Guardar");
-        btnGuardar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardar1ActionPerformed(evt);
-            }
-        });
+        btnLimp.setText("Limpiar");
 
-        btnLimpiar1.setText("Limpiar");
-        btnLimpiar1.addActionListener(new java.awt.event.ActionListener() {
+        btnGuard.setText("Guardar");
+        btnGuard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpiar1ActionPerformed(evt);
+                btnGuardActionPerformed(evt);
             }
         });
 
@@ -370,19 +360,16 @@ public class Vehiculos_frm extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cbxArranqueSinLLave, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cbxCargadorInalambrico, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cbxNavegadorTraffico, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cbxSensores, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cbxCamaraTrasera, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cbxWifi, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cbxMonitoreoSatelital, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(btnGuardar1)
-                                .addGap(39, 39, 39)
-                                .addComponent(btnLimpiar1)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbxArranqueSinLLave, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxCargadorInalambrico, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxNavegadorTraffico, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxSensores, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxCamaraTrasera, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxWifi, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnGuard)
+                                .addComponent(cbxMonitoreoSatelital, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(44, 44, 44))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -427,6 +414,10 @@ public class Vehiculos_frm extends javax.swing.JDialog {
                                 .addGap(112, 112, 112)
                                 .addComponent(jLabel23)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(btnLimp)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -486,10 +477,11 @@ public class Vehiculos_frm extends javax.swing.JDialog {
                 .addComponent(cbxWifi)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbxMonitoreoSatelital)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar1)
-                    .addComponent(btnLimpiar1)))
+                    .addComponent(btnLimp)
+                    .addComponent(btnGuard))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Consulta y edición de Vehiculos"));
@@ -526,7 +518,7 @@ public class Vehiculos_frm extends javax.swing.JDialog {
                         .addComponent(btnActualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEliminar)
-                        .addContainerGap(286, Short.MAX_VALUE))
+                        .addContainerGap(674, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)))
         );
         jPanel3Layout.setVerticalGroup(
@@ -557,32 +549,85 @@ public class Vehiculos_frm extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    public void limpiar_cajar(){
-    this.numeroPlaca.setText("");
-        this.marca.setText("");
-        this.annio.setText("");
-        this.color.setText("");
-        this.cilindrada.setText("");
-        this.tipoCombustible.setText("");
-        this.capacidadPasajeros.setText("");
-        this.precioAlquierXDia.setText("");
-        this.estado.setText("");
-        this.arranqueSinLLave.setText("");
-        this.cargadorInalambrico.setText("");
-        this.navegadorTraffico.setText("");
-        this.sensores.setText("");
-        this.camaraTrasera.setText("");
-        this.wifi.setText("");
-        this.monitoreoSatelital.setText("");
+    
+    public void llenarTablaVehiculos(){
+        for(NodoVehiculos vehiculo:lista_vehiculos.listaVehiculos()){
+            modeloTabla.addRow(new Object[]{
+                vehiculo.getVehiculo().getNumeroPlaca(),
+                vehiculo.getVehiculo().getMarca(),
+                vehiculo.getVehiculo().getAnnio(),
+                vehiculo.getVehiculo().getColor(),
+                vehiculo.getVehiculo().getCilindrada(),
+                vehiculo.getVehiculo().getTipoCombustible(),
+                vehiculo.getVehiculo().getPrecioAlquierXDia(),
+                vehiculo.getVehiculo().getEstado(),
+                vehiculo.getVehiculo().isArranqueSinLLave(),
+                vehiculo.getVehiculo().isCargadorInalambrico(),
+                vehiculo.getVehiculo().isNavegadorTraffico(),
+                vehiculo.getVehiculo().isSensores(),
+                vehiculo.getVehiculo().isCamaraTrasera(),
+                vehiculo.getVehiculo().isWifi(),
+                vehiculo.getVehiculo().isMonitoreoSatelital(),
+            });
+        }
+    }
+    
+        public void iniciarTablaVehiculos(){
+        modeloTabla.addColumn("");
+        modeloTabla.addColumn("");
+        modeloTabla.addColumn("");
+        modeloTabla.addColumn("");
+        modeloTabla.addColumn("");
+        modeloTabla.addColumn("");
+        modeloTabla.addColumn("");
+        modeloTabla.addColumn("");
+        modeloTabla.addColumn("");
+        modeloTabla.addColumn("");
+        modeloTabla.addColumn("");
+        modeloTabla.addColumn("");
+        modeloTabla.addColumn("");
+        modeloTabla.addColumn("");
+        modeloTabla.addColumn("");
+        
+        TabDatos.setModel(modeloTabla);
+        llenarTablaVehiculos();
+        
+    }
+    
+    public  void resetearTabla(){
+        for (int i=modeloTabla.getRowCount()-1; i>=0; i--){
+            modeloTabla.removeRow(i);
+        }
+        llenarTablaVehiculos();
+    }
+    
+    public void limpiar_cajas(){
+        this.txtNumeroPlaca.setText("");
+        this.txtMarca.setText("");
+        this.txtAnnio.setText("");
+        this.txtColor.setText("");
+        this.txtCilindrada.setText("");
+        this.txtTipoCombustible.setText("");
+        this.txtPrecioAlquiler.setText("");
+        this.txtEstado.setText("");
+        this.cbxArranqueSinLLave.setSelected(false);
+        this.cbxCargadorInalambrico.setSelected(false);
+        this.cbxNavegadorTraffico.setSelected(false);
+        this.cbxSensores.setSelected(false);
+        this.cbxCamaraTrasera.setSelected(false);
+        this.cbxWifi.setSelected(false);
+        this.cbxMonitoreoSatelital.setSelected(false);
 }
     
     
@@ -597,106 +642,52 @@ public class Vehiculos_frm extends javax.swing.JDialog {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // BOTON ACEPTAR
         ListaVehiculos lista_vehiculos = new ListaVehiculos();
-        if (!numeroPlaca.equals("")
-            && !marca.equals("")
-            && !modelo.equals("")
-            && !annio.equals("")
-            && !color.equals("")
-            && !cilindrada.equals("")
-            && !tipoCombustible.equals("")
-            && !capacidadPasajeros.equals("")
-            && !precioAlquierXDia.equals("")
-            && !estado.equals("")
-            && !arranqueSinLLave.equals("")
-            && !cargadorInalambrico.equals("")
-            && !navegadorTraffico.equals("")
-            && !sensores.equals("")
-            && !camaraTrasera.equals("")
-            && !wifi.equals("")
-            && !monitoreoSatelital.equals("")) {
-            /*lista_vehiculos.insertar(new NodoVehiculos(numeroPlaca.getText(),
-                marca.getText(),
-                modelo.getText(),
-                Integer.parseInt(annio.getText()),
-                color.getText(),
-                cilindrada.getText(),
-                tipoCombustible.getText(),
-                Integer.parseInt(capacidadPasajeros.getText()),
-                Double.parseDouble(precioAlquierXDia.getText()),
-                estado.getText(),
-                arranqueSinLLave.getText(),
-                cargadorInalambrico.getText(),
-                navegadorTraffico.getText(),
-                sensores.getText(),
-                camaraTrasera.getText(),
-                wifi.getText(),
-                monitoreoSatelital.getText()
-            ));*/
-
-        }
-        limpiar_cajar();
-
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        limpiar_cajar();
+
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
-    private void txtMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMarcaActionPerformed
+    private void btnGuardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtMarcaActionPerformed
-
-    private void txtNumeroPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroPlacaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNumeroPlacaActionPerformed
-
-    private void btnGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar1ActionPerformed
-        // BOTON ACEPTAR
-        ListaVehiculos lista_vehiculos = new ListaVehiculos();
-        if (!numeroPlaca.equals("")
-            && !marca.equals("")
-            && !modelo.equals("")
-            && !annio.equals("")
-            && !color.equals("")
-            && !cilindrada.equals("")
-            && !tipoCombustible.equals("")
-            && !capacidadPasajeros.equals("")
-            && !precioAlquierXDia.equals("")
-            && !estado.equals("")
-            && !arranqueSinLLave.equals("")
-            && !cargadorInalambrico.equals("")
-            && !navegadorTraffico.equals("")
-            && !sensores.equals("")
-            && !camaraTrasera.equals("")
-            && !wifi.equals("")
-            && !monitoreoSatelital.equals("")) {
-            /*lista_vehiculos.insertar(new NodoVehiculos(numeroPlaca.getText(),
-                marca.getText(),
-                modelo.getText(),
-                Integer.parseInt(annio.getText()),
-                color.getText(),
-                cilindrada.getText(),
-                tipoCombustible.getText(),
-                Integer.parseInt(capacidadPasajeros.getText()),
-                Double.parseDouble(precioAlquierXDia.getText()),
-                estado.getText(),
-                arranqueSinLLave.getText(),
-                cargadorInalambrico.getText(),
-                navegadorTraffico.getText(),
-                sensores.getText(),
-                camaraTrasera.getText(),
-                wifi.getText(),
-                monitoreoSatelital.getText()
-            ));*/
-
+        if (
+               txtNumeroPlaca.getText().isEmpty()==false
+            || txtMarca.getText().isEmpty()==false
+            || txtModelo.getText().isEmpty()==false
+            || txtAnnio.getText().isEmpty()==false
+            || txtColor.getText().isEmpty()==false
+            || txtCilindrada.getText().isEmpty()==false
+            || txtTipoCombustible.getText().isEmpty()==false
+            || txtCapacidadPasajeros.getText().isEmpty()==false
+            || txtPrecioAlquiler.getText().isEmpty()==false
+            || txtEstado.getText().isEmpty()==false
+            ){
+            
+            Vehiculos vehiculo=new Vehiculos(
+                txtNumeroPlaca.getText(),
+                txtMarca.getText(),
+                txtModelo.getText(),
+                Integer.parseInt(txtAnnio.getText()),
+                txtColor.getText(),
+                txtCilindrada.getText(),
+                txtTipoCombustible.getText(),
+                Integer.parseInt(txtCapacidadPasajeros.getText()),
+                Double.parseDouble(txtPrecioAlquiler.getText()),
+                txtEstado.getText(),
+                cbxArranqueSinLLave.isSelected(),
+                cbxCargadorInalambrico.isSelected(),
+                cbxNavegadorTraffico.isSelected(),
+                cbxSensores.isSelected(),
+                cbxCamaraTrasera.isSelected(),
+                cbxWifi.isSelected(),
+                cbxMonitoreoSatelital.isSelected()
+            );
+                    
+            lista_vehiculos.inserta(vehiculo);
+            resetearTabla();
         }
-        limpiar_cajar();
-
-    }//GEN-LAST:event_btnGuardar1ActionPerformed
-
-    private void btnLimpiar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiar1ActionPerformed
-        limpiar_cajar();
-    }//GEN-LAST:event_btnLimpiar1ActionPerformed
+        limpiar_cajas();
+    }//GEN-LAST:event_btnGuardActionPerformed
 
     /**
      * @param args the command line arguments
@@ -748,10 +739,10 @@ public class Vehiculos_frm extends javax.swing.JDialog {
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGuard;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnGuardar1;
+    private javax.swing.JButton btnLimp;
     private javax.swing.JButton btnLimpiar;
-    private javax.swing.JButton btnLimpiar1;
     private javax.swing.JCheckBox camaraTrasera;
     private javax.swing.JTextField capacidadPasajeros;
     private javax.swing.JCheckBox cargadorInalambrico;

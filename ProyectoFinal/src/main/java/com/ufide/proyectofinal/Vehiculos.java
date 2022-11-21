@@ -24,7 +24,12 @@ public class Vehiculos {
     public Vehiculos() {
     }
 
-    public Vehiculos(String numeroPlaca, String marca, String modelo, int annio, String color, String cilindrada, String tipoCombustible, int capacidadPasajeros, double precioAlquierXDia, String estado, boolean arranqueSinLLave, boolean cargadorInalambrico, boolean navegadorTraffico, boolean sensores, boolean camaraTrasera, boolean wifi, boolean monitoreoSatelital) {
+    public Vehiculos(String numeroPlaca, String marca, String modelo, int annio, 
+            String color, String cilindrada, String tipoCombustible, 
+            int capacidadPasajeros, double precioAlquierXDia, String estado, 
+            boolean arranqueSinLLave, boolean cargadorInalambrico, 
+            boolean navegadorTraffico, boolean sensores, boolean camaraTrasera, 
+            boolean wifi, boolean monitoreoSatelital) {
         this.numeroPlaca = numeroPlaca;
         this.marca = marca;
         this.modelo = modelo;

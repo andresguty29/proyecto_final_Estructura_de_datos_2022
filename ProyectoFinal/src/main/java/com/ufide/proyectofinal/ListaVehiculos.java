@@ -2,6 +2,9 @@
 package com.ufide.proyectofinal;
 //Se realizan el ingreso de vehiculos a una lista Simple
 
+import java.util.ArrayList;
+
+
 public class ListaVehiculos {
 
     private NodoVehiculos cabeza;
@@ -77,4 +80,15 @@ public class ListaVehiculos {
             }
         }
     }
+    
+    public ArrayList<NodoVehiculos> listaVehiculos(){
+        ArrayList<NodoVehiculos> listaVehiculos=new ArrayList<>();
+        NodoVehiculos aux=cabeza;
+        while(aux!=null){
+            listaVehiculos.add(aux);
+            aux=aux.getAtras();
+        }
+        return listaVehiculos;
+    }
+    
 }
