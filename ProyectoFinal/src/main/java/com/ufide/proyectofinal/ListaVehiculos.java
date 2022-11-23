@@ -75,9 +75,6 @@ public class ListaVehiculos {
 
                 aux.getVehiculo().setMonitoreoSatelital(
                         p.isMonitoreoSatelital());
-
-            } else {
-                String mensaje = "NO SE ENCUENTRA LA PLACA";
             }
         }
     }
@@ -102,6 +99,32 @@ public class ListaVehiculos {
         }
         
         return buscado;
+    }
+    
+    public void elimina (Vehiculos p) {
+        //Si una persona tiene el id, lo elimina
+        if (cabeza != null) { //Si hay algo en la lista buscaré
+            if (cabeza.getVehiculo().getNumeroPlaca().equals(p.getNumeroPlaca())) 
+            {
+                cabeza = cabeza.getAtras();
+            } 
+            else {
+                NodoVehiculos aux = cabeza; //utilizo aux como indice
+                //Mientras no se acabe la lista y el elemento
+                //de la lista sea menor que el buscado
+                while (aux.getAtras() != null &&
+                    aux.getAtras().getVehiculo().getNumeroPlaca().equals(p.getNumeroPlaca())) {
+                    aux = aux.getAtras();
+                }
+                //avanzo en la lista
+            
+                // si es el de adelante lo borro
+                if (aux.getAtras()!= null &&
+                aux.getAtras().getVehiculo().getNumeroPlaca().equals(p.getNumeroPlaca())) {
+                    aux.setAtras(aux.getAtras().getAtras()); //cambio las referencias
+                }
+            }
+        }
     }
 
     public Vehiculos verifica(String i) {

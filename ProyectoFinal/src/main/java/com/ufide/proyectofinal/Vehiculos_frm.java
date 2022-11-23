@@ -1,6 +1,9 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
+ NECESITAMOS SABER SI SE REQUIERE LECTURA DE ARCHIVOS .TXT, DE SER ASI SE DEBE AFINAR
+HACER PRUEBAS DE AGREGAR
+AGREGAR LAS VALIDACIONES, TRY CATCH,  CAMPOS  SOLO  NUMEROS O DOUBLE
+SE ENCICLA AL BUSCAR EN LA CLASE LISTA VEHICULOS
+AGREGAR MAS DATOS PARA HACER MAS PRUEBAS
  */
 package com.ufide.proyectofinal;
 
@@ -111,6 +114,7 @@ public class Vehiculos_frm extends javax.swing.JDialog {
         btnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TabDatos = new javax.swing.JTable();
+        btnResetear = new javax.swing.JButton();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestión de Ingreso- Vehiculos"));
 
@@ -539,6 +543,13 @@ public class Vehiculos_frm extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(TabDatos);
 
+        btnResetear.setText("Resetear vista");
+        btnResetear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetearActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -552,8 +563,10 @@ public class Vehiculos_frm extends javax.swing.JDialog {
                         .addComponent(btnActualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEliminar)
-                        .addContainerGap(676, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnResetear)
+                        .addContainerGap())
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 924, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -562,7 +575,8 @@ public class Vehiculos_frm extends javax.swing.JDialog {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConsultar)
                     .addComponent(btnActualizar)
-                    .addComponent(btnEliminar))
+                    .addComponent(btnEliminar)
+                    .addComponent(btnResetear))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1)
                 .addContainerGap())
@@ -830,7 +844,8 @@ public class Vehiculos_frm extends javax.swing.JDialog {
     }
 
     public String guardarLinea(Vehiculos vehiculo){
-        String texto=vehiculo.getNumeroPlaca()+"*"+
+        String texto=
+                vehiculo.getNumeroPlaca()+"*"+
                 vehiculo.getMarca()+"*"+
                 vehiculo.getModelo()+"*"+
                 vehiculo.getAnnio()+"*"+
@@ -883,10 +898,43 @@ public class Vehiculos_frm extends javax.swing.JDialog {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
+        String placa=TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString();
+        
+        Vehiculos encontrar= lista_vehiculos.buscar(placa);
+        if(encontrar==null){
+            JOptionPane.showMessageDialog(null, "No hay placa almacenada");
+        }else{
+            encontrar.setMarca(txtMarca.getText());
+            encontrar.setModelo(txtNumeroPlaca.getText());
+            encontrar.setAnnio(Integer.parseInt(txtAnnio.getText()));
+            encontrar.setColor(txtColor.getText());
+            encontrar.setCilindrada(txtCilindrada.getText());
+            encontrar.setTipoCombustible(cbxTipoCombustible.getSelectedItem().toString());
+            encontrar.setCapacidadPasajeros(Integer.parseInt(txtCapacidadPasajeros.getText()));
+            encontrar.setPrecioAlquierXDia(Double.parseDouble(txtPrecioAlquiler.getText()));
+            encontrar.setEstado(cbxEstado.getSelectedItem().toString());
+            encontrar.setArranqueSinLLave(cbxArranqueSinLLave.isSelected());
+            encontrar.setCargadorInalambrico(cbxCargadorInalambrico.isSelected());
+            encontrar.setNavegadorTraffico(cbxNavegadorTraffico.isSelected());
+            encontrar.setSensores(cbxSensores.isSelected());
+            encontrar.setCamaraTrasera(cbxCamaraTrasera.isSelected());
+            encontrar.setWifi(cbxWifi.isSelected());
+            encontrar.setMonitoreoSatelital(cbxMonitoreoSatelital.isSelected());
+            lista_vehiculos.modifica(encontrar);
+            limpiar_cajas();
+            vaciarTablaVehiculos();
+            llenarTablaVehiculos();
+        }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
+        String placa=TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString();
+        Vehiculos encontrar= lista_vehiculos.buscar(placa);
+        lista_vehiculos.elimina(encontrar);
+        limpiar_cajas();
+        vaciarTablaVehiculos();
+        llenarTablaVehiculos();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnGuardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardActionPerformed
@@ -939,6 +987,12 @@ public class Vehiculos_frm extends javax.swing.JDialog {
             llenar_cajas();
         }
     }//GEN-LAST:event_TabDatosMouseClicked
+
+    private void btnResetearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetearActionPerformed
+        // TODO add your handling code here:
+        limpiar_cajas();
+        resetearTablaVehiculos();
+    }//GEN-LAST:event_btnResetearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -994,6 +1048,7 @@ public class Vehiculos_frm extends javax.swing.JDialog {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimp;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnResetear;
     private javax.swing.JCheckBox camaraTrasera;
     private javax.swing.JTextField capacidadPasajeros;
     private javax.swing.JCheckBox cargadorInalambrico;

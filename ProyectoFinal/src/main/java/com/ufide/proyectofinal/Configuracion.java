@@ -1,8 +1,10 @@
 package com.ufide.proyectofinal;
 
 public class Configuracion {
-    String carpeta="C:\\Users\\roberto.cervantes\\Documents\\NetBeansProjects\\"
-            + "proyecto_final_Estructura_de_datos_2022-main\\ProyectoFinal\\";
+    //C:\Users\User\Documents\NetBeansProjects\GITHUB\proyecto_final_Estructura_de_datos_2022
+    //C:\\Users\\roberto.cervantes\\Documents\\NetBeansProjects\\proyecto_final_Estructura_de_datos_2022-main\\ProyectoFinal\\
+    String carpeta="C:\\Users\\User\\Documents\\NetBeansProjects\\GITHUB\\"
+            + "proyecto_final_Estructura_de_datos_2022\\ProyectoFinal\\";
     String archivoVehiculos="Vehiculos.txt";
 
     public Configuracion() {
