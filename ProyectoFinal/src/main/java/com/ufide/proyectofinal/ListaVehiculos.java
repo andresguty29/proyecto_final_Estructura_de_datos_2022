@@ -81,28 +81,6 @@ public class ListaVehiculos {
             }
         }
     }
-    
-    public Vehiculos buscar(String placa){
-        Vehiculos buscado=null;
-        
-        if(this.cabeza!=null){
-            if(cabeza.getVehiculo().getNumeroPlaca().equals(placa)){
-                buscado=cabeza.getVehiculo();
-            }else{///// REVISAR YA QUE SE ENCLICA AL NO SER EL PRIMERO EN LA BUSQUEDA /////
-                NodoVehiculos aux=cabeza;
-                aux.getAtras();
-                while(aux.getAtras()!=null){
-                    if(aux.getAtras()!=null && 
-                            cabeza.getVehiculo().getNumeroPlaca().equals(placa)){
-                        buscado=aux.getAtras().getVehiculo();
-                        aux.getAtras();
-                    }
-                }
-            }
-        }
-        
-        return buscado;
-    }
 
     public Vehiculos verifica(String i) {
         Vehiculos verifica = null;
