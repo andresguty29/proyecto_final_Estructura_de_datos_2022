@@ -12,8 +12,8 @@ public class ListaClientes {
     
     private NodoClientes cabeza;
     
-    private void insertar(Clientes cliente){
-        NodoClientes temp = new NodoClientes (cliente);
+    private void insertar(Clientes p){
+        NodoClientes temp = new NodoClientes (p);
         if (cabeza == null){
             cabeza = temp;
         } else { 
@@ -27,6 +27,23 @@ public class ListaClientes {
         }
     }
    
+    private void modifica(Clientes p){
+        if (cabeza != null){
+            NodoClientes aux = cabeza;
+            while (aux != null && aux.getCliente().getCedula()
+                !=p.getCedula()){
+                aux = aux.getSiguiente();
+            }
+            if (aux != null && aux.getCliente().getCedula()
+                    == p.getCedula()){
+                aux.getCliente().setNombre(p.getNombre());
+                aux.getCliente().setApellido1(p.getApellido1());
+                aux.getCliente().setApellido2(p.getApellido2());
+                aux.getCliente().setCategoria(p.getCategoria());
+                aux.getCliente().setCorreo(p.getCorreo());
+                aux.getCliente().setFechaNacimiento(p.getFechaNacimiento());
+            }
+        }
     
-    
+    }
 }
