@@ -8,6 +8,7 @@ public class Solicitudes {
     String estadoSolicitud;
     Date fechaSolicitud;
     int cedula;
+    String nombre;
     String categoria;
     int cantidadDias;
     int cantidadMinimaPasajeros;
@@ -25,11 +26,18 @@ public class Solicitudes {
     public Solicitudes() {
     }
 
-    public Solicitudes(String idSolicitud, String estadoSolicitud, Date fechaSolicitud, int cedula, String categoria, int cantidadDias, int cantidadMinimaPasajeros, String marca, String modelo, String annio, boolean arranqueSinLLave, boolean cargadorInalambrico, boolean navegadorTraffico, boolean sensores, boolean camaraTrasera, boolean wifi, boolean monitoreoSatelital) {
+    public Solicitudes(String idSolicitud, String estadoSolicitud, 
+            Date fechaSolicitud, int cedula, String nombre, 
+            String categoria, int cantidadDias, int cantidadMinimaPasajeros, 
+            String marca, String modelo, String annio, boolean arranqueSinLLave, 
+            boolean cargadorInalambrico, boolean navegadorTraffico, 
+            boolean sensores, boolean camaraTrasera, boolean wifi, 
+            boolean monitoreoSatelital) {
         this.idSolicitud = idSolicitud;
         this.estadoSolicitud = estadoSolicitud;
         this.fechaSolicitud = fechaSolicitud;
         this.cedula = cedula;
+        this.nombre = nombre;
         this.categoria = categoria;
         this.cantidadDias = cantidadDias;
         this.cantidadMinimaPasajeros = cantidadMinimaPasajeros;
@@ -77,6 +85,16 @@ public class Solicitudes {
         this.cedula = cedula;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    
+    
     public String getCategoria() {
         return categoria;
     }
