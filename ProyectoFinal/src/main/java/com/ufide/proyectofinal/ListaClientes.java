@@ -27,7 +27,7 @@ public class ListaClientes {
         }
     }
    
-    private void modifica(Clientes p){
+    private void modificar(Clientes p){
         if (cabeza != null){
             NodoClientes aux = cabeza;
             while (aux != null && aux.getCliente().getCedula()
@@ -44,6 +44,17 @@ public class ListaClientes {
                 aux.getCliente().setFechaNacimiento(p.getFechaNacimiento());
             }
         }
-    
+    }
+    private Clientes consultar (String p){
+        String consulta = null;
+        if (this.cabeza != null){
+            if(cabeza.getCliente().getCedula().equals(p)){
+                consulta = cabeza.getCliente().cedula + " " + cabeza.getCliente().nombre;
+            }
+        } else {
+            // Falta crear la logica para los casos que no calzan
+        }  
+        // Falta agregar el return correcto
+        return null;
     }
 }
