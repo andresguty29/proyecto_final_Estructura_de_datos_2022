@@ -1,160 +1,144 @@
 package com.ufide.proyectofinal;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Iterator;
+import java.util.TreeMap;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+
 
 public class ManejoArchivos {
     
-    public void crearArchivos(String archivo){
-        PrintWriter pw=null;
-        try {
-            File fl=new File(archivo);
-            if(!fl.exists()){
-                pw = new PrintWriter(fl);
-                pw.close();
-            }
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        } 
-    }
+    FileInputStream inputStream;
+    Workbook workbook;
+    Sheet firstSheet;
+    Iterator iterator;
     
-    public void escribirArchivo(String archivo, String texto){
-        PrintWriter pw=null;
+    public ManejoArchivos(String rutaArchivoExcel) {
         try {
-            File fl=new File(archivo);
-            pw = new PrintWriter(new FileWriter(fl,true));
-            pw.println(texto);
-            pw.close();
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+            this.inputStream = new FileInputStream(new File(rutaArchivoExcel));
+            this.workbook = new XSSFWorkbook(inputStream);
+            this.firstSheet = workbook.getSheetAt(0);
+            this.iterator = firstSheet.iterator();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     
-    public ListaVehiculos leerArchivoVehiculos(String archivo){
+    public ListaVehiculos leerArchivoVehiculos(){ 
         ListaVehiculos lista=new ListaVehiculos();
         try {
-            File fl=new File(archivo);
-            FileReader fr=new FileReader(fl);
-            BufferedReader bf=new BufferedReader(fr);
-            String linea;
-            while ((linea=bf.readLine())!=null) {
-                String[] datos= linea.split("%");
+            DataFormatter formatter = new DataFormatter();
+            while (iterator.hasNext()) {
+                String numeroPlaca="";
+                String marca="";
+                String modelo="";
+                int annio=0;
+                String color="";
+                String cilindrada="";
+                String tipoCombustible="";
+                int capacidadPasajeros=0;
+                double precioAlquierXDia=0;
+                String estado="";
+                boolean arranqueSinLLave=false;
+                boolean cargadorInalambrico=false;
+                boolean navegadorTraffico=false;
+                boolean sensores=false;
+                boolean camaraTrasera=false;
+                boolean wifi=false;
+                boolean monitoreoSatelital=false;
+                
+                Row nextRow = (Row) iterator.next();
+                Iterator cellIterator = nextRow.cellIterator();
+                while(cellIterator.hasNext()) {
+                    Cell cell = (Cell) cellIterator.next();
+                    System.out.println(cell.getColumnIndex());
+                    String contenidoCelda = formatter.formatCellValue(cell);
+                    System.out.println("celda: " + contenidoCelda);
+                    switch (cell.getColumnIndex()) {
+                        case 0:
+                            numeroPlaca=contenidoCelda;
+                            break;
+                        case 1:
+                            marca=contenidoCelda;
+                            break;
+                        case 2:
+                            modelo=contenidoCelda;
+                            break;
+                        case 3:
+                            annio=Integer.parseInt(contenidoCelda);
+                            break;
+                        case 4:
+                            color=contenidoCelda;
+                            break;
+                        case 5:
+                            cilindrada=contenidoCelda;
+                            break;
+                        case 6:
+                            tipoCombustible=contenidoCelda;
+                            break;
+                        case 7:
+                            capacidadPasajeros=Integer.parseInt(contenidoCelda);
+                            break;    
+                        case 8:
+                            precioAlquierXDia= Double.parseDouble(contenidoCelda);
+                            break;
+                        case 9:
+                            estado=contenidoCelda;
+                            break;
+                        case 10:
+                            arranqueSinLLave=Boolean.parseBoolean(contenidoCelda);
+                            break;
+                        case 11:
+                            cargadorInalambrico=Boolean.parseBoolean(contenidoCelda);
+                            break;
+                        case 12:
+                            navegadorTraffico=Boolean.parseBoolean(contenidoCelda);
+                            break;
+                        case 13:
+                            sensores=Boolean.parseBoolean(contenidoCelda);
+                            break;
+                        case 14:
+                            camaraTrasera=Boolean.parseBoolean(contenidoCelda);
+                            break;
+                        case 15:
+                            wifi=Boolean.parseBoolean(contenidoCelda);
+                            break;
+                        case 16:
+                            monitoreoSatelital=Boolean.parseBoolean(contenidoCelda);
+                            break;
+                    }
+                }
                 lista.inserta(new Vehiculos(
-                        datos[0],
-                        datos[1],
-                        datos[2],
-                        Integer.parseInt(datos[3]),
-                        datos[4],
-                        datos[5],
-                        datos[6],
-                        Integer.parseInt(datos[7]),
-                        Double.parseDouble(datos[8]),
-                        datos[9],
-                        Boolean.valueOf(datos[10]),
-                        Boolean.valueOf(datos[11]),
-                        Boolean.valueOf(datos[12]),
-                        Boolean.valueOf(datos[13]),
-                        Boolean.valueOf(datos[14]),
-                        Boolean.valueOf(datos[15]),
-                        Boolean.valueOf(datos[16])
-                ));
+                    numeroPlaca,
+                    marca,
+                    modelo,
+                    annio,
+                    color,
+                    cilindrada,
+                    tipoCombustible,
+                    capacidadPasajeros,
+                    precioAlquierXDia,
+                     estado,
+                    arranqueSinLLave,
+                    cargadorInalambrico,
+                    navegadorTraffico,
+                    sensores,
+                    camaraTrasera,
+                    wifi,
+                    monitoreoSatelital
+                    ));
             }
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return lista;
     }
     
-    /*
-        
-    
-    public void renombrarArchivo(String archivo, String nuevoNombre){
-        File flAnterior = new File(archivo);
-        File flNuevo = new File(nuevoNombre);
-        if (flAnterior.renameTo(flNuevo)) {
-            System.out.println("archivo renombrado");
-        } else {
-            System.out.println("error");
-        }
-    }
-    
-    public void escribirArchivo(String archivo, String texto){
-        PrintWriter pw=null;
-        try {
-            File fl=new File(archivo);
-            pw = new PrintWriter(new FileWriter(fl,true));
-            pw.println(texto);
-            pw.close();
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-    public boolean verificarArchivo(String archivo){
-        File fl=new File(archivo);
-        if(fl.exists()){
-            System.out.println("Archivo existe");
-        }else{
-            System.out.println("Archivo NO existe");
-        }
-            return fl.exists();
-    }
-    
-    public void leerArchivo(String archivo){
-        try {
-            File fl=new File(archivo);
-            FileReader fr=new FileReader(fl);
-            BufferedReader bf=new BufferedReader(fr);
-            String linea;
-            while ((linea=bf.readLine())!=null) {
-                System.out.println(linea);
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-    
-    public void crearDirectorio(String directorio){
-        File fl=new File(directorio);
-        if(!fl.exists()){
-            if(fl.mkdirs()){
-                System.out.println("Directorio creado");
-            }else{
-                System.out.println("Error al crear directorio");
-            }
-        }else{
-            System.out.println("Directorio ya existe");
-        }
-    }
-    
-    public void leerDirectorio(String directorio){
-        File fl=new File(directorio);
-        String[] archivos = fl.list();
-        for (int i = 0; i < archivos.length; i++) {
-            System.out.println(archivos[i]);
-        }
-    }
-    
-    public void verificardirectorio(String directorio){
-        File fl=new File(directorio);
-        if(fl.isDirectory()){
-            System.out.println("es un directorio");
-        }else{
-            System.out.println("NO existe");
-        }
-    }
-    
-    public void listarDirectorio(String directorio){
-        File fl=new File(directorio);
-        String[] listado=fl.list();
-        if(listado==null || listado.length==0){
-            System.out.println("Carpeta vacia");
-        }else{
-            for (int i = 0; i < listado.length; i++) {
-            System.out.println(listado[i]);
-            }
-        }
-    }*/
 }

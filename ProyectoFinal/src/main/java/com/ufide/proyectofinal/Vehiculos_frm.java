@@ -18,7 +18,7 @@ public class Vehiculos_frm extends javax.swing.JDialog {
 
     public static ListaVehiculos lista_vehiculos = new ListaVehiculos();
     public static Configuracion config=new Configuracion();
-    public static ManejoArchivos manArch=new  ManejoArchivos();
+    public static ManejoArchivos manArch=new  ManejoArchivos(config.getCarpeta()+config.getArchivo());
     public static DefaultTableModel modeloTabla = new DefaultTableModel(){
         @Override
         public boolean isCellEditable(int row, int col){
@@ -32,7 +32,6 @@ public class Vehiculos_frm extends javax.swing.JDialog {
     public Vehiculos_frm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        manArch.crearArchivos(config.getCarpeta()+config.getArchivoVehiculos());
         llenarListaVehiculos();
         iniciarTablaVehiculos();
     }
@@ -610,8 +609,7 @@ public class Vehiculos_frm extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
     
     public void llenarListaVehiculos(){
-        lista_vehiculos= manArch.leerArchivoVehiculos(config.getCarpeta()+
-                config.getArchivoVehiculos());
+        lista_vehiculos=manArch.leerArchivoVehiculos();
     }
     
     public void llenarTablaVehiculos() {
@@ -970,8 +968,6 @@ public class Vehiculos_frm extends javax.swing.JDialog {
 
             lista_vehiculos.inserta(vehiculo);
             
-            manArch.escribirArchivo(config.getCarpeta()+config.getArchivoVehiculos(), guardarLinea(vehiculo));
-            resetearTablaVehiculos();
         }
         limpiar_cajas();
     }//GEN-LAST:event_btnGuardActionPerformed

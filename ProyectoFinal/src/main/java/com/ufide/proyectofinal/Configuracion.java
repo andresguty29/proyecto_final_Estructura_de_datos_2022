@@ -5,7 +5,7 @@ public class Configuracion {
     //C:\\Users\\roberto.cervantes\\Documents\\NetBeansProjects\\proyecto_final_Estructura_de_datos_2022-main\\ProyectoFinal\\
     String carpeta="C:\\Users\\User\\Documents\\NetBeansProjects\\GITHUB\\"
             + "proyecto_final_Estructura_de_datos_2022\\ProyectoFinal\\";
-    String archivoVehiculos="Vehiculos.txt";
+    String archivo="Datos.xlsx";
 
     public Configuracion() {
     }
@@ -18,12 +18,12 @@ public class Configuracion {
         this.carpeta = carpeta;
     }
 
-    public String getArchivoVehiculos() {
-        return archivoVehiculos;
+    public String getArchivo() {
+        return archivo;
     }
 
-    public void setArchivoVehiculos(String archivoVehiculos) {
-        this.archivoVehiculos = archivoVehiculos;
+    public void setArchivo(String archivoVehiculos) {
+        this.archivo = archivoVehiculos;
     }
     
     

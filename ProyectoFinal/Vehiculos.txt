@@ -1,2 +1,0 @@
-1234%Toyota%Corolla%2022%Rojo%2000%Super%5%250000.0%Nuevo%true%false%false%false%false%false%false
-1235%Honda%Accord%2022%Verde%2000%Regular%2%125000.0%Nuevo%false%false%false%false%true%false%false
