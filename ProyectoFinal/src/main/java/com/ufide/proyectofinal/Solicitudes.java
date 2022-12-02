@@ -6,7 +6,7 @@ import java.util.Date;
 public class Solicitudes {
     String idSolicitud;
     String estadoSolicitud;
-    Date fechaSolicitud;
+    String fechaSolicitud;
     int cedula;
     String nombre;
     String categoria;
@@ -27,7 +27,7 @@ public class Solicitudes {
     }
 
     public Solicitudes(String idSolicitud, String estadoSolicitud, 
-            Date fechaSolicitud, int cedula, String nombre, 
+            String fechaSolicitud, int cedula, String nombre, 
             String categoria, int cantidadDias, int cantidadMinimaPasajeros, 
             String marca, String modelo, String annio, boolean arranqueSinLLave, 
             boolean cargadorInalambrico, boolean navegadorTraffico, 
@@ -69,11 +69,11 @@ public class Solicitudes {
         this.estadoSolicitud = estadoSolicitud;
     }
 
-    public Date getFechaSolicitud() {
+    public String getFechaSolicitud() {
         return fechaSolicitud;
     }
 
-    public void setFechaSolicitud(Date fechaSolicitud) {
+    public void setFechaSolicitud(String fechaSolicitud) {
         this.fechaSolicitud = fechaSolicitud;
     }
 
