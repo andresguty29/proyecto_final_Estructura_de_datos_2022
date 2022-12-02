@@ -2,6 +2,9 @@ package com.ufide.proyectofinal;
 
 import java.io.File;
 import java.io.FileInputStream;
+import static java.lang.String.format;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.TreeMap;
 import org.apache.poi.ss.usermodel.Cell;
@@ -20,11 +23,11 @@ public class ManejoArchivos {
     Sheet firstSheet;
     Iterator iterator;
     
-    public ManejoArchivos(String rutaArchivoExcel) {
+    public ManejoArchivos(String rutaArchivoExcel, int libro) {
         try {
             this.inputStream = new FileInputStream(new File(rutaArchivoExcel));
             this.workbook = new XSSFWorkbook(inputStream);
-            this.firstSheet = workbook.getSheetAt(0);
+            this.firstSheet = workbook.getSheetAt(libro);
             this.iterator = firstSheet.iterator();
         } catch (Exception e) {
             e.printStackTrace();
@@ -133,6 +136,66 @@ public class ManejoArchivos {
                     camaraTrasera,
                     wifi,
                     monitoreoSatelital
+                    ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+    
+    public ListaClientes leerArchivoClientes(){ 
+        ListaClientes lista=new ListaClientes();
+        try {
+            DataFormatter formatter = new DataFormatter();
+            while (iterator.hasNext()) {
+                String cedula="";
+                String nombre="";
+                String apellido1="";
+                String apellido2="";
+                String fecha="";
+                String correo="";
+                String categoria="";
+                
+                Row nextRow = (Row) iterator.next();
+                Iterator cellIterator = nextRow.cellIterator();
+                while(cellIterator.hasNext()) {
+                    Cell cell = (Cell) cellIterator.next();
+                    System.out.println(cell.getColumnIndex());
+                    String contenidoCelda = formatter.formatCellValue(cell);
+                    System.out.println("celda: " + contenidoCelda);
+                    switch (cell.getColumnIndex()) {
+                        case 0:
+                            cedula=contenidoCelda;
+                            break;
+                        case 1:
+                            nombre=contenidoCelda;
+                            break;
+                        case 2:
+                            apellido1=contenidoCelda;
+                            break;
+                        case 3:
+                            apellido2=contenidoCelda;
+                            break;
+                        case 4:
+                            fecha=contenidoCelda;
+                            break;
+                        case 5:
+                            correo=contenidoCelda;
+                            break;
+                        case 6:
+                            categoria=contenidoCelda;
+                            break;
+                    }
+                }
+                lista.insertar(new Clientes(
+                    cedula,
+                    nombre,
+                    apellido1,
+                    apellido2,
+                    fecha,
+                    correo,
+                    categoria
                     ));
             }
         } catch (Exception e) {

@@ -29,7 +29,7 @@ public class ListaVehiculos {
             aux.setAtras(temp);
         }
     }
-
+// ESTA FUNCION HAY QUE REVISARLA PORQUE FUNCIONA A MEDIAS//
     public void modifica(Vehiculos p) {
         if (cabeza != null) {
             NodoVehiculos aux = cabeza;
@@ -85,14 +85,13 @@ public class ListaVehiculos {
         if(this.cabeza!=null){
             if(cabeza.getVehiculo().getNumeroPlaca().equals(placa)){
                 buscado=cabeza.getVehiculo();
-            }else{///// REVISAR YA QUE SE ENCLICA AL NO SER EL PRIMERO EN LA BUSQUEDA /////
+            }else{
                 NodoVehiculos aux=cabeza;
-                aux.getAtras();
                 while(aux.getAtras()!=null){
                     if(aux.getAtras()!=null && 
-                            cabeza.getVehiculo().getNumeroPlaca().equals(placa)){
+                            aux.getAtras().getVehiculo().getNumeroPlaca().equals(placa)){
                         buscado=aux.getAtras().getVehiculo();
-                        aux.getAtras();
+                        aux=aux.getAtras();
                     }
                 }
             }
@@ -100,28 +99,23 @@ public class ListaVehiculos {
         
         return buscado;
     }
-    
-    public void elimina (Vehiculos p) {
-        //Si una persona tiene el id, lo elimina
-        if (cabeza != null) { //Si hay algo en la lista buscaré
-            if (cabeza.getVehiculo().getNumeroPlaca().equals(p.getNumeroPlaca())) 
-            {
+ 
+  
+    // ESTA FUNCION HAY QUE REVISARLA PORQUE FUNCIONA A MEDIAS//
+    public void elimina (String placa) {
+        if(this.cabeza!=null){
+            if(cabeza.getVehiculo().getNumeroPlaca().equals(placa)){
                 cabeza = cabeza.getAtras();
-            } 
-            else {
-                NodoVehiculos aux = cabeza; //utilizo aux como indice
-                //Mientras no se acabe la lista y el elemento
-                //de la lista sea menor que el buscado
-                while (aux.getAtras() != null &&
-                    aux.getAtras().getVehiculo().getNumeroPlaca().equals(p.getNumeroPlaca())) {
-                    aux = aux.getAtras();
-                }
-                //avanzo en la lista
-            
-                // si es el de adelante lo borro
-                if (aux.getAtras()!= null &&
-                aux.getAtras().getVehiculo().getNumeroPlaca().equals(p.getNumeroPlaca())) {
-                    aux.setAtras(aux.getAtras().getAtras()); //cambio las referencias
+            }else{
+                NodoVehiculos aux=cabeza;
+                while(aux.getAtras()!=null){
+                    aux=aux.getAtras();
+                    if(aux.getAtras()!=null && 
+                            aux.getAtras().getVehiculo().getNumeroPlaca().equals(placa)){
+                        aux.setAtras(aux.getAtras().getAtras());
+                    }else if(aux.getAtras()==null){
+                        aux.setAtras(null);
+                    }
                 }
             }
         }

@@ -18,7 +18,7 @@ public class Vehiculos_frm extends javax.swing.JDialog {
 
     public static ListaVehiculos lista_vehiculos = new ListaVehiculos();
     public static Configuracion config=new Configuracion();
-    public static ManejoArchivos manArch=new  ManejoArchivos(config.getCarpeta()+config.getArchivo());
+    public static ManejoArchivos manArch=new  ManejoArchivos(config.getCarpeta()+config.getArchivo(),0);
     public static DefaultTableModel modeloTabla = new DefaultTableModel(){
         @Override
         public boolean isCellEditable(int row, int col){
@@ -903,7 +903,7 @@ public class Vehiculos_frm extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "No hay placa almacenada");
         }else{
             encontrar.setMarca(txtMarca.getText());
-            encontrar.setModelo(txtNumeroPlaca.getText());
+            encontrar.setModelo(txtModelo.getText());
             encontrar.setAnnio(Integer.parseInt(txtAnnio.getText()));
             encontrar.setColor(txtColor.getText());
             encontrar.setCilindrada(txtCilindrada.getText());
@@ -928,8 +928,7 @@ public class Vehiculos_frm extends javax.swing.JDialog {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
         String placa=TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString();
-        Vehiculos encontrar= lista_vehiculos.buscar(placa);
-        lista_vehiculos.elimina(encontrar);
+        lista_vehiculos.elimina(placa);
         limpiar_cajas();
         vaciarTablaVehiculos();
         llenarTablaVehiculos();
@@ -970,6 +969,7 @@ public class Vehiculos_frm extends javax.swing.JDialog {
             
         }
         limpiar_cajas();
+        resetearTablaVehiculos();
     }//GEN-LAST:event_btnGuardActionPerformed
 
     private void btnLimpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpActionPerformed

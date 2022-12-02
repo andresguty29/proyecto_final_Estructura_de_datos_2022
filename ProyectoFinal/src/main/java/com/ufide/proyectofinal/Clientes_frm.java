@@ -1,8 +1,12 @@
 
 package com.ufide.proyectofinal;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.ss.usermodel.ExcelStyleDateFormatter;
 
 /**
  *
@@ -10,9 +14,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Clientes_frm extends javax.swing.JDialog {
 
-    public static ListaVehiculos lista_vehiculos = new ListaVehiculos();
+    public static ListaClientes lista_clientes = new ListaClientes();
     public static Configuracion config=new Configuracion();
-    public static ManejoArchivos manArch=new  ManejoArchivos();
+    public static ManejoArchivos manArch=new  ManejoArchivos(config.getCarpeta()+config.getArchivo(),1);
     public static DefaultTableModel modeloTabla = new DefaultTableModel(){
         @Override
         public boolean isCellEditable(int row, int col){
@@ -26,7 +30,6 @@ public class Clientes_frm extends javax.swing.JDialog {
     public Clientes_frm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        manArch.crearArchivos(config.getCarpeta()+config.getArchivoVehiculos());
         llenarListaVehiculos();
         iniciarTablaVehiculos();
     }
@@ -327,7 +330,7 @@ public class Clientes_frm extends javax.swing.JDialog {
             }
         });
 
-        cbxCategoriaCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Super", "Regular", "Diesel" }));
+        cbxCategoriaCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bronce", "Plata", "Oro", "Safiro" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -504,152 +507,47 @@ public class Clientes_frm extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
     
     public void llenarListaVehiculos(){
-        lista_vehiculos= manArch.leerArchivoVehiculos(config.getCarpeta()+
-                config.getArchivoVehiculos());
+        lista_clientes= manArch.leerArchivoClientes();
     }
     
     public void llenarTablaVehiculos() {
         String auxArranque, auxCargador, auxNavegador, auxSensor, auxCamara, 
                 auxWifi, auxMonitor;
-        
-        for (NodoVehiculos vehiculo : lista_vehiculos.listaVehiculos()) {
-            if(vehiculo.getVehiculo().isArranqueSinLLave()){
-                auxArranque="X";
-            }else{
-                auxArranque="";
-            }
-            if(vehiculo.getVehiculo().isCargadorInalambrico()){
-                auxCargador="X";
-            }else{
-                auxCargador="";
-            }
-            if(vehiculo.getVehiculo().isNavegadorTraffico()){
-                auxNavegador="X";
-            }else{
-                auxNavegador="";
-            }
-            if(vehiculo.getVehiculo().isSensores()){
-                auxSensor="X";
-            }else{
-                auxSensor="";
-            }
-            if(vehiculo.getVehiculo().isCamaraTrasera()){
-                auxCamara="X";
-            }else{
-                auxCamara="";
-            }
-            if(vehiculo.getVehiculo().isWifi()){
-                auxWifi="X";
-            }else{
-                auxWifi="";
-            }
-            if(vehiculo.getVehiculo().isMonitoreoSatelital()){
-                auxMonitor="X";
-            }else{
-                auxMonitor="";
-            }
-
+        for (NodoClientes cliente : lista_clientes.listaClientes()) {
             modeloTabla.addRow(new Object[]{
-                vehiculo.getVehiculo().getNumeroPlaca(),
-                vehiculo.getVehiculo().getMarca(),
-                vehiculo.getVehiculo().getModelo(),
-                vehiculo.getVehiculo().getAnnio(),
-                vehiculo.getVehiculo().getColor(),
-                vehiculo.getVehiculo().getCilindrada(),
-                vehiculo.getVehiculo().getTipoCombustible(),
-                vehiculo.getVehiculo().getCapacidadPasajeros(),
-                vehiculo.getVehiculo().getPrecioAlquierXDia(),
-                vehiculo.getVehiculo().getEstado(),
-                auxArranque,
-                auxCargador,
-                auxNavegador,
-                auxSensor,
-                auxCamara,
-                auxWifi,
-                auxMonitor});
+                cliente.getCliente().getCedula(),
+                cliente.getCliente().getNombre(),
+                cliente.getCliente().getApellido1(),
+                cliente.getCliente().getApellido2(),
+                cliente.getCliente().getFechaNacimiento(),
+                cliente.getCliente().getCorreo(),
+                cliente.getCliente().getCategoria()
+            });
         }
     }
     
-    public void llenarTablaVehiculosBusqueda(Vehiculos vehiculo) {
-        String auxArranque, auxCargador, auxNavegador, auxSensor, auxCamara, 
-                auxWifi, auxMonitor;
-                
-        if(vehiculo.isArranqueSinLLave()){
-            auxArranque="X";
-        }else{
-            auxArranque="";
-        }
-        if(vehiculo.isCargadorInalambrico()){
-            auxCargador="X";
-        }else{
-            auxCargador="";
-        }
-        if(vehiculo.isNavegadorTraffico()){
-            auxNavegador="X";
-        }else{
-            auxNavegador="";
-        }
-        if(vehiculo.isSensores()){
-            auxSensor="X";
-        }else{
-            auxSensor="";
-        }
-        if(vehiculo.isCamaraTrasera()){
-            auxCamara="X";
-        }else{
-            auxCamara="";
-        }
-        if(vehiculo.isWifi()){
-            auxWifi="X";
-        }else{
-            auxWifi="";
-        }
-        if(vehiculo.isMonitoreoSatelital()){
-            auxMonitor="X";
-        }else{
-            auxMonitor="";
-        }
-
+    public void llenarTablaClientesBusqueda(Clientes cliente) {
         modeloTabla.addRow(new Object[]{
-            vehiculo.getNumeroPlaca(),
-            vehiculo.getMarca(),
-            vehiculo.getModelo(),
-            vehiculo.getAnnio(),
-            vehiculo.getColor(),
-            vehiculo.getCilindrada(),
-            vehiculo.getTipoCombustible(),
-            vehiculo.getCapacidadPasajeros(),
-            vehiculo.getPrecioAlquierXDia(),
-            vehiculo.getEstado(),
-            auxArranque,
-            auxCargador,
-            auxNavegador,
-            auxSensor,
-            auxCamara,
-            auxWifi,
-            auxMonitor});
+                cliente.getCedula(),
+                cliente.getNombre(),
+                cliente.getApellido1(),
+                cliente.getApellido2(),
+                cliente.getFechaNacimiento(),
+                cliente.getCorreo(),
+                cliente.getCategoria()
+        });
         
     }
 
     public void iniciarTablaVehiculos() {
-        modeloTabla.addColumn("Placa");
-        modeloTabla.addColumn("Marca");
-        modeloTabla.addColumn("Modelo");
-        modeloTabla.addColumn("Año");
-        modeloTabla.addColumn("Color");
-        modeloTabla.addColumn("Cilindrada");
-        modeloTabla.addColumn("Combustible");
-        modeloTabla.addColumn("Cap. Pasajeros");
-        modeloTabla.addColumn("Precio");
-        modeloTabla.addColumn("Estado");
-        modeloTabla.addColumn("Arr.S.Llave");
-        modeloTabla.addColumn("Carg.Inal");
-        modeloTabla.addColumn("Nav.GPS");
-        modeloTabla.addColumn("Sensores");
-        modeloTabla.addColumn("Cam.Trasera");
-        modeloTabla.addColumn("Wifi");
-        modeloTabla.addColumn("Mon.Sat.");
-
+        modeloTabla.addColumn("Cedula");
+        modeloTabla.addColumn("Nombre");
+        modeloTabla.addColumn("Apellido 1");
+        modeloTabla.addColumn("Apellido 2");
+        modeloTabla.addColumn("Fecha Nacimiento");
+        modeloTabla.addColumn("Correo");
+        modeloTabla.addColumn("Categoria");
+        
         TabDatos.setModel(modeloTabla);
         llenarTablaVehiculos();
 
@@ -669,96 +567,34 @@ public class Clientes_frm extends javax.swing.JDialog {
     }
     
     public void llenar_cajas(){
-        this.txtNumeroCedula.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString());
-        this.txtNombreCompleto.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 1).toString());
-        this.txtApellido1.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 2).toString());
-        this.txtApellido2.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 3).toString());
-        this.txtColor.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 4).toString());
-        this.txtCorreoElectronico.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 5).toString());
-        this.cbxCategoriaCliente.setSelectedItem(TabDatos.getValueAt(TabDatos.getSelectedRow(), 6).toString());
-        this.txtCapacidadPasajeros.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 7).toString());
-        this.txtPrecioAlquiler.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 8).toString());
-        this.cbxEstado.setSelectedItem(TabDatos.getValueAt(TabDatos.getSelectedRow(), 9).toString());
-       
-        if(TabDatos.getValueAt(TabDatos.getSelectedRow(), 10).toString().equals("X")){
-            this.cbxArranqueSinLLave.setSelected(true);
-        }else{
-            this.cbxArranqueSinLLave.setSelected(false);
-        }
-        if(TabDatos.getValueAt(TabDatos.getSelectedRow(), 11).toString().equals("X")){
-            this.cbxCargadorInalambrico.setSelected(true);
-        }else{
-            this.cbxCargadorInalambrico.setSelected(false);
-        }
-        if(TabDatos.getValueAt(TabDatos.getSelectedRow(), 12).toString().equals("X")){
-            this.cbxNavegadorTraffico.setSelected(true);
-        }else{
-            this.cbxNavegadorTraffico.setSelected(false);
-        }
-        if(TabDatos.getValueAt(TabDatos.getSelectedRow(), 13).toString().equals("X")){
-            this.cbxSensores.setSelected(true);
-        }else{
-            this.cbxSensores.setSelected(false);
-        }
-        if(TabDatos.getValueAt(TabDatos.getSelectedRow(), 14).toString().equals("X")){
-            this.cbxCamaraTrasera.setSelected(true);
-        }else{
-            this.cbxCamaraTrasera.setSelected(false);
-        }
-        if(TabDatos.getValueAt(TabDatos.getSelectedRow(), 15).toString().equals("X")){
-            this.cbxWifi.setSelected(true);
-        }else{
-            this.cbxWifi.setSelected(false);
-        }
-        if(TabDatos.getValueAt(TabDatos.getSelectedRow(), 16).toString().equals("X")){
-            this.cbxMonitoreoSatelital.setSelected(true);
-        }else{
-            this.cbxMonitoreoSatelital.setSelected(false);
+        try {
+            this.txtNumeroCedula.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString());
+            this.txtNombreCompleto.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 1).toString());
+            this.txtApellido1.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 2).toString());
+            this.txtApellido2.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 3).toString());
+            
+            SimpleDateFormat format=new ExcelStyleDateFormatter("dd-MM-yyyy");
+            Date fechaFormateada=format.parse(TabDatos.getValueAt(TabDatos.getSelectedRow(), 4).toString());
+            
+            this.calFechaNacimiento.setDate(fechaFormateada);
+            this.txtCorreoElectronico.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 5).toString());
+            this.cbxCategoriaCliente.setSelectedItem(TabDatos.getValueAt(TabDatos.getSelectedRow(), 6).toString());
+        } catch (Exception e) {
+            System.err.println(e);
         }
     }
 
     public void limpiar_cajas() {
         this.txtNumeroCedula.setText("");
-        this.txtNombreCompleto.setText("");
-        this.txtApellido1.setText("");
-        this.txtApellido2.setText("");
-        this.txtColor.setText("");
-        this.txtCorreoElectronico.setText("");
-        this.cbxCategoriaCliente.setSelectedIndex(0);
-        this.txtCapacidadPasajeros.setText("");
-        this.txtPrecioAlquiler.setText("");
-        this.cbxEstado.setSelectedIndex(0);
-        this.cbxArranqueSinLLave.setSelected(false);
-        this.cbxCargadorInalambrico.setSelected(false);
-        this.cbxNavegadorTraffico.setSelected(false);
-        this.cbxSensores.setSelected(false);
-        this.cbxCamaraTrasera.setSelected(false);
-        this.cbxWifi.setSelected(false);
-        this.cbxMonitoreoSatelital.setSelected(false);
+            this.txtNombreCompleto.setText("");
+            this.txtApellido1.setText("");
+            this.txtApellido2.setText("");
+            Date today=Calendar.getInstance().getTime();
+            this.calFechaNacimiento.setDate(today);
+            this.txtCorreoElectronico.setText("");
+            this.cbxCategoriaCliente.setSelectedItem("");
     }
 
-    public String guardarLinea(Vehiculos vehiculo){
-        String texto=
-                vehiculo.getNumeroPlaca()+"*"+
-                vehiculo.getMarca()+"*"+
-                vehiculo.getModelo()+"*"+
-                vehiculo.getAnnio()+"*"+
-                vehiculo.getColor()+"*"+
-                vehiculo.getCilindrada()+"*"+
-                vehiculo.getTipoCombustible()+"*"+
-                vehiculo.getCapacidadPasajeros()+"*"+
-                vehiculo.getPrecioAlquierXDia()+"*"+
-                vehiculo.getEstado()+"*"+
-                vehiculo.isArranqueSinLLave()+"*"+
-                vehiculo.isCargadorInalambrico()+"*"+
-                vehiculo.isNavegadorTraffico()+"*"+
-                vehiculo.isSensores()+"*"+
-                vehiculo.isCamaraTrasera()+"*"+
-                vehiculo.isWifi()+"*"+
-                vehiculo.isMonitoreoSatelital()+"\n";
-                
-        return texto;
-    }
 
     private void marcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marcaActionPerformed
         // TODO add your handling code here:
@@ -778,43 +614,36 @@ public class Clientes_frm extends javax.swing.JDialog {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        // Consulta por placa 
-        String placa=JOptionPane.showInputDialog("Digite el número de placa");
+        String cedula=JOptionPane.showInputDialog("Digite el número de Cedula");
         
-        Vehiculos encontrar= lista_vehiculos.buscar(placa);
+        Clientes encontrar= lista_clientes.buscar(cedula);
         if(encontrar==null){
             JOptionPane.showMessageDialog(null, "No hay coincidencias");
         }else{
             vaciarTablaVehiculos();
-            llenarTablaVehiculosBusqueda(encontrar);
+            llenarTablaClientesBusqueda(encontrar);
         }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
-        String placa=TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString();
+        String cedula=TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString();
         
-        Vehiculos encontrar= lista_vehiculos.buscar(placa);
+        SimpleDateFormat standar=new SimpleDateFormat("dd-MM-yyyy");
+        String fecha=standar.format(calFechaNacimiento.getDate());
+        
+        Clientes encontrar= lista_clientes.buscar(cedula);
         if(encontrar==null){
-            JOptionPane.showMessageDialog(null, "No hay placa almacenada");
+            JOptionPane.showMessageDialog(null, "No hay cedula almacenada");
         }else{
-            encontrar.setMarca(txtNombreCompleto.getText());
-            encontrar.setModelo(txtNumeroCedula.getText());
-            encontrar.setAnnio(Integer.parseInt(txtApellido2.getText()));
-            encontrar.setColor(txtColor.getText());
-            encontrar.setCilindrada(txtCorreoElectronico.getText());
-            encontrar.setTipoCombustible(cbxCategoriaCliente.getSelectedItem().toString());
-            encontrar.setCapacidadPasajeros(Integer.parseInt(txtCapacidadPasajeros.getText()));
-            encontrar.setPrecioAlquierXDia(Double.parseDouble(txtPrecioAlquiler.getText()));
-            encontrar.setEstado(cbxEstado.getSelectedItem().toString());
-            encontrar.setArranqueSinLLave(cbxArranqueSinLLave.isSelected());
-            encontrar.setCargadorInalambrico(cbxCargadorInalambrico.isSelected());
-            encontrar.setNavegadorTraffico(cbxNavegadorTraffico.isSelected());
-            encontrar.setSensores(cbxSensores.isSelected());
-            encontrar.setCamaraTrasera(cbxCamaraTrasera.isSelected());
-            encontrar.setWifi(cbxWifi.isSelected());
-            encontrar.setMonitoreoSatelital(cbxMonitoreoSatelital.isSelected());
-            lista_vehiculos.modifica(encontrar);
+            encontrar.setNombre(txtNombreCompleto.getText());
+            encontrar.setApellido1(txtApellido1.getText());
+            encontrar.setApellido2(txtApellido2.getText());
+            encontrar.setFechaNacimiento(fecha);
+            encontrar.setCorreo(txtCorreoElectronico.getText());
+            encontrar.setCategoria(cbxCategoriaCliente.getSelectedItem().toString());
+            
+            lista_clientes.modificar(encontrar);
             limpiar_cajas();
             vaciarTablaVehiculos();
             llenarTablaVehiculos();
@@ -823,9 +652,8 @@ public class Clientes_frm extends javax.swing.JDialog {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        String placa=TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString();
-        Vehiculos encontrar= lista_vehiculos.buscar(placa);
-        lista_vehiculos.elimina(encontrar);
+        String cliente=TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString();
+        lista_clientes.elimina(cliente);
         limpiar_cajas();
         vaciarTablaVehiculos();
         llenarTablaVehiculos();
@@ -833,38 +661,27 @@ public class Clientes_frm extends javax.swing.JDialog {
 
     private void btnGuardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardActionPerformed
         // TODO add your handling code here:
+        SimpleDateFormat standar=new SimpleDateFormat("dd-MM-yyyy");
+        String fecha=standar.format(calFechaNacimiento.getDate());
+        
         if (txtNumeroCedula.getText().isEmpty() == false
             || txtNombreCompleto.getText().isEmpty() == false
             || txtApellido1.getText().isEmpty() == false
             || txtApellido2.getText().isEmpty() == false
-            || txtColor.getText().isEmpty() == false
             || txtCorreoElectronico.getText().isEmpty() == false
-            || txtCapacidadPasajeros.getText().isEmpty() == false
-            || txtPrecioAlquiler.getText().isEmpty() == false){
-
-            Vehiculos vehiculo = new Vehiculos(
-                txtNumeroCedula.getText(),
-                txtNombreCompleto.getText(),
-                txtApellido1.getText(),
-                Integer.parseInt(txtApellido2.getText()),
-                txtColor.getText(),
-                txtCorreoElectronico.getText(),
-                cbxCategoriaCliente.getSelectedItem().toString(),
-                Integer.parseInt(txtCapacidadPasajeros.getText()),
-                Double.parseDouble(txtPrecioAlquiler.getText()),
-                cbxEstado.getSelectedItem().toString(),
-                cbxArranqueSinLLave.isSelected(),
-                cbxCargadorInalambrico.isSelected(),
-                cbxNavegadorTraffico.isSelected(),
-                cbxSensores.isSelected(),
-                cbxCamaraTrasera.isSelected(),
-                cbxWifi.isSelected(),
-                cbxMonitoreoSatelital.isSelected()
+            ){
+            Clientes cliente= new Clientes(
+                    txtNumeroCedula.getText(), 
+                    txtNombreCompleto.getText(), 
+                    txtApellido1.getText(), 
+                    txtApellido2.getText(), 
+                    fecha,
+                    txtCorreoElectronico.getText(), 
+                    cbxCategoriaCliente.getSelectedItem().toString()
             );
-
-            lista_vehiculos.inserta(vehiculo);
             
-            manArch.escribirArchivo(config.getCarpeta()+config.getArchivoVehiculos(), guardarLinea(vehiculo));
+            lista_clientes.insertar(cliente);
+            
             resetearTablaVehiculos();
         }
         limpiar_cajas();

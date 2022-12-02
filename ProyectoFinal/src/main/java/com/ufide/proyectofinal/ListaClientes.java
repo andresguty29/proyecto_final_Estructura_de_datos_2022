@@ -5,14 +5,13 @@
  */
 package com.ufide.proyectofinal;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
 
 public class ListaClientes {
     
     private NodoClientes cabeza;
     
-    private void insertar(Clientes p){
+    public void insertar(Clientes p){
         NodoClientes temp = new NodoClientes (p);
         if (cabeza == null){
             cabeza = temp;
@@ -27,7 +26,7 @@ public class ListaClientes {
         }
     }
    
-    private void modificar(Clientes p){
+    public void modificar(Clientes p){
         if (cabeza != null){
             NodoClientes aux = cabeza;
             while (aux != null && aux.getCliente().getCedula()
@@ -45,7 +44,7 @@ public class ListaClientes {
             }
         }
     }
-    private Clientes consultar (String p){
+    public Clientes consultar (String p){
         String consulta = null;
         if (this.cabeza != null){
             if(cabeza.getCliente().getCedula().equals(p)){
@@ -57,4 +56,57 @@ public class ListaClientes {
         // Falta agregar el return correcto
         return null;
     }
+    
+    public Clientes buscar(String cedula){
+        Clientes buscado=null;
+        
+        if(this.cabeza!=null){
+            if(cabeza.getCliente().getCedula().equals(cedula)){
+                buscado=cabeza.getCliente();
+            }else{
+                NodoClientes aux=cabeza;
+                while(aux.getSiguiente()!=null){
+                    if(aux.getSiguiente()!=null && 
+                            aux.getSiguiente().getCliente().getCedula().equals(cedula)){
+                        buscado=aux.getSiguiente().getCliente();
+                        aux=aux.getSiguiente();
+                    }
+                }
+            }
+        }
+        
+        return buscado;
+    }
+    
+    public void elimina (String cedula) {
+        if(this.cabeza!=null){
+            if(cabeza.getCliente().getCedula().equals(cedula)){
+                cabeza = cabeza.getSiguiente();
+            }else{
+                NodoClientes aux=cabeza;
+                while(aux.getSiguiente()!=null){
+                    aux=aux.getSiguiente();
+                    if(aux.getSiguiente()!=null && 
+                            aux.getSiguiente().getCliente().getCedula().equals(cedula)){
+                        aux.setSiguiente(aux.getSiguiente().getSiguiente());
+                    }else if(aux.getSiguiente()==null){
+                        aux.setSiguiente(null);
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    public ArrayList<NodoClientes> listaClientes() {
+        ArrayList<NodoClientes> listaClientes = new ArrayList<>();
+        NodoClientes aux = cabeza;
+        while (aux != null) {
+            listaClientes.add(aux);
+            aux = aux.getSiguiente();
+        }
+        return listaClientes;
+    }
+    
+    
 }

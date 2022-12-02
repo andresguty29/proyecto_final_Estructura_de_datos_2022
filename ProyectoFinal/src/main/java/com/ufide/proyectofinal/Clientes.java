@@ -8,14 +8,14 @@ public class Clientes {
     String nombre;
     String apellido1;
     String apellido2;
-    Date fechaNacimiento;
+    String fechaNacimiento;
     String correo;
     String categoria;
 
     public Clientes() {
     }
 
-    public Clientes(String cedula, String nombre, String apellido1, String apellido2, Date fechaNacimiento, String correo, String categoria) {
+    public Clientes(String cedula, String nombre, String apellido1, String apellido2, String fechaNacimiento, String correo, String categoria) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.apellido1 = apellido1;
@@ -57,11 +57,11 @@ public class Clientes {
         this.apellido2 = apellido2;
     }
 
-    public Date getFechaNacimiento() {
+    public String getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
