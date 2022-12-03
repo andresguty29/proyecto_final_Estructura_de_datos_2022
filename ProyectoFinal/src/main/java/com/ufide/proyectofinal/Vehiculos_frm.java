@@ -17,11 +17,11 @@ import javax.swing.table.DefaultTableModel;
 public class Vehiculos_frm extends javax.swing.JDialog {
 
     public static ListaVehiculos lista_vehiculos = new ListaVehiculos();
-    public static Configuracion config=new Configuracion();
-    public static ManejoArchivos manArch=new  ManejoArchivos(config.getCarpeta()+config.getArchivo(),0);
-    public static DefaultTableModel modeloTabla = new DefaultTableModel(){
+    public static Configuracion config = new Configuracion();
+    public static ManejoArchivos manArch = new ManejoArchivos(config.getCarpeta() + config.getArchivo(), 0);
+    public static DefaultTableModel modeloTabla = new DefaultTableModel() {
         @Override
-        public boolean isCellEditable(int row, int col){
+        public boolean isCellEditable(int row, int col) {
             return false;
         }
     };
@@ -107,6 +107,8 @@ public class Vehiculos_frm extends javax.swing.JDialog {
         btnGuard = new javax.swing.JButton();
         cbxEstado = new javax.swing.JComboBox<>();
         cbxTipoCombustible = new javax.swing.JComboBox<>();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         jPanel3 = new javax.swing.JPanel();
         btnConsultar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
@@ -368,9 +370,21 @@ public class Vehiculos_frm extends javax.swing.JDialog {
             }
         });
 
-        cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nuevo", "Usado" }));
+        cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponible", "Alquilado", "En reparacion", "Fuera de circulacion" }));
+        cbxEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxEstadoActionPerformed(evt);
+            }
+        });
 
         cbxTipoCombustible.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Super", "Regular", "Diesel" }));
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -380,7 +394,10 @@ public class Vehiculos_frm extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbxArranqueSinLLave, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbxCargadorInalambrico, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -413,12 +430,14 @@ public class Vehiculos_frm extends javax.swing.JDialog {
                                             .addGap(76, 76, 76)))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel22)
                                             .addComponent(jLabel19)
                                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING)
                                                 .addComponent(jLabel21)))
-                                        .addGap(7, 7, 7)))
+                                        .addGap(7, 7, 7))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel22)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(txtNumeroPlaca, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtMarca, javax.swing.GroupLayout.Alignment.LEADING)
@@ -427,7 +446,7 @@ public class Vehiculos_frm extends javax.swing.JDialog {
                                     .addComponent(txtColor, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtCilindrada, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtCapacidadPasajeros)
-                                    .addComponent(txtPrecioAlquiler, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                                    .addComponent(txtPrecioAlquiler)
                                     .addComponent(cbxEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(cbxTipoCombustible, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -482,10 +501,17 @@ public class Vehiculos_frm extends javax.swing.JDialog {
                 .addComponent(jLabel23)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbxArranqueSinLLave)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbxCargadorInalambrico)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbxNavegadorTraffico)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbxCargadorInalambrico)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbxNavegadorTraffico))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbxSensores)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -565,7 +591,7 @@ public class Vehiculos_frm extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnResetear)
                         .addContainerGap())
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 924, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 874, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -607,50 +633,50 @@ public class Vehiculos_frm extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    public void llenarListaVehiculos(){
-        lista_vehiculos=manArch.leerArchivoVehiculos();
+
+    public void llenarListaVehiculos() {
+        lista_vehiculos = manArch.leerArchivoVehiculos();
     }
-    
+
     public void llenarTablaVehiculos() {
-        String auxArranque, auxCargador, auxNavegador, auxSensor, auxCamara, 
+        String auxArranque, auxCargador, auxNavegador, auxSensor, auxCamara,
                 auxWifi, auxMonitor;
-        
+
         for (NodoVehiculos vehiculo : lista_vehiculos.listaVehiculos()) {
-            if(vehiculo.getVehiculo().isArranqueSinLLave()){
-                auxArranque="X";
-            }else{
-                auxArranque="";
+            if (vehiculo.getVehiculo().isArranqueSinLLave()) {
+                auxArranque = "X";
+            } else {
+                auxArranque = "";
             }
-            if(vehiculo.getVehiculo().isCargadorInalambrico()){
-                auxCargador="X";
-            }else{
-                auxCargador="";
+            if (vehiculo.getVehiculo().isCargadorInalambrico()) {
+                auxCargador = "X";
+            } else {
+                auxCargador = "";
             }
-            if(vehiculo.getVehiculo().isNavegadorTraffico()){
-                auxNavegador="X";
-            }else{
-                auxNavegador="";
+            if (vehiculo.getVehiculo().isNavegadorTraffico()) {
+                auxNavegador = "X";
+            } else {
+                auxNavegador = "";
             }
-            if(vehiculo.getVehiculo().isSensores()){
-                auxSensor="X";
-            }else{
-                auxSensor="";
+            if (vehiculo.getVehiculo().isSensores()) {
+                auxSensor = "X";
+            } else {
+                auxSensor = "";
             }
-            if(vehiculo.getVehiculo().isCamaraTrasera()){
-                auxCamara="X";
-            }else{
-                auxCamara="";
+            if (vehiculo.getVehiculo().isCamaraTrasera()) {
+                auxCamara = "X";
+            } else {
+                auxCamara = "";
             }
-            if(vehiculo.getVehiculo().isWifi()){
-                auxWifi="X";
-            }else{
-                auxWifi="";
+            if (vehiculo.getVehiculo().isWifi()) {
+                auxWifi = "X";
+            } else {
+                auxWifi = "";
             }
-            if(vehiculo.getVehiculo().isMonitoreoSatelital()){
-                auxMonitor="X";
-            }else{
-                auxMonitor="";
+            if (vehiculo.getVehiculo().isMonitoreoSatelital()) {
+                auxMonitor = "X";
+            } else {
+                auxMonitor = "";
             }
 
             modeloTabla.addRow(new Object[]{
@@ -673,45 +699,45 @@ public class Vehiculos_frm extends javax.swing.JDialog {
                 auxMonitor});
         }
     }
-    
+
     public void llenarTablaVehiculosBusqueda(Vehiculos vehiculo) {
-        String auxArranque, auxCargador, auxNavegador, auxSensor, auxCamara, 
+        String auxArranque, auxCargador, auxNavegador, auxSensor, auxCamara,
                 auxWifi, auxMonitor;
-                
-        if(vehiculo.isArranqueSinLLave()){
-            auxArranque="X";
-        }else{
-            auxArranque="";
+
+        if (vehiculo.isArranqueSinLLave()) {
+            auxArranque = "X";
+        } else {
+            auxArranque = "";
         }
-        if(vehiculo.isCargadorInalambrico()){
-            auxCargador="X";
-        }else{
-            auxCargador="";
+        if (vehiculo.isCargadorInalambrico()) {
+            auxCargador = "X";
+        } else {
+            auxCargador = "";
         }
-        if(vehiculo.isNavegadorTraffico()){
-            auxNavegador="X";
-        }else{
-            auxNavegador="";
+        if (vehiculo.isNavegadorTraffico()) {
+            auxNavegador = "X";
+        } else {
+            auxNavegador = "";
         }
-        if(vehiculo.isSensores()){
-            auxSensor="X";
-        }else{
-            auxSensor="";
+        if (vehiculo.isSensores()) {
+            auxSensor = "X";
+        } else {
+            auxSensor = "";
         }
-        if(vehiculo.isCamaraTrasera()){
-            auxCamara="X";
-        }else{
-            auxCamara="";
+        if (vehiculo.isCamaraTrasera()) {
+            auxCamara = "X";
+        } else {
+            auxCamara = "";
         }
-        if(vehiculo.isWifi()){
-            auxWifi="X";
-        }else{
-            auxWifi="";
+        if (vehiculo.isWifi()) {
+            auxWifi = "X";
+        } else {
+            auxWifi = "";
         }
-        if(vehiculo.isMonitoreoSatelital()){
-            auxMonitor="X";
-        }else{
-            auxMonitor="";
+        if (vehiculo.isMonitoreoSatelital()) {
+            auxMonitor = "X";
+        } else {
+            auxMonitor = "";
         }
 
         modeloTabla.addRow(new Object[]{
@@ -732,7 +758,7 @@ public class Vehiculos_frm extends javax.swing.JDialog {
             auxCamara,
             auxWifi,
             auxMonitor});
-        
+
     }
 
     public void iniciarTablaVehiculos() {
@@ -758,8 +784,8 @@ public class Vehiculos_frm extends javax.swing.JDialog {
         llenarTablaVehiculos();
 
     }
-    
-    public void vaciarTablaVehiculos(){
+
+    public void vaciarTablaVehiculos() {
         for (int i = modeloTabla.getRowCount() - 1; i >= 0; i--) {
             modeloTabla.removeRow(i);
         }
@@ -771,8 +797,8 @@ public class Vehiculos_frm extends javax.swing.JDialog {
         }
         llenarTablaVehiculos();
     }
-    
-    public void llenar_cajas(){
+
+    public void llenar_cajas() {
         this.txtNumeroPlaca.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString());
         this.txtMarca.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 1).toString());
         this.txtModelo.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 2).toString());
@@ -783,40 +809,40 @@ public class Vehiculos_frm extends javax.swing.JDialog {
         this.txtCapacidadPasajeros.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 7).toString());
         this.txtPrecioAlquiler.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 8).toString());
         this.cbxEstado.setSelectedItem(TabDatos.getValueAt(TabDatos.getSelectedRow(), 9).toString());
-       
-        if(TabDatos.getValueAt(TabDatos.getSelectedRow(), 10).toString().equals("X")){
+
+        if (TabDatos.getValueAt(TabDatos.getSelectedRow(), 10).toString().equals("X")) {
             this.cbxArranqueSinLLave.setSelected(true);
-        }else{
+        } else {
             this.cbxArranqueSinLLave.setSelected(false);
         }
-        if(TabDatos.getValueAt(TabDatos.getSelectedRow(), 11).toString().equals("X")){
+        if (TabDatos.getValueAt(TabDatos.getSelectedRow(), 11).toString().equals("X")) {
             this.cbxCargadorInalambrico.setSelected(true);
-        }else{
+        } else {
             this.cbxCargadorInalambrico.setSelected(false);
         }
-        if(TabDatos.getValueAt(TabDatos.getSelectedRow(), 12).toString().equals("X")){
+        if (TabDatos.getValueAt(TabDatos.getSelectedRow(), 12).toString().equals("X")) {
             this.cbxNavegadorTraffico.setSelected(true);
-        }else{
+        } else {
             this.cbxNavegadorTraffico.setSelected(false);
         }
-        if(TabDatos.getValueAt(TabDatos.getSelectedRow(), 13).toString().equals("X")){
+        if (TabDatos.getValueAt(TabDatos.getSelectedRow(), 13).toString().equals("X")) {
             this.cbxSensores.setSelected(true);
-        }else{
+        } else {
             this.cbxSensores.setSelected(false);
         }
-        if(TabDatos.getValueAt(TabDatos.getSelectedRow(), 14).toString().equals("X")){
+        if (TabDatos.getValueAt(TabDatos.getSelectedRow(), 14).toString().equals("X")) {
             this.cbxCamaraTrasera.setSelected(true);
-        }else{
+        } else {
             this.cbxCamaraTrasera.setSelected(false);
         }
-        if(TabDatos.getValueAt(TabDatos.getSelectedRow(), 15).toString().equals("X")){
+        if (TabDatos.getValueAt(TabDatos.getSelectedRow(), 15).toString().equals("X")) {
             this.cbxWifi.setSelected(true);
-        }else{
+        } else {
             this.cbxWifi.setSelected(false);
         }
-        if(TabDatos.getValueAt(TabDatos.getSelectedRow(), 16).toString().equals("X")){
+        if (TabDatos.getValueAt(TabDatos.getSelectedRow(), 16).toString().equals("X")) {
             this.cbxMonitoreoSatelital.setSelected(true);
-        }else{
+        } else {
             this.cbxMonitoreoSatelital.setSelected(false);
         }
     }
@@ -841,26 +867,26 @@ public class Vehiculos_frm extends javax.swing.JDialog {
         this.cbxMonitoreoSatelital.setSelected(false);
     }
 
-    public String guardarLinea(Vehiculos vehiculo){
-        String texto=
-                vehiculo.getNumeroPlaca()+"*"+
-                vehiculo.getMarca()+"*"+
-                vehiculo.getModelo()+"*"+
-                vehiculo.getAnnio()+"*"+
-                vehiculo.getColor()+"*"+
-                vehiculo.getCilindrada()+"*"+
-                vehiculo.getTipoCombustible()+"*"+
-                vehiculo.getCapacidadPasajeros()+"*"+
-                vehiculo.getPrecioAlquierXDia()+"*"+
-                vehiculo.getEstado()+"*"+
-                vehiculo.isArranqueSinLLave()+"*"+
-                vehiculo.isCargadorInalambrico()+"*"+
-                vehiculo.isNavegadorTraffico()+"*"+
-                vehiculo.isSensores()+"*"+
-                vehiculo.isCamaraTrasera()+"*"+
-                vehiculo.isWifi()+"*"+
-                vehiculo.isMonitoreoSatelital()+"\n";
-                
+    public String guardarLinea(Vehiculos vehiculo) {
+        String texto
+                = vehiculo.getNumeroPlaca() + "*"
+                + vehiculo.getMarca() + "*"
+                + vehiculo.getModelo() + "*"
+                + vehiculo.getAnnio() + "*"
+                + vehiculo.getColor() + "*"
+                + vehiculo.getCilindrada() + "*"
+                + vehiculo.getTipoCombustible() + "*"
+                + vehiculo.getCapacidadPasajeros() + "*"
+                + vehiculo.getPrecioAlquierXDia() + "*"
+                + vehiculo.getEstado() + "*"
+                + vehiculo.isArranqueSinLLave() + "*"
+                + vehiculo.isCargadorInalambrico() + "*"
+                + vehiculo.isNavegadorTraffico() + "*"
+                + vehiculo.isSensores() + "*"
+                + vehiculo.isCamaraTrasera() + "*"
+                + vehiculo.isWifi() + "*"
+                + vehiculo.isMonitoreoSatelital() + "\n";
+
         return texto;
     }
 
@@ -883,12 +909,12 @@ public class Vehiculos_frm extends javax.swing.JDialog {
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         // Consulta por placa 
-        String placa=JOptionPane.showInputDialog("Digite el número de placa");
-        
-        Vehiculos encontrar= lista_vehiculos.buscar(placa);
-        if(encontrar==null){
+        String placa = JOptionPane.showInputDialog("Digite el número de placa");
+
+        Vehiculos encontrar = lista_vehiculos.buscar(placa);
+        if (encontrar == null) {
             JOptionPane.showMessageDialog(null, "No hay coincidencias");
-        }else{
+        } else {
             vaciarTablaVehiculos();
             llenarTablaVehiculosBusqueda(encontrar);
         }
@@ -896,12 +922,12 @@ public class Vehiculos_frm extends javax.swing.JDialog {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
-        String placa=TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString();
-        
-        Vehiculos encontrar= lista_vehiculos.buscar(placa);
-        if(encontrar==null){
+        String placa = TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString();
+
+        Vehiculos encontrar = lista_vehiculos.buscar(placa);
+        if (encontrar == null) {
             JOptionPane.showMessageDialog(null, "No hay placa almacenada");
-        }else{
+        } else {
             encontrar.setMarca(txtMarca.getText());
             encontrar.setModelo(txtModelo.getText());
             encontrar.setAnnio(Integer.parseInt(txtAnnio.getText()));
@@ -926,9 +952,14 @@ public class Vehiculos_frm extends javax.swing.JDialog {
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-        String placa=TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString();
-        lista_vehiculos.elimina(placa);
+        // Extrae dato de la placa
+        String placa = TabDatos.getValueAt
+        (TabDatos.getSelectedRow(), 0).toString();
+        if (txtNumeroPlaca.getText().isEmpty() == false) {
+            lista_vehiculos.elimina(txtNumeroPlaca.getText());
+            lista_vehiculos.elimina(placa);
+        }
+
         limpiar_cajas();
         vaciarTablaVehiculos();
         llenarTablaVehiculos();
@@ -937,36 +968,45 @@ public class Vehiculos_frm extends javax.swing.JDialog {
     private void btnGuardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardActionPerformed
         // TODO add your handling code here:
         if (txtNumeroPlaca.getText().isEmpty() == false
-            || txtMarca.getText().isEmpty() == false
-            || txtModelo.getText().isEmpty() == false
-            || txtAnnio.getText().isEmpty() == false
-            || txtColor.getText().isEmpty() == false
-            || txtCilindrada.getText().isEmpty() == false
-            || txtCapacidadPasajeros.getText().isEmpty() == false
-            || txtPrecioAlquiler.getText().isEmpty() == false){
+                && txtMarca.getText().isEmpty() == false
+                && txtModelo.getText().isEmpty() == false
+                && txtAnnio.getText().isEmpty() == false
+                && txtColor.getText().isEmpty() == false
+                && txtCilindrada.getText().isEmpty() == false
+                && txtCapacidadPasajeros.getText().isEmpty() == false
+                && txtPrecioAlquiler.getText().isEmpty() == false) {
 
             Vehiculos vehiculo = new Vehiculos(
-                txtNumeroPlaca.getText(),
-                txtMarca.getText(),
-                txtModelo.getText(),
-                Integer.parseInt(txtAnnio.getText()),
-                txtColor.getText(),
-                txtCilindrada.getText(),
-                cbxTipoCombustible.getSelectedItem().toString(),
-                Integer.parseInt(txtCapacidadPasajeros.getText()),
-                Double.parseDouble(txtPrecioAlquiler.getText()),
-                cbxEstado.getSelectedItem().toString(),
-                cbxArranqueSinLLave.isSelected(),
-                cbxCargadorInalambrico.isSelected(),
-                cbxNavegadorTraffico.isSelected(),
-                cbxSensores.isSelected(),
-                cbxCamaraTrasera.isSelected(),
-                cbxWifi.isSelected(),
-                cbxMonitoreoSatelital.isSelected()
+                    txtNumeroPlaca.getText(),
+                    txtMarca.getText(),
+                    txtModelo.getText(),
+                    Integer.parseInt(txtAnnio.getText()),
+                    txtColor.getText(),
+                    txtCilindrada.getText(),
+                    cbxTipoCombustible.getSelectedItem().toString(),
+                    Integer.parseInt(txtCapacidadPasajeros.getText()),
+                    Double.parseDouble(txtPrecioAlquiler.getText()),
+                    cbxEstado.getSelectedItem().toString(),
+                    cbxArranqueSinLLave.isSelected(),
+                    cbxCargadorInalambrico.isSelected(),
+                    cbxNavegadorTraffico.isSelected(),
+                    cbxSensores.isSelected(),
+                    cbxCamaraTrasera.isSelected(),
+                    cbxWifi.isSelected(),
+                    cbxMonitoreoSatelital.isSelected()
             );
 
             lista_vehiculos.inserta(vehiculo);
-            
+
+        } else if (txtNumeroPlaca.getText().isEmpty() == true
+                || txtMarca.getText().isEmpty() == true
+                || txtModelo.getText().isEmpty() == true
+                || txtAnnio.getText().isEmpty() == true
+                || txtColor.getText().isEmpty() == true
+                || txtCilindrada.getText().isEmpty() == true
+                || txtCapacidadPasajeros.getText().isEmpty() == true
+                || txtPrecioAlquiler.getText().isEmpty() == true) {
+            JOptionPane.showMessageDialog(null, "Datos incompletos ingresar");
         }
         limpiar_cajas();
         resetearTablaVehiculos();
@@ -979,7 +1019,7 @@ public class Vehiculos_frm extends javax.swing.JDialog {
 
     private void TabDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabDatosMouseClicked
         // TODO add your handling code here:
-        if(evt.getClickCount()==2){
+        if (evt.getClickCount() == 2) {
             llenar_cajas();
         }
     }//GEN-LAST:event_TabDatosMouseClicked
@@ -989,6 +1029,14 @@ public class Vehiculos_frm extends javax.swing.JDialog {
         limpiar_cajas();
         resetearTablaVehiculos();
     }//GEN-LAST:event_btnResetearActionPerformed
+
+    private void cbxEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxEstadoActionPerformed
+
+    }//GEN-LAST:event_cbxEstadoActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1060,6 +1108,8 @@ public class Vehiculos_frm extends javax.swing.JDialog {
     private javax.swing.JTextField cilindrada;
     private javax.swing.JTextField color;
     private javax.swing.JTextField estado;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

@@ -3,6 +3,7 @@ package com.ufide.proyectofinal;
 //Se realizan el ingreso de vehiculos a una lista Simple
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class ListaVehiculos {
 
@@ -30,6 +31,7 @@ public class ListaVehiculos {
         }
     }
 // ESTA FUNCION HAY QUE REVISARLA PORQUE FUNCIONA A MEDIAS//
+
     public void modifica(Vehiculos p) {
         if (cabeza != null) {
             NodoVehiculos aux = cabeza;
@@ -78,44 +80,56 @@ public class ListaVehiculos {
             }
         }
     }
-    
-    public Vehiculos buscar(String placa){
-        Vehiculos buscado=null;
-        
-        if(this.cabeza!=null){
-            if(cabeza.getVehiculo().getNumeroPlaca().equals(placa)){
-                buscado=cabeza.getVehiculo();
-            }else{
-                NodoVehiculos aux=cabeza;
-                while(aux.getAtras()!=null){
-                    if(aux.getAtras()!=null && 
-                            aux.getAtras().getVehiculo().getNumeroPlaca().equals(placa)){
-                        buscado=aux.getAtras().getVehiculo();
-                        aux=aux.getAtras();
+
+    public Vehiculos buscar(String placa) {
+        Vehiculos buscado = null;
+
+        if (this.cabeza != null) {
+            if (cabeza.getVehiculo().getNumeroPlaca().equals(placa)) {
+                buscado = cabeza.getVehiculo();
+            } else {
+                NodoVehiculos aux = cabeza;
+                while (aux.getAtras() != null) {
+                    if (aux.getAtras() != null
+                            && aux.getAtras().getVehiculo().getNumeroPlaca().
+                                    equals(placa)) {
+                        buscado = aux.getAtras().getVehiculo();
+                        aux = aux.getAtras();
                     }
                 }
             }
         }
-        
+
         return buscado;
     }
- 
-  
+
     // ESTA FUNCION HAY QUE REVISARLA PORQUE FUNCIONA A MEDIAS//
-    public void elimina (String placa) {
-        if(this.cabeza!=null){
-            if(cabeza.getVehiculo().getNumeroPlaca().equals(placa)){
+    public void elimina(String placa) {
+        if (this.cabeza != null) {
+            if (cabeza.getVehiculo().getNumeroPlaca().equals(placa)) {
                 cabeza = cabeza.getAtras();
-            }else{
-                NodoVehiculos aux=cabeza;
-                while(aux.getAtras()!=null){
-                    aux=aux.getAtras();
-                    if(aux.getAtras()!=null && 
-                            aux.getAtras().getVehiculo().getNumeroPlaca().equals(placa)){
+            } else {
+                NodoVehiculos aux = cabeza;
+                while (aux.getAtras() != null
+                        && aux.getAtras().getVehiculo().getNumeroPlaca() != placa) {
+                    aux = aux.getAtras();
+                }
+                if (aux.getAtras() != null
+                        && aux.getAtras().getVehiculo().getNumeroPlaca().
+                                equals(placa)) {
+
+                    if (aux.getAtras().getVehiculo().getEstado().
+                            equals("Alquilado")) {
+                        JOptionPane.showMessageDialog(null,
+                        "Estado en alquilado. No es posible eliminar");
+
+                    } else {
                         aux.setAtras(aux.getAtras().getAtras());
-                    }else if(aux.getAtras()==null){
-                        aux.setAtras(null);
                     }
+
+                }//Posible cambio 
+                else if (aux.getAtras() == null) {
+                    aux.setAtras(null);
                 }
             }
         }
