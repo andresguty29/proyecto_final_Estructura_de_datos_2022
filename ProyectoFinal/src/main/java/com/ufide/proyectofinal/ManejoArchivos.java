@@ -2,6 +2,7 @@ package com.ufide.proyectofinal;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.Date;
 import java.util.Iterator;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -316,5 +317,83 @@ public class ManejoArchivos {
         }
         return pila_solicitudes;
     }
+    
+    public ColaAlquiler leerArchivoAlquier() {
+        NodoAlquiler nodo=new NodoAlquiler();
+        ColaAlquiler cola=new ColaAlquiler();
+        try {
+            DataFormatter formatter = new DataFormatter();
+            while (iterator.hasNext()) {
+                String idSolicitud="";
+                String fechaAlquiler="";
+                String numeroPlaca="";
+                String cedula="";
+                String nombre="";
+                String categoria="";
+                double precioAlquierXDia=0;
+                int cantidadDias=0;
+                double IVA=0;
+                double totalAPagar=0;
 
+                Row nextRow = (Row) iterator.next();
+                Iterator cellIterator = nextRow.cellIterator();
+                while (cellIterator.hasNext()) {
+                    Cell cell = (Cell) cellIterator.next();
+                    System.out.println(cell.getColumnIndex());
+                    String contenidoCelda = formatter.formatCellValue(cell);
+                    System.out.println("celda: " + contenidoCelda);
+                    switch (cell.getColumnIndex()) {
+                        case 0:
+                            idSolicitud = contenidoCelda;
+                            break;
+                        case 1:
+                            fechaAlquiler = contenidoCelda;
+                            break;
+                        case 2:
+                            numeroPlaca = contenidoCelda;
+                            break;
+                        case 3:
+                            cedula = contenidoCelda;
+                            break;
+                        case 4:
+                            nombre = contenidoCelda;
+                            break;
+                        case 5:
+                            categoria = contenidoCelda;
+                            break;
+                        case 6:
+                            precioAlquierXDia = Double.parseDouble(contenidoCelda);
+                            break;
+                        case 7:
+                            cantidadDias = Integer.parseInt(contenidoCelda);
+                            break;    
+                        case 8:
+                            IVA = Double.parseDouble(contenidoCelda);
+                            break;    
+                        case 9:
+                            totalAPagar = Double.parseDouble(contenidoCelda);
+                            break;        
+                    }
+                }
+                Alquiler alq=new Alquiler(
+                        idSolicitud, 
+                        fechaAlquiler, 
+                        numeroPlaca, 
+                        cedula, 
+                        nombre,
+                        categoria, 
+                        precioAlquierXDia, 
+                        cantidadDias, 
+                        IVA, 
+                        totalAPagar
+                );
+                nodo.setAlquiler(alq);
+                cola.enCola(nodo);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cola;
+    }
+    
 }

@@ -6,9 +6,10 @@ import java.util.Date;
 
 public class Alquiler {
     String idSolicitud;
-    Date fechaAlquiler;
+    String fechaAlquiler;
     String numeroPlaca;
     String cedula;
+    String nombre;
     String categoria;
     double precioAlquierXDia;
     int cantidadDias;
@@ -18,11 +19,12 @@ public class Alquiler {
     public Alquiler() {
     }
 
-    public Alquiler(String idSolicitud, Date fechaAlquiler, String numeroPlaca, String cedula, String categoria, double precioAlquierXDia, int cantidadDias, double IVA, double totalAPagar) {
+    public Alquiler(String idSolicitud, String fechaAlquiler, String numeroPlaca, String cedula, String nombre, String categoria, double precioAlquierXDia, int cantidadDias, double IVA, double totalAPagar) {
         this.idSolicitud = idSolicitud;
         this.fechaAlquiler = fechaAlquiler;
         this.numeroPlaca = numeroPlaca;
         this.cedula = cedula;
+        this.nombre=nombre;
         this.categoria = categoria;
         this.precioAlquierXDia = precioAlquierXDia;
         this.cantidadDias = cantidadDias;
@@ -38,11 +40,11 @@ public class Alquiler {
         this.idSolicitud = idSolicitud;
     }
 
-    public Date getFechaAlquiler() {
+    public String getFechaAlquiler() {
         return fechaAlquiler;
     }
 
-    public void setFechaAlquiler(Date fechaAlquiler) {
+    public void setFechaAlquiler(String fechaAlquiler) {
         this.fechaAlquiler = fechaAlquiler;
     }
 
@@ -60,6 +62,14 @@ public class Alquiler {
 
     public void setCedula(String cedula) {
         this.cedula = cedula;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getCategoria() {
