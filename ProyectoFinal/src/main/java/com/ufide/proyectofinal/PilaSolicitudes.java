@@ -6,13 +6,10 @@ import java.util.ArrayList;
 public class PilaSolicitudes{
     private static NodoSolicitud cima;
     private Solicitudes solicitud;
+    int tamano = 0;
 
     public PilaSolicitudes() {
         this.cima=null;
-    }
-    
-    public boolean vacia(){
-        return cima==null;
     }
 
     public NodoSolicitud getCima() {
@@ -31,6 +28,10 @@ public class PilaSolicitudes{
         }
     }
     
+    public boolean vacia (){
+        return cima == null;
+    }
+    
     public NodoSolicitud buscar(String idSolicitud){
         NodoSolicitud nodo = null;
         return nodo;
@@ -40,9 +41,11 @@ public class PilaSolicitudes{
         
     }
     
-    public void Elimina(NodoSolicitud nodo){
+    public NodoSolicitud Elimina(NodoSolicitud nodo){
         NodoSolicitud auxiliar = cima;
-        cima = cima.setNext(solicitud);
+        cima = cima.getNext();
+        tamano --;
+        return auxiliar;
     }
     
     public static ArrayList<NodoSolicitud> listaSolicitudes() {
