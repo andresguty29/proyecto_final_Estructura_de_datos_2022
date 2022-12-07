@@ -10,6 +10,7 @@ public class PilaSolicitudes{
 
     public PilaSolicitudes() {
         this.cima=null;
+        tamano = 0;
     }
 
     public NodoSolicitud getCima() {
@@ -38,7 +39,7 @@ public class PilaSolicitudes{
     }
     
     public void Modificar(NodoSolicitud nodo){
-        
+
     }
     
     public NodoSolicitud Elimina(NodoSolicitud nodo){
