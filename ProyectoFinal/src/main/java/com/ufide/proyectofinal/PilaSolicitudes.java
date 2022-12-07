@@ -58,4 +58,9 @@ public class PilaSolicitudes{
         return listaSolicitud;
     }
     
+    public void vaciar (){
+        while (!vacia()){
+            Elimina(cima);
+        }
+    }
 }
