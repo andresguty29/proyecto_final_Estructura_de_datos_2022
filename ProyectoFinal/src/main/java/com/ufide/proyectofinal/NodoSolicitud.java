@@ -10,6 +10,12 @@ public class NodoSolicitud {
         this.solicitud = solicitud;
     }
 
+    public NodoSolicitud(Solicitudes solicitud, NodoSolicitud next, NodoSolicitud back) {
+        this.solicitud = solicitud;
+        this.next = next;
+        this.back = back;
+    }
+
     public Solicitudes getSolicitud() {
         return solicitud;
     }

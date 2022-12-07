@@ -37,11 +37,12 @@ public class PilaSolicitudes{
     }
     
     public void Modificar(NodoSolicitud nodo){
-
+        
     }
     
     public void Elimina(NodoSolicitud nodo){
-
+        NodoSolicitud auxiliar = cima;
+        cima = cima.setNext(solicitud);
     }
     
     public static ArrayList<NodoSolicitud> listaSolicitudes() {
