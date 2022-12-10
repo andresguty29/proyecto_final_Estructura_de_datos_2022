@@ -526,7 +526,7 @@
                 <StringItem index="0" value="Bronce"/>
                 <StringItem index="1" value="Plata"/>
                 <StringItem index="2" value="Oro"/>
-                <StringItem index="3" value="Safiro"/>
+                <StringItem index="3" value="Zafiro"/>
               </StringArray>
             </Property>
           </Properties>

@@ -309,8 +309,8 @@ public class ManejoArchivos {
                         wifi,
                         monitoreoSatelital
                 );
-                nodo =new NodoSolicitud(solicitud);
-                pila_solicitudes.setCima(nodo);
+              // nodo =new NodoSolicitud(solicitud);
+                //pila_solicitudes.setCima(nodo);
             }
         } catch (Exception e) {
             e.printStackTrace();

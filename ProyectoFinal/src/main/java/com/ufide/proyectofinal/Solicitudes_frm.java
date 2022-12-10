@@ -106,7 +106,6 @@ public class Solicitudes_frm extends javax.swing.JDialog {
         jPanel3 = new javax.swing.JPanel();
         btnConsultar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TabDatos = new javax.swing.JTable();
         btnResetear = new javax.swing.JButton();
@@ -364,6 +363,11 @@ public class Solicitudes_frm extends javax.swing.JDialog {
         cbxEstadoSolicitud.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nuevo", "Usado" }));
 
         cbxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Super", "Regular", "Diesel" }));
+        cbxCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxCategoriaActionPerformed(evt);
+            }
+        });
 
         jLabel24.setText("Modelo");
 
@@ -522,13 +526,6 @@ public class Solicitudes_frm extends javax.swing.JDialog {
             }
         });
 
-        btnEliminar.setText("Eliminar");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
-
         TabDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -567,8 +564,6 @@ public class Solicitudes_frm extends javax.swing.JDialog {
                         .addComponent(btnConsultar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnActualizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnResetear)
                         .addContainerGap())
@@ -585,7 +580,6 @@ public class Solicitudes_frm extends javax.swing.JDialog {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConsultar)
                     .addComponent(btnActualizar)
-                    .addComponent(btnEliminar)
                     .addComponent(btnResetear))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1)
@@ -930,16 +924,6 @@ public class Solicitudes_frm extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-        NodoSolicitud encontrar = pila_solicitudes.buscar(
-                TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString());
-        pila_solicitudes.Elimina(encontrar);
-        limpiar_cajas();
-        vaciarTablaSolicitudes();
-        llenarTablaSolicitudes();
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
     private void TabDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabDatosMouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {
@@ -973,6 +957,7 @@ public class Solicitudes_frm extends javax.swing.JDialog {
                     Integer.parseInt(this.txtCedula.getText()),
                     this.txtNombre.getText(),
                     cbxCategoria.getSelectedItem().toString(),
+                    
                     Integer.parseInt(this.txtCantidadDias.getText()),
                     Integer.parseInt(this.txtCantMinimaPasajeros.getText()),
                     this.txtMarca.getText(),
@@ -986,9 +971,9 @@ public class Solicitudes_frm extends javax.swing.JDialog {
                     cbxWifi.isSelected(),
                     cbxMonitoreoSatelital.isSelected()
             );
-
-            NodoSolicitud nodo = new NodoSolicitud(solicitud);
-            pila_solicitudes.setCima(nodo);
+//
+         //   NodoSolicitud nodo = new NodoSolicitud(solicitud);
+         //   pila_solicitudes.setCima(nodo);
 
             resetearTablaSolicitudes();
         }
@@ -999,6 +984,10 @@ public class Solicitudes_frm extends javax.swing.JDialog {
         // Limpia las cajas
         limpiar_cajas();
     }//GEN-LAST:event_btnLimpActionPerformed
+
+    private void cbxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxCategoriaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1056,7 +1045,6 @@ public class Solicitudes_frm extends javax.swing.JDialog {
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAlquilar;
     private javax.swing.JButton btnConsultar;
-    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuard;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimp;

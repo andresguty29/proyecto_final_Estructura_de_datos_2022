@@ -111,7 +111,8 @@ public class ListaVehiculos {
             } else {
                 NodoVehiculos aux = cabeza;
                 while (aux.getAtras() != null
-                        && aux.getAtras().getVehiculo().getNumeroPlaca() != placa) {
+                        && aux.getAtras().getVehiculo().getNumeroPlaca() 
+                        != placa) {
                     aux = aux.getAtras();
                 }
                 if (aux.getAtras() != null
@@ -135,31 +136,6 @@ public class ListaVehiculos {
         }
     }
 
-    public Vehiculos verifica(String i) {
-        Vehiculos verifica = null;
-        if (cabeza != null) {
-            if (cabeza.getVehiculo().getNumeroPlaca() == i) {
-                cabeza = cabeza.getAtras();
-            } else {
-                NodoVehiculos aux = cabeza;
-                while (aux.getAtras() != null && aux.getAtras().
-                        getVehiculo().getNumeroPlaca() != i) {
-                    aux = aux.getAtras();
-                }
-                if (aux.getAtras() != null && aux.getAtras().getVehiculo()
-                        .getNumeroPlaca() == i) {
-                    aux.getVehiculo().getAnnio();
-
-                    verifica = aux.getAtras().getVehiculo();
-                    aux.setAtras(aux.getAtras().getAtras());
-
-                }
-
-            }
-        }
-
-        return verifica;
-    }
 
     public ArrayList<NodoVehiculos> listaVehiculos() {
         ArrayList<NodoVehiculos> listaVehiculos = new ArrayList<>();

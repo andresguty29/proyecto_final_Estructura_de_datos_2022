@@ -330,7 +330,7 @@ public class Clientes_frm extends javax.swing.JDialog {
             }
         });
 
-        cbxCategoriaCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bronce", "Plata", "Oro", "Safiro" }));
+        cbxCategoriaCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bronce", "Plata", "Oro", "Zafiro" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

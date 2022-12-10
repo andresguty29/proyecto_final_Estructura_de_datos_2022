@@ -107,7 +107,6 @@ public class Vehiculos_frm extends javax.swing.JDialog {
         btnGuard = new javax.swing.JButton();
         cbxEstado = new javax.swing.JComboBox<>();
         cbxTipoCombustible = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         jPanel3 = new javax.swing.JPanel();
         btnConsultar = new javax.swing.JButton();
@@ -378,11 +377,9 @@ public class Vehiculos_frm extends javax.swing.JDialog {
         });
 
         cbxTipoCombustible.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Super", "Regular", "Diesel" }));
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        cbxTipoCombustible.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                cbxTipoCombustibleActionPerformed(evt);
             }
         });
 
@@ -394,8 +391,7 @@ public class Vehiculos_frm extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(78, 78, 78)
                         .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -433,11 +429,9 @@ public class Vehiculos_frm extends javax.swing.JDialog {
                                             .addComponent(jLabel19)
                                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jLabel21)))
-                                        .addGap(7, 7, 7))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel22)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                                .addComponent(jLabel21))
+                                            .addComponent(jLabel22))
+                                        .addGap(7, 7, 7)))
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(txtNumeroPlaca, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtMarca, javax.swing.GroupLayout.Alignment.LEADING)
@@ -509,9 +503,7 @@ public class Vehiculos_frm extends javax.swing.JDialog {
                         .addComponent(cbxNavegadorTraffico))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbxSensores)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -933,11 +925,13 @@ public class Vehiculos_frm extends javax.swing.JDialog {
             encontrar.setAnnio(Integer.parseInt(txtAnnio.getText()));
             encontrar.setColor(txtColor.getText());
             encontrar.setCilindrada(txtCilindrada.getText());
-            encontrar.setTipoCombustible(cbxTipoCombustible.getSelectedItem().toString());
+            encontrar.setTipoCombustible(cbxTipoCombustible.
+                    getSelectedItem().toString());
             encontrar.setCapacidadPasajeros(Integer.parseInt(txtCapacidadPasajeros.getText()));
             encontrar.setPrecioAlquierXDia(Double.parseDouble(txtPrecioAlquiler.getText()));
             encontrar.setEstado(cbxEstado.getSelectedItem().toString());
-            encontrar.setArranqueSinLLave(cbxArranqueSinLLave.isSelected());
+            encontrar.setArranqueSinLLave(cbxArranqueSinLLave.
+                    isSelected());
             encontrar.setCargadorInalambrico(cbxCargadorInalambrico.isSelected());
             encontrar.setNavegadorTraffico(cbxNavegadorTraffico.isSelected());
             encontrar.setSensores(cbxSensores.isSelected());
@@ -953,8 +947,7 @@ public class Vehiculos_frm extends javax.swing.JDialog {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // Extrae dato de la placa
-        String placa = TabDatos.getValueAt
-        (TabDatos.getSelectedRow(), 0).toString();
+        String placa = TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString();
         if (txtNumeroPlaca.getText().isEmpty() == false) {
             lista_vehiculos.elimina(txtNumeroPlaca.getText());
             lista_vehiculos.elimina(placa);
@@ -1034,9 +1027,9 @@ public class Vehiculos_frm extends javax.swing.JDialog {
 
     }//GEN-LAST:event_cbxEstadoActionPerformed
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+    private void cbxTipoCombustibleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoCombustibleActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
+    }//GEN-LAST:event_cbxTipoCombustibleActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1109,7 +1102,6 @@ public class Vehiculos_frm extends javax.swing.JDialog {
     private javax.swing.JTextField color;
     private javax.swing.JTextField estado;
     private javax.swing.Box.Filler filler1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

@@ -88,6 +88,8 @@ public class ListaClientes {
                     aux=aux.getSiguiente();
                     if(aux.getSiguiente()!=null && 
                             aux.getSiguiente().getCliente().getCedula().equals(cedula)){
+                       // if()AÑADIR SI EL USUARIO TIENE ALQUILERES NO SE PUEDE ELIMINAR
+                    
                         aux.setSiguiente(aux.getSiguiente().getSiguiente());
                     }else if(aux.getSiguiente()==null){
                         aux.setSiguiente(null);
