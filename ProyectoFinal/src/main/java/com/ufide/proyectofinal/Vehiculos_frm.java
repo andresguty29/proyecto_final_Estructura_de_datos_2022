@@ -76,6 +76,8 @@ public class Vehiculos_frm extends javax.swing.JDialog {
         jLabel16 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -115,6 +117,7 @@ public class Vehiculos_frm extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         TabDatos = new javax.swing.JTable();
         btnResetear = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestión de Ingreso- Vehiculos"));
 
@@ -312,6 +315,10 @@ public class Vehiculos_frm extends javax.swing.JDialog {
                     .addComponent(btnGuardar)
                     .addComponent(btnLimpiar)))
         );
+
+        jButton1.setText("jButton1");
+
+        jButton2.setText("jButton2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -567,6 +574,13 @@ public class Vehiculos_frm extends javax.swing.JDialog {
             }
         });
 
+        jButton3.setText("Menú Inicial");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -582,6 +596,8 @@ public class Vehiculos_frm extends javax.swing.JDialog {
                         .addComponent(btnEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnResetear)
+                        .addGap(50, 50, 50)
+                        .addComponent(jButton3)
                         .addContainerGap())
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 874, Short.MAX_VALUE)))
         );
@@ -593,7 +609,8 @@ public class Vehiculos_frm extends javax.swing.JDialog {
                     .addComponent(btnConsultar)
                     .addComponent(btnActualizar)
                     .addComponent(btnEliminar)
-                    .addComponent(btnResetear))
+                    .addComponent(btnResetear)
+                    .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1)
                 .addContainerGap())
@@ -1031,6 +1048,12 @@ public class Vehiculos_frm extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxTipoCombustibleActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        MenuInicial menu = new MenuInicial();
+        menu.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1102,6 +1125,9 @@ public class Vehiculos_frm extends javax.swing.JDialog {
     private javax.swing.JTextField color;
     private javax.swing.JTextField estado;
     private javax.swing.Box.Filler filler1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
