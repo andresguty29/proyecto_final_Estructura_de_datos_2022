@@ -5,9 +5,11 @@ import com.ufide.proyectofinal.NodoAlquiler;
 import java.util.ArrayList;
 
 public class ColaAlquiler {
+//    Atributos de la clase
     private static NodoAlquiler frente;
     private static NodoAlquiler ultimo;
 
+//  Constructor vacio para ahorrar futuros problemas
     public ColaAlquiler() {
     }
     
@@ -21,22 +23,36 @@ public class ColaAlquiler {
         }
     }
     
+    //Se saca la primera solicitud de la cola para luego "atenderla"
     public NodoAlquiler atiende(){
         NodoAlquiler aux=frente;
         if(frente!=null){
             frente=frente.getAtras();
             aux.setAtras(null);
         }
+        //Se retorna el aux siendo este el que esta en el frente
         return aux;
     }
     
+    //Se modifica la cola con una entrada Alquiler a
     public void modificar(Alquiler a){
         if (frente != null){
             NodoAlquiler aux = frente;
+//            Se crea un while para recorrer la cola en donde aux debe ser 
+//            diferente a nulo y el aux.getAlquiler().getIdSolicitud es 
+//            diferente a a.getIdSolicitud, la cual es la ID que se solicita 
+//            como entrada y el aux.getAlquiler().getIdSolicitud el que se desea 
+//            encontrar haciendo que mientras esas condiciones se cumplan, 
+//            recorrerá toda la cola
             while (aux != null && aux.getAlquiler().getIdSolicitud()
                 != a.getIdSolicitud()) {
                 aux = aux.getAtras();
             }
+//            Aqui se da la condicion importante la cual es que la ID 
+//            solicitada(a.idSolicitud) se ha encontrado en la cola, por lo que
+//            la cola pasará a pedir los datos respectivos para modificar todos
+//            los datos, utilizando el aux.getAlquiler().set de cada dato y asignando las
+//            modificaciones con un a.get de los datos        
             if (aux != null && aux.getAlquiler().getIdSolicitud()
                     == a.idSolicitud){
                 aux.getAlquiler().setIdSolicitud(a.idSolicitud);
@@ -53,6 +69,7 @@ public class ColaAlquiler {
         }
     }
     
+    //Se ingresan solicitudes a la cola con una entrada Alquiler a
     public void insertar(Alquiler a){
         NodoAlquiler temp = new NodoAlquiler ();
         if (frente == null){
@@ -68,14 +85,21 @@ public class ColaAlquiler {
         }
     }
     
+    //Se eliminan solicitudes de la cola, con una entrada String idSolicitud
     public void elimina (String idSolicitud) {
         if(this.frente!=null){
             if(frente.getAtras().getAlquiler().getIdSolicitud().equals(idSolicitud)){
                 frente = frente.getAtras();
             }else{
                 NodoAlquiler aux=frente;
+//              Con un while se busca que la cola mientras se recorre, 
+//              no pase a estar vacia
                 while(aux.getAtras()!=null){
                     aux=aux.getAtras();
+//                  Si el aux.getAtras(), que es la logica para recorrer la cola,
+//                  es diferente a nulo y al mismo tiempo el get.IdSolicitud 
+//                  deber ser igual(equals) al idSolicitud que se ha pedido 
+//                  como parametro de entrada
                     if(aux.getAtras()!=null && 
                             aux.getAtras().getAlquiler().getIdSolicitud().equals(idSolicitud)){
                         aux.setAtras(aux.getAtras().getAtras());
@@ -87,14 +111,19 @@ public class ColaAlquiler {
         }
     }
     
+    //Se buscan solicitudes dentro de la cola con una entrada String solicitud
     public Alquiler buscar(String solicitud){
         Alquiler buscado=null;
-        
         if(this.frente!=null){
+//          Si el dato de frente.getAlquiler().getIdSolicitud() es igual(equals)
+//          al parametro buscado(solicitud), entraria en esta condicional
+//          convirtiendo la variable "buscado" en frente.getAlquiler()
             if(frente.getAlquiler().getIdSolicitud().equals(solicitud)){
                 buscado=frente.getAlquiler();
             }else{
                 NodoAlquiler aux=this.frente;
+//              Se usa un while condicionante que determina que mientras 
+//              aux.getAtras() sea diferente a nulo, el ciclo se ejecuta
                 while(aux.getAtras()!=null){
                     if(aux.getAtras()!=null && 
                             aux.getAtras().getAlquiler().getNumeroPlaca().equals(solicitud)){
@@ -104,9 +133,11 @@ public class ColaAlquiler {
                 }
             }
         }
+//      Se retorna el dato encontrado en el aux.getAtras().getAlquiler()
         return buscado;
     }
     
+    //Se crea el metodo tipo ArrayList de la listaAlquiler
     public static ArrayList<NodoAlquiler> listaAlquiler() {
         ArrayList<NodoAlquiler> listaAlquileres = new ArrayList<>();
         NodoAlquiler aux = frente;
@@ -114,6 +145,9 @@ public class ColaAlquiler {
             listaAlquileres.add(aux);
             aux = aux.getAtras();
         }
+//      Retorna la listaAlquileres la cual mostrará el contenido de la lista
+//      guardada en un ArrayList<NodoAlquiler> previablemente llenada con el 
+//      contenido del NodoAlquiler
         return listaAlquileres;
     }
     
