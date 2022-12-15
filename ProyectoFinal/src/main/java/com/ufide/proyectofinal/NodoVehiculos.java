@@ -1,21 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.ufide.proyectofinal;
 
-/**
- *
- * @author User
- */
 public class NodoVehiculos {
+//  Atributos de la clase
     private Vehiculos vehiculo;
     private NodoVehiculos atras;
 
+//  Constructos de la clase
     public NodoVehiculos(Vehiculos vehiculo) {
         this.vehiculo = vehiculo;
     }
-
+    
+//    Getters y Setters de la clase
     public Vehiculos getVehiculo() {
         return vehiculo;
     }
