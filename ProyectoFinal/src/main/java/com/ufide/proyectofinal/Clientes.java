@@ -4,6 +4,7 @@ package com.ufide.proyectofinal;
 import java.util.Date;
 
 public class Clientes {
+//  Atributos de la clase Clientes
     String cedula;
     String nombre;
     String apellido1;
@@ -12,10 +13,14 @@ public class Clientes {
     String correo;
     String categoria;
 
+//  Constructor vacio para ahorrar futuros problemas
     public Clientes() {
     }
 
-    public Clientes(String cedula, String nombre, String apellido1, String apellido2, String fechaNacimiento, String correo, String categoria) {
+//  Constructor de la clase
+    public Clientes(String cedula, String nombre, String apellido1, 
+            String apellido2, String fechaNacimiento, String correo, 
+            String categoria) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.apellido1 = apellido1;
@@ -24,7 +29,8 @@ public class Clientes {
         this.correo = correo;
         this.categoria = categoria;
     }
-
+    
+//    Getters y Setters de la clase
     public String getCedula() {
         return cedula;
     }

@@ -3,6 +3,7 @@ package com.ufide.proyectofinal;
 
 
 public class Vehiculos {
+//  Atributos de la clase Vehiculos
     String numeroPlaca;
     String marca;
     String modelo;
@@ -21,9 +22,11 @@ public class Vehiculos {
     boolean wifi;
     boolean monitoreoSatelital;
 
+//  Constructor vacio para ahorrar futuros problemas
     public Vehiculos() {
     }
-
+    
+//  Constructor de la clase
     public Vehiculos(String numeroPlaca, String marca, String modelo, int annio, 
             String color, String cilindrada, String tipoCombustible, 
             int capacidadPasajeros, double precioAlquierXDia, String estado, 
@@ -49,6 +52,7 @@ public class Vehiculos {
         this.monitoreoSatelital = monitoreoSatelital;
     }
 
+//    Getters y Setters de la clase
     public String getNumeroPlaca() {
         return numeroPlaca;
     }

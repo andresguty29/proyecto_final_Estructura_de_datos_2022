@@ -5,6 +5,7 @@ import java.util.Date;
 
 
 public class Alquiler {
+//    Atributos de la clase Alquiler
     String idSolicitud;
     String fechaAlquiler;
     String numeroPlaca;
@@ -16,10 +17,15 @@ public class Alquiler {
     double IVA;
     double totalAPagar;
 
+//  Constructor vacio para ahorrar futuros problemas
     public Alquiler() {
     }
-
-    public Alquiler(String idSolicitud, String fechaAlquiler, String numeroPlaca, String cedula, String nombre, String categoria, double precioAlquierXDia, int cantidadDias, double IVA, double totalAPagar) {
+    
+//  Constructor de la clase
+    public Alquiler(String idSolicitud, String fechaAlquiler, 
+            String numeroPlaca, String cedula, String nombre, String categoria, 
+            double precioAlquierXDia, int cantidadDias, double IVA, 
+            double totalAPagar) {
         this.idSolicitud = idSolicitud;
         this.fechaAlquiler = fechaAlquiler;
         this.numeroPlaca = numeroPlaca;
@@ -32,6 +38,7 @@ public class Alquiler {
         this.totalAPagar = totalAPagar;
     }
 
+//    Getters y Setters de la clase
     public String getIdSolicitud() {
         return idSolicitud;
     }

@@ -5,6 +5,7 @@ import java.util.Date;
 /*Solicitarle al usuario, la cantidad de días que desea alquilar el vehículo, la cantidad mínima de pasajeros que debe permitir el vehículo, si tiene alguna preferencia por alguna marca, modelo o año en particular, y si requiere que el vehículo tenga alguna(s) extra(s) en particular.
 Si el cliente hace una solicitud por 30 días o más automáticamente el sistema lo subirá de categoría. Por ejemplo, si el cliente que hace la solicitud tiene categoría plata y hace una solicitud de alquiler por 40 días, el sistema le asignará la categoría oro.*/
 public class Solicitudes {
+//  Atributos de la clase Solicitudes
     String idSolicitud;
     String estadoSolicitud;
     String fechaSolicitud;
@@ -24,9 +25,11 @@ public class Solicitudes {
     boolean wifi;
     boolean monitoreoSatelital;
 
+//  Constructor vacio para ahorrar futuros problemas
     public Solicitudes() {
     }
 
+//  Constructor de la clase
     public Solicitudes(String idSolicitud, String estadoSolicitud, 
             String fechaSolicitud, int cedula, String nombre, 
             String categoria, int cantidadDias, int cantidadMinimaPasajeros, 
@@ -54,6 +57,7 @@ public class Solicitudes {
         this.monitoreoSatelital = monitoreoSatelital;
     }
 
+//    Getters y Setters de la clase
     public String getIdSolicitud() {
         return idSolicitud;
     }
