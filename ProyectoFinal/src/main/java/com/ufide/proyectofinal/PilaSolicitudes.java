@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 
 public class PilaSolicitudes{
+//    Atributos de la clase
     private static NodoSolicitud cima;
     private Solicitudes solicitud;
     int tamano = 0;
@@ -13,7 +14,7 @@ public class PilaSolicitudes{
         tamano = 0;
     }
    
-    
+//  Metodo para agregar datos a una pila
     public void push(NodoSolicitud d){
 
         if(this.vacia()){
@@ -24,14 +25,18 @@ public class PilaSolicitudes{
         }
     }
     
+//  Metodo que revisa que la pila este vacia o si contiene datos
     public boolean vacia (){
         return cima == null;
     }
     
+//  Metodo que busca un dato de entrada tipo String idSolicitud y revisa 
+//  si se encuentra dentro de la pila
     public NodoSolicitud buscar(String idSolicitud){
         NodoSolicitud nodo = null;
         return nodo;
     }
+    
     
     public void Modificar(NodoSolicitud nodo){
 
@@ -113,6 +118,8 @@ public class PilaSolicitudes{
             System.out.println("El nodo indicado no existe");
         }
     } */
+    
+//  Se crea el metodo tipo ArrayList de la listaSolicitudes
     public static ArrayList<NodoSolicitud> listaSolicitudes() {
         ArrayList<NodoSolicitud> listaSolicitud = new ArrayList<>();
         NodoSolicitud aux = cima;
@@ -120,8 +127,10 @@ public class PilaSolicitudes{
             listaSolicitud.add(aux);
             aux = aux.getNext();
         }
+//      Retorna la listaSolicitud la cual mostrará el contenido de la lista
+//      guardada en un ArrayList<NodoSolicitud> previablemente llenada con el 
+//      contenido del NodoSolicitud
         return listaSolicitud;
     }
-    
-    
+
 }
