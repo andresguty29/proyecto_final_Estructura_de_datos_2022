@@ -1,5 +1,5 @@
 
-package com.ufide.proyectofinal;
+package Modelo;
 
 import java.util.Date;
 /*Solicitarle al usuario, la cantidad de días que desea alquilar el vehículo, la cantidad mínima de pasajeros que debe permitir el vehículo, si tiene alguna preferencia por alguna marca, modelo o año en particular, y si requiere que el vehículo tenga alguna(s) extra(s) en particular.

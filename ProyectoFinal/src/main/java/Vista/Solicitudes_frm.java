@@ -1,5 +1,12 @@
-package com.ufide.proyectofinal;
+package Vista;
 
+import Modelo.Configuracion;
+import Controlador.ListaVehiculos;
+import Controlador.ManejoArchivos;
+import Modelo.NodoSolicitud;
+import Controlador.PilaSolicitudes;
+import Modelo.Solicitudes;
+import static Vista.Clientes_frm.modeloTabla;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -527,17 +534,7 @@ public class Solicitudes_frm extends javax.swing.JDialog {
             }
         });
 
-        TabDatos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        TabDatos.setModel(modeloTabla);
         TabDatos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TabDatosMouseClicked(evt);
@@ -753,26 +750,26 @@ public class Solicitudes_frm extends javax.swing.JDialog {
     }
 
     public void IniciarTablaSolicitudes() {
-        modeloTabla.addColumn("Id.Sol");
-        modeloTabla.addColumn("Est.Sol");
-        modeloTabla.addColumn("Fecha.Sol");
-        modeloTabla.addColumn("Cedula");
-        modeloTabla.addColumn("Nombre");
-        modeloTabla.addColumn("Categoria");
-        modeloTabla.addColumn("Cant.dias");
-        modeloTabla.addColumn("Cant.Min.P");
-        modeloTabla.addColumn("Marca");
-        modeloTabla.addColumn("Modelo");
-        modeloTabla.addColumn("Año");
-        modeloTabla.addColumn("Arranq");
-        modeloTabla.addColumn("Carg.Inal");
-        modeloTabla.addColumn("Nav.Traf");
-        modeloTabla.addColumn("Sensores");
-        modeloTabla.addColumn("Cam.Tras");
-        modeloTabla.addColumn("Wifi");
-        modeloTabla.addColumn("Mon.Sat");
-
-        TabDatos.setModel(modeloTabla);
+        if (modeloTabla.getColumnCount() == 0) {
+            modeloTabla.addColumn("Id.Sol");
+            modeloTabla.addColumn("Est.Sol");
+            modeloTabla.addColumn("Fecha.Sol");
+            modeloTabla.addColumn("Cedula");
+            modeloTabla.addColumn("Nombre");
+            modeloTabla.addColumn("Categoria");
+            modeloTabla.addColumn("Cant.dias");
+            modeloTabla.addColumn("Cant.Min.P");
+            modeloTabla.addColumn("Marca");
+            modeloTabla.addColumn("Modelo");
+            modeloTabla.addColumn("Año");
+            modeloTabla.addColumn("Arranq");
+            modeloTabla.addColumn("Carg.Inal");
+            modeloTabla.addColumn("Nav.Traf");
+            modeloTabla.addColumn("Sensores");
+            modeloTabla.addColumn("Cam.Tras");
+            modeloTabla.addColumn("Wifi");
+            modeloTabla.addColumn("Mon.Sat");
+        }
         llenarTablaSolicitudes();
 
     }

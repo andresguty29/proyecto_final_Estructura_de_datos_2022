@@ -1,5 +1,5 @@
 
-package com.ufide.proyectofinal;
+package Modelo;
 
 
 public class Vehiculos {

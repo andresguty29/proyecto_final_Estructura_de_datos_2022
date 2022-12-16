@@ -1,5 +1,5 @@
 
-package com.ufide.proyectofinal;
+package Modelo;
 
 import java.util.Date;
 

@@ -1,5 +1,11 @@
-package com.ufide.proyectofinal;
+package Controlador;
 
+import Modelo.NodoSolicitud;
+import Modelo.NodoAlquiler;
+import Modelo.Solicitudes;
+import Modelo.Clientes;
+import Modelo.Vehiculos;
+import Modelo.Alquiler;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Date;

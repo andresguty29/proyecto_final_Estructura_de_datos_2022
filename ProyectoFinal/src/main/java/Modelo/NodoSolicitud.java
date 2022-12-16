@@ -1,5 +1,7 @@
 
-package com.ufide.proyectofinal;
+package Modelo;
+
+import Modelo.Solicitudes;
 
 public class NodoSolicitud {
 //    Atributos de la clase

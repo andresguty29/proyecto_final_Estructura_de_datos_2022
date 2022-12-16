@@ -1,5 +1,7 @@
-package com.ufide.proyectofinal;
+package Controlador;
 
+import Modelo.NodoSolicitud;
+import Modelo.Solicitudes;
 import java.util.ArrayList;
 
 

@@ -1,5 +1,7 @@
 
-package com.ufide.proyectofinal;
+package Modelo;
+
+import Modelo.Vehiculos;
 
 public class NodoVehiculos {
 //  Atributos de la clase

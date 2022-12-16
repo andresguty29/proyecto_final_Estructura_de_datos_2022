@@ -1,6 +1,9 @@
 
-package com.ufide.proyectofinal;
+package Controlador;
 
+import Modelo.NodoClientes;
+import Modelo.NodoAlquiler;
+import Modelo.Clientes;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -64,7 +67,7 @@ public class ListaClientes {
         String consulta = null;
         if (this.cabeza != null){
             if(cabeza.getCliente().getCedula().equals(p)){
-                consulta = cabeza.getCliente().cedula + " " + cabeza.getCliente().nombre;
+                consulta = cabeza.getCliente().getCedula() + " " + cabeza.getCliente().getNombre();
             }
         } else {
             consulta = "No se han encontrado resultados";
@@ -90,7 +93,7 @@ public class ListaClientes {
                 NodoClientes aux=cabeza;
 //                Se usa un while condicionante que determina que mientras 
 //                aux.getSiguiente() sea diferente a nulo, el ciclo se ejecuta
-                while(aux.getSiguiente()!=null){
+                while(aux.getSiguiente()!=null && buscado==null){
 //                  Si el aux.getSiguiente() es diferente a nulo y al mismo 
 //                  tiempo, el getCedula de aux es igual(equals)al parametro 
 //                  cedula que se pidio de entrada, en ese caso se entra en la 
@@ -98,8 +101,8 @@ public class ListaClientes {
                     if(aux.getSiguiente()!=null && 
                             aux.getSiguiente().getCliente().getCedula().equals(cedula)){
                         buscado=aux.getSiguiente().getCliente();
-                        aux=aux.getSiguiente();
                     }
+                    aux=aux.getSiguiente();
                 }
             }
         }
@@ -111,25 +114,16 @@ public class ListaClientes {
 //  parametro de entrada tipo String cedula
     public void elimina (String cedula) {
         if(this.cabeza!=null){
-            
             if(cabeza.getCliente().getCedula().equals(cedula)){
                 cabeza = cabeza.getSiguiente();
             }else{
                 NodoClientes aux=cabeza;
-                NodoAlquiler ext= new NodoAlquiler();
                 while(aux.getSiguiente()!=null){
-                    aux=aux.getSiguiente();
-                    if(aux.getSiguiente()!=null && 
-                            aux.getSiguiente().getCliente().getCedula().equals(cedula)){
-                       // if()AÑADIR SI EL USUARIO TIENE ALQUILERES NO SE PUEDE ELIMINAR
-                       
-                      //Falta verificar si esta condicion funciona
-                       if(ext.getAtras().getAlquiler().getCedula().equals(cedula)){
-                           JOptionPane.showMessageDialog(null, "El cliente contiene alquileres en vigencia.");
-                       }
+                    if(aux.getSiguiente().getCliente().getCedula().equals(cedula)){
                         aux.setSiguiente(aux.getSiguiente().getSiguiente());
-                    }else if(aux.getSiguiente()==null){
-                        aux.setSiguiente(null);
+                    }
+                    if(aux.getSiguiente()!=null){
+                        aux=aux.getSiguiente();
                     }
                 }
             }

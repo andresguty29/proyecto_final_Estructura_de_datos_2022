@@ -1,6 +1,12 @@
+package Vista;
 
-package com.ufide.proyectofinal;
-
+import Modelo.Alquiler;
+import Controlador.ColaAlquiler;
+import Modelo.Configuracion;
+import Controlador.ListaVehiculos;
+import Controlador.ManejoArchivos;
+import Modelo.NodoAlquiler;
+import static Vista.Solicitudes_frm.modeloTabla;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,14 +18,14 @@ import org.apache.poi.ss.usermodel.ExcelStyleDateFormatter;
  *
  * @author User
  */
-public class Clientes_frm extends javax.swing.JDialog {
+public class Alquiler_frm extends javax.swing.JDialog {
 
-    public static ListaClientes lista_clientes = new ListaClientes();
-    public static Configuracion config=new Configuracion();
-    public static ManejoArchivos manArch=new  ManejoArchivos(config.getCarpeta()+config.getArchivo(),1);
-    public static DefaultTableModel modeloTabla = new DefaultTableModel(){
+    public static ColaAlquiler cola_alquiler = new ColaAlquiler();
+    public static Configuracion config = new Configuracion();
+    public static ManejoArchivos manArch = new ManejoArchivos(config.getCarpeta() + config.getArchivo(), 3);
+    public static DefaultTableModel modeloTabla = new DefaultTableModel() {
         @Override
-        public boolean isCellEditable(int row, int col){
+        public boolean isCellEditable(int row, int col) {
             return false;
         }
     };
@@ -27,11 +33,16 @@ public class Clientes_frm extends javax.swing.JDialog {
     /**
      * Creates new form Vehi
      */
-    public Clientes_frm(java.awt.Frame parent, boolean modal) {
+    public Alquiler_frm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        llenarListaVehiculos();
-        iniciarTablaVehiculos();
+        llenarListaAlquiler();
+        iniciarTablaAlquiler();
+
+    }
+
+    Alquiler_frm() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -77,20 +88,26 @@ public class Clientes_frm extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        txtNombreCompleto = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        txtApellido1 = new javax.swing.JTextField();
+        txtPlacaVehiculo = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        txtApellido2 = new javax.swing.JTextField();
+        txtCedulaArrendatario = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        txtNumeroCedula = new javax.swing.JTextField();
+        txtNombreArrendatario = new javax.swing.JTextField();
+        txtNumeroSolicitud = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
-        txtCorreoElectronico = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
+        txtPrecioAlquilerPorDia = new javax.swing.JTextField();
         btnLimp = new javax.swing.JButton();
         btnGuard = new javax.swing.JButton();
-        cbxCategoriaCliente = new javax.swing.JComboBox<>();
-        calFechaNacimiento = new com.toedter.calendar.JDateChooser();
+        cbxCategoria = new javax.swing.JComboBox<>();
+        calFechaAlquiler = new com.toedter.calendar.JDateChooser();
+        jLabel24 = new javax.swing.JLabel();
+        txtCantidadDiasAlquiler = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
+        txtIVA = new javax.swing.JTextField();
+        txtTotalAPagar = new javax.swing.JTextField();
+        jLabel26 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnConsultar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
@@ -98,6 +115,7 @@ public class Clientes_frm extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         TabDatos = new javax.swing.JTable();
         btnResetear = new javax.swing.JButton();
+        btnDevolverVehiculo = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestión de Ingreso- Vehiculos"));
@@ -299,23 +317,21 @@ public class Clientes_frm extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestión de Ingreso- Clientes"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestión de Ingreso- Alquileres"));
 
-        jLabel12.setText("Numero Cedula");
+        jLabel12.setText("Numero Solicitud");
 
-        jLabel13.setText("Nombre Completo");
+        jLabel13.setText("Fecha Alquiler");
 
-        jLabel14.setText("Apellido 1");
+        jLabel14.setText("Placa vehiculo asignado");
 
-        jLabel15.setText("Apellido 2");
+        jLabel15.setText("Cedula arrendatario ");
 
-        jLabel17.setText("Fecha Nacimiento");
-
-        jLabel18.setText("Correo Electronico");
+        jLabel17.setText("nombre arrendatario");
 
         jLabel19.setText("Categoria");
 
-        txtCorreoElectronico.setToolTipText("");
+        jLabel20.setText("Precio Alq. x día");
 
         btnLimp.setText("Limpiar");
         btnLimp.addActionListener(new java.awt.event.ActionListener() {
@@ -331,79 +347,113 @@ public class Clientes_frm extends javax.swing.JDialog {
             }
         });
 
-        cbxCategoriaCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bronce", "Plata", "Oro", "Zafiro" }));
+        cbxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Super", "Regular", "Diesel" }));
+
+        jLabel24.setText("Cantidad días");
+
+        jLabel25.setText("IVA");
+
+        jLabel26.setText("Total a pagar");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(135, Short.MAX_VALUE)
-                .addComponent(btnGuard)
-                .addGap(63, 63, 63))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel19)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel18)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(24, 24, 24)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtNumeroCedula, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNombreCompleto, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtApellido1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtApellido2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtCorreoElectronico, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbxCategoriaCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(calFechaNacimiento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(btnLimp)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel20)
+                            .addComponent(jLabel24)
+                            .addComponent(jLabel25)
+                            .addComponent(jLabel26))
+                        .addGap(65, 65, 65)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTotalAPagar)
+                            .addComponent(txtIVA)
+                            .addComponent(txtCantidadDiasAlquiler)
+                            .addComponent(txtPrecioAlquilerPorDia)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel13)
+                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel15)
+                                        .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jLabel19))
+                                .addGap(24, 24, 24)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtNumeroSolicitud, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtPlacaVehiculo, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtCedulaArrendatario, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNombreArrendatario, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbxCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(calFechaAlquiler, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(135, 135, 135)
+                                        .addComponent(btnGuard))
+                                    .addComponent(btnLimp))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNumeroCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNumeroSolicitud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel13)
+                    .addComponent(calFechaAlquiler, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtApellido1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPlacaVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtApellido2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCedulaArrendatario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel17)
-                    .addComponent(calFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNombreArrendatario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18))
+                    .addComponent(cbxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel19)
-                    .addComponent(cbxCategoriaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(298, 298, 298)
+                    .addComponent(txtPrecioAlquilerPorDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCantidadDiasAlquiler, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel24))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtIVA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel25))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTotalAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel26))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLimp)
                     .addComponent(btnGuard))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Consulta y edición de Clientes"));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Consulta y edición de Alquileres"));
 
         btnConsultar.setText("Consultar");
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
@@ -426,17 +476,7 @@ public class Clientes_frm extends javax.swing.JDialog {
             }
         });
 
-        TabDatos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        TabDatos.setModel(modeloTabla);
         TabDatos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TabDatosMouseClicked(evt);
@@ -451,7 +491,9 @@ public class Clientes_frm extends javax.swing.JDialog {
             }
         });
 
-        jButton1.setText("Menú Inicial");
+        btnDevolverVehiculo.setText("Devolver Vehiculo");
+
+        jButton1.setText("Regresar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -465,7 +507,7 @@ public class Clientes_frm extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 883, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 907, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(btnConsultar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -474,9 +516,13 @@ public class Clientes_frm extends javax.swing.JDialog {
                         .addComponent(btnEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnResetear)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1)
-                        .addGap(13, 13, 13))))
+                        .addGap(6, 6, 6))))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(408, 408, 408)
+                .addComponent(btnDevolverVehiculo)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -489,8 +535,10 @@ public class Clientes_frm extends javax.swing.JDialog {
                     .addComponent(btnResetear)
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDevolverVehiculo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -508,104 +556,118 @@ public class Clientes_frm extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    public void llenarListaVehiculos(){
-        lista_clientes= manArch.leerArchivoClientes();
+
+    public void llenarListaAlquiler() {
+        cola_alquiler = manArch.leerArchivoAlquier();
     }
-    
-    public void llenarTablaVehiculos() {
-        String auxArranque, auxCargador, auxNavegador, auxSensor, auxCamara, 
-                auxWifi, auxMonitor;
-        for (NodoClientes cliente : lista_clientes.listaClientes()) {
+
+    public void llenarTablaAlquiler() {
+        for (NodoAlquiler alquiler : cola_alquiler.listaAlquiler()) {
+
             modeloTabla.addRow(new Object[]{
-                cliente.getCliente().getCedula(),
-                cliente.getCliente().getNombre(),
-                cliente.getCliente().getApellido1(),
-                cliente.getCliente().getApellido2(),
-                cliente.getCliente().getFechaNacimiento(),
-                cliente.getCliente().getCorreo(),
-                cliente.getCliente().getCategoria()
+                alquiler.getAlquiler().getIdSolicitud(),
+                alquiler.getAlquiler().getFechaAlquiler(),
+                alquiler.getAlquiler().getNumeroPlaca(),
+                alquiler.getAlquiler().getCedula(),
+                alquiler.getAlquiler().getNombre(),
+                alquiler.getAlquiler().getCategoria(),
+                alquiler.getAlquiler().getPrecioAlquierXDia(),
+                alquiler.getAlquiler().getCantidadDias(),
+                alquiler.getAlquiler().getIVA(),
+                alquiler.getAlquiler().getTotalAPagar()
+
             });
         }
     }
-    
-    public void llenarTablaClientesBusqueda(Clientes cliente) {
+
+    public void llenarTablaAlquilerBusqueda(Alquiler alquiler) {
+
         modeloTabla.addRow(new Object[]{
-                cliente.getCedula(),
-                cliente.getNombre(),
-                cliente.getApellido1(),
-                cliente.getApellido2(),
-                cliente.getFechaNacimiento(),
-                cliente.getCorreo(),
-                cliente.getCategoria()
-        });
-        
-    }
-
-    public void iniciarTablaVehiculos() {
-        modeloTabla.addColumn("Cedula");
-        modeloTabla.addColumn("Nombre");
-        modeloTabla.addColumn("Apellido 1");
-        modeloTabla.addColumn("Apellido 2");
-        modeloTabla.addColumn("Fecha Nacimiento");
-        modeloTabla.addColumn("Correo");
-        modeloTabla.addColumn("Categoria");
-        
-        TabDatos.setModel(modeloTabla);
-        llenarTablaVehiculos();
+            alquiler.getIdSolicitud(),
+            alquiler.getFechaAlquiler(),
+            alquiler.getNumeroPlaca(),
+            alquiler.getCedula(),
+            alquiler.getNombre(),
+            alquiler.getCategoria(),
+            alquiler.getPrecioAlquierXDia(),
+            alquiler.getCantidadDias(),
+            alquiler.getIVA(),
+            alquiler.getTotalAPagar(),});
 
     }
-    
-    public void vaciarTablaVehiculos(){
+
+    public void iniciarTablaAlquiler() {
+        if (modeloTabla.getColumnCount() == 0) {
+            modeloTabla.addColumn("Id.Sol");
+            modeloTabla.addColumn("Fecha Alq.");
+            modeloTabla.addColumn("Num.Placa");
+            modeloTabla.addColumn("Cedula");
+            modeloTabla.addColumn("Nombre");
+            modeloTabla.addColumn("Categoria");
+            modeloTabla.addColumn("P.Alq.X.Dia");
+            modeloTabla.addColumn("Cant.Dias");
+            modeloTabla.addColumn("IVA");
+            modeloTabla.addColumn("Total.Pag");
+        }
+        llenarTablaAlquiler();
+
+    }
+
+    public void vaciarTablaAlquiler() {
         for (int i = modeloTabla.getRowCount() - 1; i >= 0; i--) {
             modeloTabla.removeRow(i);
         }
     }
 
-    public void resetearTablaVehiculos() {
+    public void resetearTablaAlquiler() {
         for (int i = modeloTabla.getRowCount() - 1; i >= 0; i--) {
             modeloTabla.removeRow(i);
         }
-        llenarTablaVehiculos();
+        llenarTablaAlquiler();
     }
-    
-    public void llenar_cajas(){
+
+    public void llenar_cajas() {
         try {
-            this.txtNumeroCedula.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString());
-            this.txtNombreCompleto.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 1).toString());
-            this.txtApellido1.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 2).toString());
-            this.txtApellido2.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 3).toString());
-            
-            SimpleDateFormat format=new ExcelStyleDateFormatter("dd-MM-yyyy");
-            Date fechaFormateada=format.parse(TabDatos.getValueAt(TabDatos.getSelectedRow(), 4).toString());
-            
-            this.calFechaNacimiento.setDate(fechaFormateada);
-            this.txtCorreoElectronico.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 5).toString());
-            this.cbxCategoriaCliente.setSelectedItem(TabDatos.getValueAt(TabDatos.getSelectedRow(), 6).toString());
+            SimpleDateFormat format = new ExcelStyleDateFormatter("dd-MM-yyyy");
+            Date fechaFormateada = format.parse(TabDatos.getValueAt(TabDatos.getSelectedRow(), 1).toString());
+
+            this.txtNumeroSolicitud.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString());
+            this.calFechaAlquiler.setDate(fechaFormateada);
+            this.txtPlacaVehiculo.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 2).toString());
+            this.txtCedulaArrendatario.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 3).toString());
+            this.txtNombreArrendatario.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 4).toString());
+            this.cbxCategoria.setSelectedItem(TabDatos.getValueAt(TabDatos.getSelectedRow(), 5).toString());
+            this.txtPrecioAlquilerPorDia.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 6).toString());
+            this.txtCantidadDiasAlquiler.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 7).toString());
+            this.txtIVA.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 8).toString());
+            this.txtTotalAPagar.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 9).toString());
         } catch (Exception e) {
             System.err.println(e);
         }
+
     }
 
     public void limpiar_cajas() {
-        this.txtNumeroCedula.setText("");
-            this.txtNombreCompleto.setText("");
-            this.txtApellido1.setText("");
-            this.txtApellido2.setText("");
-            Date today=Calendar.getInstance().getTime();
-            this.calFechaNacimiento.setDate(today);
-            this.txtCorreoElectronico.setText("");
-            this.cbxCategoriaCliente.setSelectedItem("");
+        Date today = Calendar.getInstance().getTime();
+        this.txtNumeroSolicitud.setText("");
+        this.calFechaAlquiler.setDate(today);
+        this.txtPlacaVehiculo.setText("");
+        this.txtCedulaArrendatario.setText("");
+        this.txtNombreArrendatario.setText("");
+        this.cbxCategoria.setSelectedItem("");
+        this.txtPrecioAlquilerPorDia.setText("");
+        this.txtCantidadDiasAlquiler.setText("");
+        this.txtIVA.setText("");
+        this.txtTotalAPagar.setText("");
     }
-
 
     private void marcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marcaActionPerformed
         // TODO add your handling code here:
@@ -625,75 +687,98 @@ public class Clientes_frm extends javax.swing.JDialog {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        String cedula=JOptionPane.showInputDialog("Digite el número de Cedula");
+        // Consulta por placa 
+        String solicitud = JOptionPane.showInputDialog("Digite el número de Solicitud");
+        Alquiler encontrar = cola_alquiler.buscar(solicitud);
         
-        Clientes encontrar= lista_clientes.buscar(cedula);
-        if(encontrar==null){
+        if (encontrar == null) {
             JOptionPane.showMessageDialog(null, "No hay coincidencias");
-        }else{
-            vaciarTablaVehiculos();
-            llenarTablaClientesBusqueda(encontrar);
+        } else {
+            vaciarTablaAlquiler();
+            llenarTablaAlquilerBusqueda(encontrar);
         }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
-        String cedula=TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString();
-        
-        SimpleDateFormat standar=new SimpleDateFormat("dd-MM-yyyy");
-        String fecha=standar.format(calFechaNacimiento.getDate());
-        
-        Clientes encontrar= lista_clientes.buscar(cedula);
-        if(encontrar==null){
-            JOptionPane.showMessageDialog(null, "No hay cedula almacenada");
-        }else{
-            encontrar.setNombre(txtNombreCompleto.getText());
-            encontrar.setApellido1(txtApellido1.getText());
-            encontrar.setApellido2(txtApellido2.getText());
-            encontrar.setFechaNacimiento(fecha);
-            encontrar.setCorreo(txtCorreoElectronico.getText());
-            encontrar.setCategoria(cbxCategoriaCliente.getSelectedItem().toString());
-            
-            lista_clientes.modificar(encontrar);
+        String solicitud = TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString();
+        SimpleDateFormat standar = new SimpleDateFormat("dd-MM-yyyy");
+        String fecha = standar.format(calFechaAlquiler.getDate());
+
+        Alquiler encontrar = cola_alquiler.buscar(solicitud);
+        if (encontrar == null) {
+            JOptionPane.showMessageDialog(null, "No hay Solicitud almacenada");
+        } else {
+            encontrar.setIdSolicitud(txtNumeroSolicitud.getText());
+            encontrar.setFechaAlquiler(fecha);
+            encontrar.setNumeroPlaca(txtPlacaVehiculo.getText());
+            encontrar.setCedula(txtCedulaArrendatario.getText());
+            encontrar.setNombre(txtNombreArrendatario.getText());
+            encontrar.setCategoria(cbxCategoria.getSelectedItem().toString());
+            encontrar.setPrecioAlquierXDia(Double.parseDouble(txtPrecioAlquilerPorDia.getText()));
+            encontrar.setCantidadDias(Integer.parseInt(txtCantidadDiasAlquiler.getText()));
+            encontrar.setIVA(Double.parseDouble(txtIVA.getText()));
+            encontrar.setTotalAPagar(Double.parseDouble(txtTotalAPagar.getText()));
+
+            cola_alquiler.modificar(encontrar);
             limpiar_cajas();
-            vaciarTablaVehiculos();
-            llenarTablaVehiculos();
+            vaciarTablaAlquiler();
+            llenarTablaAlquiler();
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        String cliente=TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString();
-        lista_clientes.elimina(cliente);
+        String solicitud = TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString();
+        Alquiler encontrar = cola_alquiler.buscar(solicitud);
+        cola_alquiler.elimina(encontrar.getIdSolicitud());
         limpiar_cajas();
-        vaciarTablaVehiculos();
-        llenarTablaVehiculos();
+        vaciarTablaAlquiler();
+        llenarTablaAlquiler();
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void TabDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabDatosMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            llenar_cajas();
+        }
+    }//GEN-LAST:event_TabDatosMouseClicked
+
+    private void btnResetearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetearActionPerformed
+        // TODO add your handling code here:
+        limpiar_cajas();
+        resetearTablaAlquiler();
+    }//GEN-LAST:event_btnResetearActionPerformed
 
     private void btnGuardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardActionPerformed
         // TODO add your handling code here:
-        SimpleDateFormat standar=new SimpleDateFormat("dd-MM-yyyy");
-        String fecha=standar.format(calFechaNacimiento.getDate());
-        
-        if (txtNumeroCedula.getText().isEmpty() == false
-            || txtNombreCompleto.getText().isEmpty() == false
-            || txtApellido1.getText().isEmpty() == false
-            || txtApellido2.getText().isEmpty() == false
-            || txtCorreoElectronico.getText().isEmpty() == false
-            ){
-            Clientes cliente= new Clientes(
-                    txtNumeroCedula.getText(), 
-                    txtNombreCompleto.getText(), 
-                    txtApellido1.getText(), 
-                    txtApellido2.getText(), 
+
+        SimpleDateFormat standar = new SimpleDateFormat("dd-MM-yyyy");
+        String fecha = standar.format(calFechaAlquiler.getDate());
+        if (this.txtNumeroSolicitud.getText().isEmpty() == false
+                || this.txtPlacaVehiculo.getText().isEmpty() == false
+                || this.txtCedulaArrendatario.getText().isEmpty() == false
+                || this.txtNombreArrendatario.getText().isEmpty() == false
+                || this.txtPrecioAlquilerPorDia.getText().isEmpty() == false
+                || this.txtCantidadDiasAlquiler.getText().isEmpty() == false
+                || this.txtIVA.getText().isEmpty() == false
+                || this.txtTotalAPagar.getText().isEmpty() == false) {
+
+            Alquiler alquiler = new Alquiler(
+                    this.txtNumeroSolicitud.getText(),
                     fecha,
-                    txtCorreoElectronico.getText(), 
-                    cbxCategoriaCliente.getSelectedItem().toString()
+                    this.txtPlacaVehiculo.getText(),
+                    this.txtCedulaArrendatario.getText(),
+                    this.txtNombreArrendatario.getText(),
+                    this.cbxCategoria.getSelectedItem().toString(),
+                    Double.parseDouble(this.txtPrecioAlquilerPorDia.getText()),
+                    Integer.parseInt(this.txtCantidadDiasAlquiler.getText()),
+                    Double.parseDouble(this.txtIVA.getText()),
+                    Double.parseDouble(this.txtTotalAPagar.getText())
             );
-            
-            lista_clientes.insertar(cliente);
-            
-            resetearTablaVehiculos();
+
+            cola_alquiler.enCola(new NodoAlquiler(alquiler));
+            resetearTablaAlquiler();
         }
         limpiar_cajas();
     }//GEN-LAST:event_btnGuardActionPerformed
@@ -702,19 +787,6 @@ public class Clientes_frm extends javax.swing.JDialog {
         // Limpia las cajas
         limpiar_cajas();
     }//GEN-LAST:event_btnLimpActionPerformed
-
-    private void TabDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabDatosMouseClicked
-        // TODO add your handling code here:
-        if(evt.getClickCount()==2){
-            llenar_cajas();
-        }
-    }//GEN-LAST:event_TabDatosMouseClicked
-
-    private void btnResetearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetearActionPerformed
-        // TODO add your handling code here:
-        limpiar_cajas();
-        resetearTablaVehiculos();
-    }//GEN-LAST:event_btnResetearActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         MenuInicial menu = new MenuInicial();
@@ -739,14 +811,18 @@ public class Clientes_frm extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Clientes_frm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Alquiler_frm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Clientes_frm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Alquiler_frm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Clientes_frm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Alquiler_frm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Clientes_frm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Alquiler_frm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -755,7 +831,7 @@ public class Clientes_frm extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Clientes_frm dialog = new Clientes_frm(new javax.swing.JFrame(), true);
+                Alquiler_frm dialog = new Alquiler_frm(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -773,17 +849,18 @@ public class Clientes_frm extends javax.swing.JDialog {
     private javax.swing.JCheckBox arranqueSinLLave;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnConsultar;
+    private javax.swing.JButton btnDevolverVehiculo;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuard;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimp;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnResetear;
-    private com.toedter.calendar.JDateChooser calFechaNacimiento;
+    private com.toedter.calendar.JDateChooser calFechaAlquiler;
     private javax.swing.JCheckBox camaraTrasera;
     private javax.swing.JTextField capacidadPasajeros;
     private javax.swing.JCheckBox cargadorInalambrico;
-    private javax.swing.JComboBox<String> cbxCategoriaCliente;
+    private javax.swing.JComboBox<String> cbxCategoria;
     private javax.swing.JTextField cilindrada;
     private javax.swing.JTextField color;
     private javax.swing.JTextField estado;
@@ -796,9 +873,12 @@ public class Clientes_frm extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -818,11 +898,14 @@ public class Clientes_frm extends javax.swing.JDialog {
     private javax.swing.JTextField precioAlquierXDia;
     private javax.swing.JCheckBox sensores;
     private javax.swing.JTextField tipoCombustible;
-    private javax.swing.JTextField txtApellido1;
-    private javax.swing.JTextField txtApellido2;
-    private javax.swing.JTextField txtCorreoElectronico;
-    private javax.swing.JTextField txtNombreCompleto;
-    private javax.swing.JTextField txtNumeroCedula;
+    private javax.swing.JTextField txtCantidadDiasAlquiler;
+    private javax.swing.JTextField txtCedulaArrendatario;
+    private javax.swing.JTextField txtIVA;
+    private javax.swing.JTextField txtNombreArrendatario;
+    private javax.swing.JTextField txtNumeroSolicitud;
+    private javax.swing.JTextField txtPlacaVehiculo;
+    private javax.swing.JTextField txtPrecioAlquilerPorDia;
+    private javax.swing.JTextField txtTotalAPagar;
     private javax.swing.JCheckBox wifi;
     // End of variables declaration//GEN-END:variables
 }

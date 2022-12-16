@@ -1,5 +1,7 @@
 
-package com.ufide.proyectofinal;
+package Modelo;
+
+import Modelo.Clientes;
 
 public class NodoClientes {
 //  Atributos de la clase

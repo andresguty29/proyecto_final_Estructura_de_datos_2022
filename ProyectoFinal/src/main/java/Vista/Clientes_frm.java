@@ -1,24 +1,28 @@
-/*
- NECESITAMOS SABER SI SE REQUIERE LECTURA DE ARCHIVOS .TXT, DE SER ASI SE DEBE AFINAR
-HACER PRUEBAS DE AGREGAR
-AGREGAR LAS VALIDACIONES, TRY CATCH,  CAMPOS  SOLO  NUMEROS O DOUBLE
-SE ENCICLA AL BUSCAR EN LA CLASE LISTA VEHICULOS
-AGREGAR MAS DATOS PARA HACER MAS PRUEBAS
- */
-package com.ufide.proyectofinal;
+package Vista;
 
+import Modelo.Clientes;
+import Modelo.Configuracion;
+import Controlador.ListaClientes;
+import Controlador.ListaVehiculos;
+import Controlador.ManejoArchivos;
+import Modelo.NodoClientes;
+import static Vista.Vehiculos_frm.modeloTabla;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.ss.usermodel.ExcelStyleDateFormatter;
 
 /**
  *
  * @author User
  */
-public class Vehiculos_frm extends javax.swing.JDialog {
+public class Clientes_frm extends javax.swing.JDialog {
 
-    public static ListaVehiculos lista_vehiculos = new ListaVehiculos();
+    public static ListaClientes lista_clientes = new ListaClientes();
     public static Configuracion config = new Configuracion();
-    public static ManejoArchivos manArch = new ManejoArchivos(config.getCarpeta() + config.getArchivo(), 0);
+    public static ManejoArchivos manArch = new ManejoArchivos(config.getCarpeta() + config.getArchivo(), 1);
     public static DefaultTableModel modeloTabla = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int col) {
@@ -29,7 +33,7 @@ public class Vehiculos_frm extends javax.swing.JDialog {
     /**
      * Creates new form Vehi
      */
-    public Vehiculos_frm(java.awt.Frame parent, boolean modal) {
+    public Clientes_frm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         llenarListaVehiculos();
@@ -76,40 +80,23 @@ public class Vehiculos_frm extends javax.swing.JDialog {
         jLabel16 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        txtMarca = new javax.swing.JTextField();
+        txtNombreCompleto = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        txtModelo = new javax.swing.JTextField();
+        txtApellido1 = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        txtAnnio = new javax.swing.JTextField();
+        txtApellido2 = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        txtColor = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
-        txtNumeroPlaca = new javax.swing.JTextField();
+        txtNumeroCedula = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
-        txtCilindrada = new javax.swing.JTextField();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        txtCapacidadPasajeros = new javax.swing.JTextField();
-        txtPrecioAlquiler = new javax.swing.JTextField();
-        cbxArranqueSinLLave = new javax.swing.JCheckBox();
-        cbxCargadorInalambrico = new javax.swing.JCheckBox();
-        cbxNavegadorTraffico = new javax.swing.JCheckBox();
-        cbxSensores = new javax.swing.JCheckBox();
-        cbxCamaraTrasera = new javax.swing.JCheckBox();
-        cbxWifi = new javax.swing.JCheckBox();
-        cbxMonitoreoSatelital = new javax.swing.JCheckBox();
-        jLabel23 = new javax.swing.JLabel();
+        txtCorreoElectronico = new javax.swing.JTextField();
         btnLimp = new javax.swing.JButton();
         btnGuard = new javax.swing.JButton();
-        cbxEstado = new javax.swing.JComboBox<>();
-        cbxTipoCombustible = new javax.swing.JComboBox<>();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
+        cbxCategoriaCliente = new javax.swing.JComboBox<>();
+        calFechaNacimiento = new com.toedter.calendar.JDateChooser();
         jPanel3 = new javax.swing.JPanel();
         btnConsultar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
@@ -117,7 +104,8 @@ public class Vehiculos_frm extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         TabDatos = new javax.swing.JTable();
         btnResetear = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        btnFacturar = new javax.swing.JButton();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestión de Ingreso- Vehiculos"));
 
@@ -316,51 +304,25 @@ public class Vehiculos_frm extends javax.swing.JDialog {
                     .addComponent(btnLimpiar)))
         );
 
-        jButton1.setText("jButton1");
-
-        jButton2.setText("jButton2");
-
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestión de Ingreso- Vehiculos"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestión de Ingreso- Clientes"));
 
-        jLabel12.setText("Numero de placa:");
+        jLabel12.setText("Numero Cedula");
 
-        jLabel13.setText("Marca:");
+        jLabel13.setText("Nombre Completo");
 
-        jLabel14.setText("Modelo:");
+        jLabel14.setText("Apellido 1");
 
-        jLabel15.setText("Año:");
+        jLabel15.setText("Apellido 2");
 
-        jLabel17.setText("Color:");
+        jLabel17.setText("Fecha Nacimiento");
 
-        jLabel18.setText("Cilindrada:");
+        jLabel18.setText("Correo Electronico");
 
-        jLabel19.setText("Tipo de Combustible:");
+        jLabel19.setText("Categoria");
 
-        txtCilindrada.setToolTipText("");
-
-        jLabel20.setText("Capacidad de Pasajero: ");
-
-        jLabel21.setText("Precio de Alquiler: ");
-
-        jLabel22.setText("Estado:");
-
-        cbxArranqueSinLLave.setText("Arranca Sin LLave: ");
-
-        cbxCargadorInalambrico.setText("Cargador Inalambrico: ");
-
-        cbxNavegadorTraffico.setText("Navegador Trafico:");
-
-        cbxSensores.setText("Sensores:");
-
-        cbxCamaraTrasera.setText("Camara Trasera:");
-
-        cbxWifi.setText("Wifi:");
-
-        cbxMonitoreoSatelital.setText("Monitoreo Satelital: ");
-
-        jLabel23.setText("Extras: ");
+        txtCorreoElectronico.setToolTipText("");
 
         btnLimp.setText("Limpiar");
         btnLimp.addActionListener(new java.awt.event.ActionListener() {
@@ -376,81 +338,36 @@ public class Vehiculos_frm extends javax.swing.JDialog {
             }
         });
 
-        cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponible", "Alquilado", "En reparacion", "Fuera de circulacion" }));
-        cbxEstado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxEstadoActionPerformed(evt);
-            }
-        });
-
-        cbxTipoCombustible.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Super", "Regular", "Diesel" }));
-        cbxTipoCombustible.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxTipoCombustibleActionPerformed(evt);
-            }
-        });
+        cbxCategoriaCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bronce", "Plata", "Oro", "Zafiro" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(135, Short.MAX_VALUE)
+                .addComponent(btnGuard)
+                .addGap(63, 63, 63))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbxArranqueSinLLave, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbxCargadorInalambrico, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbxNavegadorTraffico, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbxSensores, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbxCamaraTrasera, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbxWifi, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(btnGuard)
-                                .addComponent(cbxMonitoreoSatelital, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(44, 44, 44))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(112, 112, 112)
-                                .addComponent(jLabel23))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel13)
-                                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jLabel14)
-                                                .addComponent(jLabel15)
-                                                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGap(24, 24, 24))
-                                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addComponent(jLabel18)
-                                            .addGap(76, 76, 76)))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel19)
-                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jLabel21))
-                                            .addComponent(jLabel22))
-                                        .addGap(7, 7, 7)))
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtNumeroPlaca, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtMarca, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtModelo, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtAnnio, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtColor, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCilindrada, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCapacidadPasajeros)
-                                    .addComponent(txtPrecioAlquiler)
-                                    .addComponent(cbxEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cbxTipoCombustible, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel19)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(24, 24, 24)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(txtNumeroCedula, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNombreCompleto, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtApellido1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtApellido2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtCorreoElectronico, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbxCategoriaCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(calFechaNacimiento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(btnLimp)
@@ -460,73 +377,40 @@ public class Vehiculos_frm extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNumeroPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNumeroCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtApellido1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtAnnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtApellido2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel17)
+                    .addComponent(calFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCilindrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
-                    .addComponent(cbxTipoCombustible, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCapacidadPasajeros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel20))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPrecioAlquiler, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel22)
-                    .addComponent(cbxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addComponent(jLabel23)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbxArranqueSinLLave)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbxCargadorInalambrico)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbxNavegadorTraffico))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbxSensores)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbxCamaraTrasera)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbxWifi)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbxMonitoreoSatelital)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(cbxCategoriaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(298, 298, 298)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLimp)
                     .addComponent(btnGuard))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Consulta y edición de Vehiculos"));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Consulta y edición de Clientes"));
 
         btnConsultar.setText("Consultar");
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
@@ -549,17 +433,7 @@ public class Vehiculos_frm extends javax.swing.JDialog {
             }
         });
 
-        TabDatos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        TabDatos.setModel(modeloTabla);
         TabDatos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TabDatosMouseClicked(evt);
@@ -574,10 +448,10 @@ public class Vehiculos_frm extends javax.swing.JDialog {
             }
         });
 
-        jButton3.setText("Menú Inicial");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("Menú Inicial");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -588,6 +462,7 @@ public class Vehiculos_frm extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 883, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(btnConsultar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -596,10 +471,9 @@ public class Vehiculos_frm extends javax.swing.JDialog {
                         .addComponent(btnEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnResetear)
-                        .addGap(50, 50, 50)
-                        .addComponent(jButton3)
-                        .addContainerGap())
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 874, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addGap(13, 13, 13))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -610,11 +484,13 @@ public class Vehiculos_frm extends javax.swing.JDialog {
                     .addComponent(btnActualizar)
                     .addComponent(btnEliminar)
                     .addComponent(btnResetear)
-                    .addComponent(jButton3))
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1)
                 .addContainerGap())
         );
+
+        btnFacturar.setText("Facturar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -626,170 +502,69 @@ public class Vehiculos_frm extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnFacturar)
+                .addGap(494, 494, 494))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnFacturar)
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     public void llenarListaVehiculos() {
-        lista_vehiculos = manArch.leerArchivoVehiculos();
+        lista_clientes = manArch.leerArchivoClientes();
     }
 
     public void llenarTablaVehiculos() {
         String auxArranque, auxCargador, auxNavegador, auxSensor, auxCamara,
                 auxWifi, auxMonitor;
-
-        for (NodoVehiculos vehiculo : lista_vehiculos.listaVehiculos()) {
-            if (vehiculo.getVehiculo().isArranqueSinLLave()) {
-                auxArranque = "X";
-            } else {
-                auxArranque = "";
-            }
-            if (vehiculo.getVehiculo().isCargadorInalambrico()) {
-                auxCargador = "X";
-            } else {
-                auxCargador = "";
-            }
-            if (vehiculo.getVehiculo().isNavegadorTraffico()) {
-                auxNavegador = "X";
-            } else {
-                auxNavegador = "";
-            }
-            if (vehiculo.getVehiculo().isSensores()) {
-                auxSensor = "X";
-            } else {
-                auxSensor = "";
-            }
-            if (vehiculo.getVehiculo().isCamaraTrasera()) {
-                auxCamara = "X";
-            } else {
-                auxCamara = "";
-            }
-            if (vehiculo.getVehiculo().isWifi()) {
-                auxWifi = "X";
-            } else {
-                auxWifi = "";
-            }
-            if (vehiculo.getVehiculo().isMonitoreoSatelital()) {
-                auxMonitor = "X";
-            } else {
-                auxMonitor = "";
-            }
-
+        for (NodoClientes cliente : lista_clientes.listaClientes()) {
             modeloTabla.addRow(new Object[]{
-                vehiculo.getVehiculo().getNumeroPlaca(),
-                vehiculo.getVehiculo().getMarca(),
-                vehiculo.getVehiculo().getModelo(),
-                vehiculo.getVehiculo().getAnnio(),
-                vehiculo.getVehiculo().getColor(),
-                vehiculo.getVehiculo().getCilindrada(),
-                vehiculo.getVehiculo().getTipoCombustible(),
-                vehiculo.getVehiculo().getCapacidadPasajeros(),
-                vehiculo.getVehiculo().getPrecioAlquierXDia(),
-                vehiculo.getVehiculo().getEstado(),
-                auxArranque,
-                auxCargador,
-                auxNavegador,
-                auxSensor,
-                auxCamara,
-                auxWifi,
-                auxMonitor});
+                cliente.getCliente().getCedula(),
+                cliente.getCliente().getNombre(),
+                cliente.getCliente().getApellido1(),
+                cliente.getCliente().getApellido2(),
+                cliente.getCliente().getFechaNacimiento(),
+                cliente.getCliente().getCorreo(),
+                cliente.getCliente().getCategoria()
+            });
         }
     }
 
-    public void llenarTablaVehiculosBusqueda(Vehiculos vehiculo) {
-        String auxArranque, auxCargador, auxNavegador, auxSensor, auxCamara,
-                auxWifi, auxMonitor;
-
-        if (vehiculo.isArranqueSinLLave()) {
-            auxArranque = "X";
-        } else {
-            auxArranque = "";
-        }
-        if (vehiculo.isCargadorInalambrico()) {
-            auxCargador = "X";
-        } else {
-            auxCargador = "";
-        }
-        if (vehiculo.isNavegadorTraffico()) {
-            auxNavegador = "X";
-        } else {
-            auxNavegador = "";
-        }
-        if (vehiculo.isSensores()) {
-            auxSensor = "X";
-        } else {
-            auxSensor = "";
-        }
-        if (vehiculo.isCamaraTrasera()) {
-            auxCamara = "X";
-        } else {
-            auxCamara = "";
-        }
-        if (vehiculo.isWifi()) {
-            auxWifi = "X";
-        } else {
-            auxWifi = "";
-        }
-        if (vehiculo.isMonitoreoSatelital()) {
-            auxMonitor = "X";
-        } else {
-            auxMonitor = "";
-        }
-
+    public void llenarTablaClientesBusqueda(Clientes cliente) {
         modeloTabla.addRow(new Object[]{
-            vehiculo.getNumeroPlaca(),
-            vehiculo.getMarca(),
-            vehiculo.getModelo(),
-            vehiculo.getAnnio(),
-            vehiculo.getColor(),
-            vehiculo.getCilindrada(),
-            vehiculo.getTipoCombustible(),
-            vehiculo.getCapacidadPasajeros(),
-            vehiculo.getPrecioAlquierXDia(),
-            vehiculo.getEstado(),
-            auxArranque,
-            auxCargador,
-            auxNavegador,
-            auxSensor,
-            auxCamara,
-            auxWifi,
-            auxMonitor});
+            cliente.getCedula(),
+            cliente.getNombre(),
+            cliente.getApellido1(),
+            cliente.getApellido2(),
+            cliente.getFechaNacimiento(),
+            cliente.getCorreo(),
+            cliente.getCategoria()
+        });
 
     }
 
     public void iniciarTablaVehiculos() {
-        modeloTabla.addColumn("Placa");
-        modeloTabla.addColumn("Marca");
-        modeloTabla.addColumn("Modelo");
-        modeloTabla.addColumn("Año");
-        modeloTabla.addColumn("Color");
-        modeloTabla.addColumn("Cilindrada");
-        modeloTabla.addColumn("Combustible");
-        modeloTabla.addColumn("Cap. Pasajeros");
-        modeloTabla.addColumn("Precio");
-        modeloTabla.addColumn("Estado");
-        modeloTabla.addColumn("Arr.S.Llave");
-        modeloTabla.addColumn("Carg.Inal");
-        modeloTabla.addColumn("Nav.GPS");
-        modeloTabla.addColumn("Sensores");
-        modeloTabla.addColumn("Cam.Trasera");
-        modeloTabla.addColumn("Wifi");
-        modeloTabla.addColumn("Mon.Sat.");
-
-        TabDatos.setModel(modeloTabla);
+        if (modeloTabla.getColumnCount() == 0) {
+            modeloTabla.addColumn("Cedula");
+            modeloTabla.addColumn("Nombre");
+            modeloTabla.addColumn("Apellido 1");
+            modeloTabla.addColumn("Apellido 2");
+            modeloTabla.addColumn("Fecha Nacimiento");
+            modeloTabla.addColumn("Correo");
+            modeloTabla.addColumn("Categoria");
+        }
         llenarTablaVehiculos();
 
     }
@@ -808,96 +583,34 @@ public class Vehiculos_frm extends javax.swing.JDialog {
     }
 
     public void llenar_cajas() {
-        this.txtNumeroPlaca.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString());
-        this.txtMarca.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 1).toString());
-        this.txtModelo.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 2).toString());
-        this.txtAnnio.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 3).toString());
-        this.txtColor.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 4).toString());
-        this.txtCilindrada.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 5).toString());
-        this.cbxTipoCombustible.setSelectedItem(TabDatos.getValueAt(TabDatos.getSelectedRow(), 6).toString());
-        this.txtCapacidadPasajeros.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 7).toString());
-        this.txtPrecioAlquiler.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 8).toString());
-        this.cbxEstado.setSelectedItem(TabDatos.getValueAt(TabDatos.getSelectedRow(), 9).toString());
+        try {
+            this.txtNumeroCedula.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString());
+            this.txtNombreCompleto.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 1).toString());
+            this.txtApellido1.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 2).toString());
+            this.txtApellido2.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 3).toString());
 
-        if (TabDatos.getValueAt(TabDatos.getSelectedRow(), 10).toString().equals("X")) {
-            this.cbxArranqueSinLLave.setSelected(true);
-        } else {
-            this.cbxArranqueSinLLave.setSelected(false);
-        }
-        if (TabDatos.getValueAt(TabDatos.getSelectedRow(), 11).toString().equals("X")) {
-            this.cbxCargadorInalambrico.setSelected(true);
-        } else {
-            this.cbxCargadorInalambrico.setSelected(false);
-        }
-        if (TabDatos.getValueAt(TabDatos.getSelectedRow(), 12).toString().equals("X")) {
-            this.cbxNavegadorTraffico.setSelected(true);
-        } else {
-            this.cbxNavegadorTraffico.setSelected(false);
-        }
-        if (TabDatos.getValueAt(TabDatos.getSelectedRow(), 13).toString().equals("X")) {
-            this.cbxSensores.setSelected(true);
-        } else {
-            this.cbxSensores.setSelected(false);
-        }
-        if (TabDatos.getValueAt(TabDatos.getSelectedRow(), 14).toString().equals("X")) {
-            this.cbxCamaraTrasera.setSelected(true);
-        } else {
-            this.cbxCamaraTrasera.setSelected(false);
-        }
-        if (TabDatos.getValueAt(TabDatos.getSelectedRow(), 15).toString().equals("X")) {
-            this.cbxWifi.setSelected(true);
-        } else {
-            this.cbxWifi.setSelected(false);
-        }
-        if (TabDatos.getValueAt(TabDatos.getSelectedRow(), 16).toString().equals("X")) {
-            this.cbxMonitoreoSatelital.setSelected(true);
-        } else {
-            this.cbxMonitoreoSatelital.setSelected(false);
+            SimpleDateFormat format = new ExcelStyleDateFormatter("dd-MM-yyyy");
+            Date fechaFormateada = format.parse(TabDatos.getValueAt(TabDatos.getSelectedRow(), 4).toString());
+
+            this.calFechaNacimiento.setDate(fechaFormateada);
+            this.txtCorreoElectronico.setText(TabDatos.getValueAt(TabDatos.getSelectedRow(), 5).toString());
+            this.cbxCategoriaCliente.setSelectedItem(TabDatos.getValueAt(TabDatos.getSelectedRow(), 6).toString());
+        } catch (Exception e) {
+            System.err.println(e);
         }
     }
 
     public void limpiar_cajas() {
-        this.txtNumeroPlaca.setText("");
-        this.txtMarca.setText("");
-        this.txtModelo.setText("");
-        this.txtAnnio.setText("");
-        this.txtColor.setText("");
-        this.txtCilindrada.setText("");
-        this.cbxTipoCombustible.setSelectedIndex(0);
-        this.txtCapacidadPasajeros.setText("");
-        this.txtPrecioAlquiler.setText("");
-        this.cbxEstado.setSelectedIndex(0);
-        this.cbxArranqueSinLLave.setSelected(false);
-        this.cbxCargadorInalambrico.setSelected(false);
-        this.cbxNavegadorTraffico.setSelected(false);
-        this.cbxSensores.setSelected(false);
-        this.cbxCamaraTrasera.setSelected(false);
-        this.cbxWifi.setSelected(false);
-        this.cbxMonitoreoSatelital.setSelected(false);
+        this.txtNumeroCedula.setText("");
+        this.txtNombreCompleto.setText("");
+        this.txtApellido1.setText("");
+        this.txtApellido2.setText("");
+        Date today = Calendar.getInstance().getTime();
+        this.calFechaNacimiento.setDate(today);
+        this.txtCorreoElectronico.setText("");
+        this.cbxCategoriaCliente.setSelectedItem("");
     }
 
-    public String guardarLinea(Vehiculos vehiculo) {
-        String texto
-                = vehiculo.getNumeroPlaca() + "*"
-                + vehiculo.getMarca() + "*"
-                + vehiculo.getModelo() + "*"
-                + vehiculo.getAnnio() + "*"
-                + vehiculo.getColor() + "*"
-                + vehiculo.getCilindrada() + "*"
-                + vehiculo.getTipoCombustible() + "*"
-                + vehiculo.getCapacidadPasajeros() + "*"
-                + vehiculo.getPrecioAlquierXDia() + "*"
-                + vehiculo.getEstado() + "*"
-                + vehiculo.isArranqueSinLLave() + "*"
-                + vehiculo.isCargadorInalambrico() + "*"
-                + vehiculo.isNavegadorTraffico() + "*"
-                + vehiculo.isSensores() + "*"
-                + vehiculo.isCamaraTrasera() + "*"
-                + vehiculo.isWifi() + "*"
-                + vehiculo.isMonitoreoSatelital() + "\n";
-
-        return texto;
-    }
 
     private void marcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marcaActionPerformed
         // TODO add your handling code here:
@@ -917,109 +630,84 @@ public class Vehiculos_frm extends javax.swing.JDialog {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        // Consulta por placa 
-        String placa = JOptionPane.showInputDialog("Digite el número de placa");
+        String cedula = JOptionPane.showInputDialog("Digite el número de Cedula");
 
-        Vehiculos encontrar = lista_vehiculos.buscar(placa);
+        Clientes encontrar = lista_clientes.buscar(cedula);
         if (encontrar == null) {
             JOptionPane.showMessageDialog(null, "No hay coincidencias");
         } else {
             vaciarTablaVehiculos();
-            llenarTablaVehiculosBusqueda(encontrar);
+            llenarTablaClientesBusqueda(encontrar);
         }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
-        String placa = TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString();
+        try {
+            String cedula = TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString();
 
-        Vehiculos encontrar = lista_vehiculos.buscar(placa);
-        if (encontrar == null) {
-            JOptionPane.showMessageDialog(null, "No hay placa almacenada");
-        } else {
-            encontrar.setMarca(txtMarca.getText());
-            encontrar.setModelo(txtModelo.getText());
-            encontrar.setAnnio(Integer.parseInt(txtAnnio.getText()));
-            encontrar.setColor(txtColor.getText());
-            encontrar.setCilindrada(txtCilindrada.getText());
-            encontrar.setTipoCombustible(cbxTipoCombustible.
-                    getSelectedItem().toString());
-            encontrar.setCapacidadPasajeros(Integer.parseInt(txtCapacidadPasajeros.getText()));
-            encontrar.setPrecioAlquierXDia(Double.parseDouble(txtPrecioAlquiler.getText()));
-            encontrar.setEstado(cbxEstado.getSelectedItem().toString());
-            encontrar.setArranqueSinLLave(cbxArranqueSinLLave.
-                    isSelected());
-            encontrar.setCargadorInalambrico(cbxCargadorInalambrico.isSelected());
-            encontrar.setNavegadorTraffico(cbxNavegadorTraffico.isSelected());
-            encontrar.setSensores(cbxSensores.isSelected());
-            encontrar.setCamaraTrasera(cbxCamaraTrasera.isSelected());
-            encontrar.setWifi(cbxWifi.isSelected());
-            encontrar.setMonitoreoSatelital(cbxMonitoreoSatelital.isSelected());
-            lista_vehiculos.modifica(encontrar);
-            limpiar_cajas();
-            vaciarTablaVehiculos();
-            llenarTablaVehiculos();
+            SimpleDateFormat standar = new SimpleDateFormat("dd-MM-yyyy");
+            String fecha = standar.format(calFechaNacimiento.getDate());
+
+            Clientes encontrar = lista_clientes.buscar(cedula);
+            if (encontrar == null) {
+                JOptionPane.showMessageDialog(null, "No hay cedula almacenada");
+            } else {
+                encontrar.setNombre(txtNombreCompleto.getText());
+                encontrar.setApellido1(txtApellido1.getText());
+                encontrar.setApellido2(txtApellido2.getText());
+                encontrar.setFechaNacimiento(fecha);
+                encontrar.setCorreo(txtCorreoElectronico.getText());
+                encontrar.setCategoria(cbxCategoriaCliente.getSelectedItem().toString());
+
+                lista_clientes.modificar(encontrar);
+                limpiar_cajas();
+                vaciarTablaVehiculos();
+                llenarTablaVehiculos();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Seleccione una fila");
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // Extrae dato de la placa
-        String placa = TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString();
-        if (txtNumeroPlaca.getText().isEmpty() == false) {
-            lista_vehiculos.elimina(txtNumeroPlaca.getText());
-            lista_vehiculos.elimina(placa);
+        // TODO add your handling code here:
+        try {
+            String cliente = TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString();
+            lista_clientes.elimina(cliente);
+            limpiar_cajas();
+            vaciarTablaVehiculos();
+            llenarTablaVehiculos();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Seleccione una fila");
         }
-
-        limpiar_cajas();
-        vaciarTablaVehiculos();
-        llenarTablaVehiculos();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnGuardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardActionPerformed
         // TODO add your handling code here:
-        if (txtNumeroPlaca.getText().isEmpty() == false
-                && txtMarca.getText().isEmpty() == false
-                && txtModelo.getText().isEmpty() == false
-                && txtAnnio.getText().isEmpty() == false
-                && txtColor.getText().isEmpty() == false
-                && txtCilindrada.getText().isEmpty() == false
-                && txtCapacidadPasajeros.getText().isEmpty() == false
-                && txtPrecioAlquiler.getText().isEmpty() == false) {
+        SimpleDateFormat standar = new SimpleDateFormat("dd-MM-yyyy");
+        String fecha = standar.format(calFechaNacimiento.getDate());
 
-            Vehiculos vehiculo = new Vehiculos(
-                    txtNumeroPlaca.getText(),
-                    txtMarca.getText(),
-                    txtModelo.getText(),
-                    Integer.parseInt(txtAnnio.getText()),
-                    txtColor.getText(),
-                    txtCilindrada.getText(),
-                    cbxTipoCombustible.getSelectedItem().toString(),
-                    Integer.parseInt(txtCapacidadPasajeros.getText()),
-                    Double.parseDouble(txtPrecioAlquiler.getText()),
-                    cbxEstado.getSelectedItem().toString(),
-                    cbxArranqueSinLLave.isSelected(),
-                    cbxCargadorInalambrico.isSelected(),
-                    cbxNavegadorTraffico.isSelected(),
-                    cbxSensores.isSelected(),
-                    cbxCamaraTrasera.isSelected(),
-                    cbxWifi.isSelected(),
-                    cbxMonitoreoSatelital.isSelected()
+        if (txtNumeroCedula.getText().isEmpty() == false
+                || txtNombreCompleto.getText().isEmpty() == false
+                || txtApellido1.getText().isEmpty() == false
+                || txtApellido2.getText().isEmpty() == false
+                || txtCorreoElectronico.getText().isEmpty() == false) {
+            Clientes cliente = new Clientes(
+                    txtNumeroCedula.getText(),
+                    txtNombreCompleto.getText(),
+                    txtApellido1.getText(),
+                    txtApellido2.getText(),
+                    fecha,
+                    txtCorreoElectronico.getText(),
+                    cbxCategoriaCliente.getSelectedItem().toString()
             );
 
-            lista_vehiculos.inserta(vehiculo);
+            lista_clientes.insertar(cliente);
 
-        } else if (txtNumeroPlaca.getText().isEmpty() == true
-                || txtMarca.getText().isEmpty() == true
-                || txtModelo.getText().isEmpty() == true
-                || txtAnnio.getText().isEmpty() == true
-                || txtColor.getText().isEmpty() == true
-                || txtCilindrada.getText().isEmpty() == true
-                || txtCapacidadPasajeros.getText().isEmpty() == true
-                || txtPrecioAlquiler.getText().isEmpty() == true) {
-            JOptionPane.showMessageDialog(null, "Datos incompletos ingresar");
+            resetearTablaVehiculos();
         }
         limpiar_cajas();
-        resetearTablaVehiculos();
     }//GEN-LAST:event_btnGuardActionPerformed
 
     private void btnLimpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpActionPerformed
@@ -1040,19 +728,11 @@ public class Vehiculos_frm extends javax.swing.JDialog {
         resetearTablaVehiculos();
     }//GEN-LAST:event_btnResetearActionPerformed
 
-    private void cbxEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxEstadoActionPerformed
-
-    }//GEN-LAST:event_cbxEstadoActionPerformed
-
-    private void cbxTipoCombustibleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoCombustibleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbxTipoCombustibleActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         MenuInicial menu = new MenuInicial();
         menu.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1071,21 +751,23 @@ public class Vehiculos_frm extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Vehiculos_frm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Clientes_frm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Vehiculos_frm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Clientes_frm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Vehiculos_frm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Clientes_frm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Vehiculos_frm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Clientes_frm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Vehiculos_frm dialog = new Vehiculos_frm(new javax.swing.JFrame(), true);
+                Clientes_frm dialog = new Clientes_frm(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -1104,30 +786,21 @@ public class Vehiculos_frm extends javax.swing.JDialog {
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnFacturar;
     private javax.swing.JButton btnGuard;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimp;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnResetear;
+    private com.toedter.calendar.JDateChooser calFechaNacimiento;
     private javax.swing.JCheckBox camaraTrasera;
     private javax.swing.JTextField capacidadPasajeros;
     private javax.swing.JCheckBox cargadorInalambrico;
-    private javax.swing.JCheckBox cbxArranqueSinLLave;
-    private javax.swing.JCheckBox cbxCamaraTrasera;
-    private javax.swing.JCheckBox cbxCargadorInalambrico;
-    private javax.swing.JComboBox<String> cbxEstado;
-    private javax.swing.JCheckBox cbxMonitoreoSatelital;
-    private javax.swing.JCheckBox cbxNavegadorTraffico;
-    private javax.swing.JCheckBox cbxSensores;
-    private javax.swing.JComboBox<String> cbxTipoCombustible;
-    private javax.swing.JCheckBox cbxWifi;
+    private javax.swing.JComboBox<String> cbxCategoriaCliente;
     private javax.swing.JTextField cilindrada;
     private javax.swing.JTextField color;
     private javax.swing.JTextField estado;
-    private javax.swing.Box.Filler filler1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1139,10 +812,6 @@ public class Vehiculos_frm extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1162,14 +831,11 @@ public class Vehiculos_frm extends javax.swing.JDialog {
     private javax.swing.JTextField precioAlquierXDia;
     private javax.swing.JCheckBox sensores;
     private javax.swing.JTextField tipoCombustible;
-    private javax.swing.JTextField txtAnnio;
-    private javax.swing.JTextField txtCapacidadPasajeros;
-    private javax.swing.JTextField txtCilindrada;
-    private javax.swing.JTextField txtColor;
-    private javax.swing.JTextField txtMarca;
-    private javax.swing.JTextField txtModelo;
-    private javax.swing.JTextField txtNumeroPlaca;
-    private javax.swing.JTextField txtPrecioAlquiler;
+    private javax.swing.JTextField txtApellido1;
+    private javax.swing.JTextField txtApellido2;
+    private javax.swing.JTextField txtCorreoElectronico;
+    private javax.swing.JTextField txtNombreCompleto;
+    private javax.swing.JTextField txtNumeroCedula;
     private javax.swing.JCheckBox wifi;
     // End of variables declaration//GEN-END:variables
 }

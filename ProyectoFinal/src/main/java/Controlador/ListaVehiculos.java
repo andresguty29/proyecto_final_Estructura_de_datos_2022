@@ -1,7 +1,9 @@
 //
-package com.ufide.proyectofinal;
+package Controlador;
 //Se realizan el ingreso de vehiculos a una lista Simple
 
+import Modelo.NodoVehiculos;
+import Modelo.Vehiculos;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -100,7 +102,7 @@ public class ListaVehiculos {
                 NodoVehiculos aux = cabeza;
 //              Se usa un while condicionante que determina que mientras 
 //              aux.getAtras() sea diferente a nulo, el ciclo se ejecuta
-                while (aux.getAtras() != null) {
+                while (aux.getAtras() != null && buscado==null) {
 //                  Si el aux.getAtras() es diferente a nulo y al mismo 
 //                  tiempo, el getNumeroPlaca de aux es igual(equals)al parametro 
 //                  placa que se pidio de entrada, en ese caso se entra en la 
@@ -109,8 +111,8 @@ public class ListaVehiculos {
                             && aux.getAtras().getVehiculo().getNumeroPlaca().
                                     equals(placa)) {
                         buscado = aux.getAtras().getVehiculo();
-                        aux = aux.getAtras();
                     }
+                    aux = aux.getAtras();
                 }
             }
         }

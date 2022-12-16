@@ -1,4 +1,6 @@
-package com.ufide.proyectofinal;
+package Modelo;
+
+import Modelo.Alquiler;
 
 public class NodoAlquiler {
 //  Atributos de la clase
@@ -7,6 +9,10 @@ public class NodoAlquiler {
     
 //  Constructor vacio para ahorrar futuros problemas
     public NodoAlquiler() {
+    }
+
+    public NodoAlquiler(Alquiler alquiler) {
+        this.alquiler = alquiler;
     }
     
 //    Getters y Setters de la clase
