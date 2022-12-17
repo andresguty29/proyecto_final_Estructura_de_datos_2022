@@ -77,9 +77,9 @@ public class ColaAlquiler {
     
     
     //Se eliminan solicitudes de la cola, con una entrada String idSolicitud
-    public void elimina (String idSolicitud) {
+   /* public void elimina (String idSolicitud) {
         try {
-            if (this.frente != null) {
+            if (frente != null) {
                 if (frente.getAtras().getAlquiler().getIdSolicitud().equals(idSolicitud)) {
                     frente = frente.getAtras();
                 } else {
@@ -105,7 +105,7 @@ public class ColaAlquiler {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una linea");
         }
     }
-    
+*/
     //Se buscan solicitudes dentro de la cola con una entrada String solicitud
     public Alquiler buscar(String solicitud){
         Alquiler buscado=null;

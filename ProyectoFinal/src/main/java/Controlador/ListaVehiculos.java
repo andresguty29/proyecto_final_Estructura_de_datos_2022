@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 public class ListaVehiculos {
 //    Atributo de la clase
+
     private NodoVehiculos cabeza;
 
 //    Metodo que recibe un nuevo dato con tipo Vehiculos p 
@@ -86,7 +87,7 @@ public class ListaVehiculos {
             }
         }
     }
-    
+
 //  Metodo para verificar si un vehiculo existe dentro de la lista, utilizando
 //  como parametro de entrada un String placa
     public Vehiculos buscar(String placa) {
@@ -102,7 +103,7 @@ public class ListaVehiculos {
                 NodoVehiculos aux = cabeza;
 //              Se usa un while condicionante que determina que mientras 
 //              aux.getAtras() sea diferente a nulo, el ciclo se ejecuta
-                while (aux.getAtras() != null && buscado==null) {
+                while (aux.getAtras() != null && buscado == null) {
 //                  Si el aux.getAtras() es diferente a nulo y al mismo 
 //                  tiempo, el getNumeroPlaca de aux es igual(equals)al parametro 
 //                  placa que se pidio de entrada, en ese caso se entra en la 
@@ -121,37 +122,39 @@ public class ListaVehiculos {
     }
 
     // ESTA FUNCION HAY QUE REVISARLA PORQUE FUNCIONA A MEDIAS//
-    
 //  Metodo que se encarga de eliminar un vehiculo dentro de la lista, utiliza un
 //  parametro de entrada tipo String placa
     public void elimina(String placa) {
-        if (this.cabeza != null) {
+        if (cabeza != null) {
             if (cabeza.getVehiculo().getNumeroPlaca().equals(placa)) {
                 cabeza = cabeza.getAtras();
             } else {
                 NodoVehiculos aux = cabeza;
                 while (aux.getAtras() != null
-                        && aux.getAtras().getVehiculo().getNumeroPlaca() 
+                        && aux.getAtras().getVehiculo().getNumeroPlaca()
                         != placa) {
                     aux = aux.getAtras();
                 }
+                //*
                 if (aux.getAtras() != null
                         && aux.getAtras().getVehiculo().getNumeroPlaca().
                                 equals(placa)) {
 
+                    //Si esta RENTADO NO elimina
                     if (aux.getAtras().getVehiculo().getEstado().
                             equals("Alquilado")) {
                         JOptionPane.showMessageDialog(null,
-                        "Estado en alquilado. No es posible eliminar");
+                                "Estado en alquilado. No es posible eliminar");
 
                     } else {
+                        ///Si NO esta en renta Elimina 
                         aux.setAtras(aux.getAtras().getAtras());
                     }
 
-                }//Posible cambio 
+                }/*Posible cambio 
                 else if (aux.getAtras() == null) {
                     aux.setAtras(null);
-                }
+                }*/
             }
         }
     }

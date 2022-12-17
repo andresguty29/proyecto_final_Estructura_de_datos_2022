@@ -1,4 +1,3 @@
-
 package Controlador;
 
 import Modelo.NodoClientes;
@@ -9,29 +8,30 @@ import javax.swing.JOptionPane;
 
 public class ListaClientes {
 //    Atributo de la clase
+
     private NodoClientes cabeza;
-    
+
 //    Metodo que recibe un nuevo dato con tipo Clientes p 
 //    y lo inserta dentro de la lista de clientes 
-    public void insertar(Clientes p){
-        NodoClientes temp = new NodoClientes (p);
-        if (cabeza == null){
+    public void insertar(Clientes p) {
+        NodoClientes temp = new NodoClientes(p);
+        if (cabeza == null) {
             cabeza = temp;
-        } else { 
+        } else {
             // Esto busca enlazar la cabeza con el nodo actual
             NodoClientes current = cabeza;
             // Aqui recorre la lista hasta llegar al ultimo nodo
-            while (current.getSiguiente()!= null){
+            while (current.getSiguiente() != null) {
                 current = current.getSiguiente();
             }
             current.setSiguiente(temp);
         }
     }
-   
+
 //    Metodo para buscar un dato tipo Clientes p dentro de la lista, y le 
 //    modifica los datos
-    public void modificar(Clientes p){
-        if (cabeza != null){
+    public void modificar(Clientes p) {
+        if (cabeza != null) {
             NodoClientes aux = cabeza;
 //            Se crea un while para recorrer la cola en donde aux debe ser 
 //            diferente a nulo y el aux.getCliente().getCedula() es 
@@ -40,7 +40,7 @@ public class ListaClientes {
 //            encontrar haciendo que mientras esas condiciones se cumplan, 
 //            recorrerá toda la lista
             while (aux != null && aux.getCliente().getCedula()
-                !=p.getCedula()){
+                    != p.getCedula()) {
                 aux = aux.getSiguiente();
             }
 //            Aqui se da la condicion importante la cual es que la cedula 
@@ -49,7 +49,7 @@ public class ListaClientes {
 //            los datos, utilizando el aux.getCliente().set de cada dato y asignando las
 //            modificaciones con un p.get de los datos    
             if (aux != null && aux.getCliente().getCedula()
-                    == p.getCedula()){
+                    == p.getCedula()) {
                 aux.getCliente().setNombre(p.getNombre());
                 aux.getCliente().setApellido1(p.getApellido1());
                 aux.getCliente().setApellido2(p.getApellido2());
@@ -59,77 +59,86 @@ public class ListaClientes {
             }
         }
     }
-    
+
 //    Este metodo se encarga de consultar con una entrada tipo String p, 
 //    si un cliente se encuentra en la lista mediante el uso de su cedula, 
 //    brindando al final la cedula y el nombre del cliente
-    public String consultar (String p){
+    public String consultar(String p) {
         String consulta = null;
-        if (this.cabeza != null){
-            if(cabeza.getCliente().getCedula().equals(p)){
+        if (this.cabeza != null) {
+            if (cabeza.getCliente().getCedula().equals(p)) {
                 consulta = cabeza.getCliente().getCedula() + " " + cabeza.getCliente().getNombre();
             }
         } else {
             consulta = "No se han encontrado resultados";
             // Falta crear la logica para los casos que no calzan
             //Falta verificar si la logica funciona
-        }  
+        }
         // Falta agregar el return correcto
         //Falta verificar si el return funciona
         return consulta;
     }
-    
+
 //  Metodo para verificar si un cliente existe dentro de la lista, utilizando
 //  como parametro de entrada un String cedula
-    public Clientes buscar(String cedula){
-        Clientes buscado=null;
-        if(this.cabeza!=null){
+    public Clientes buscar(String cedula) {
+        Clientes buscado = null;
+        if (this.cabeza != null) {
 //          Si el dato de cabeza.getCliente().getCedula() es igual(equals) al 
 //          parametro buscado(cedula), entraria en esta condicional 
 //          convirtiendo la variable "buscado" en cabeza.getCliente()
-            if(cabeza.getCliente().getCedula().equals(cedula)){
-                buscado=cabeza.getCliente();
-            }else{
-                NodoClientes aux=cabeza;
+            if (cabeza.getCliente().getCedula().equals(cedula)) {
+                buscado = cabeza.getCliente();
+            } else {
+                NodoClientes aux = cabeza;
 //                Se usa un while condicionante que determina que mientras 
 //                aux.getSiguiente() sea diferente a nulo, el ciclo se ejecuta
-                while(aux.getSiguiente()!=null && buscado==null){
+                while (aux.getSiguiente() != null && buscado == null) {
 //                  Si el aux.getSiguiente() es diferente a nulo y al mismo 
 //                  tiempo, el getCedula de aux es igual(equals)al parametro 
 //                  cedula que se pidio de entrada, en ese caso se entra en la 
 //                  condicion
-                    if(aux.getSiguiente()!=null && 
-                            aux.getSiguiente().getCliente().getCedula().equals(cedula)){
-                        buscado=aux.getSiguiente().getCliente();
+                    if (aux.getSiguiente() != null
+                            && aux.getSiguiente().getCliente().getCedula().equals(cedula)) {
+                        buscado = aux.getSiguiente().getCliente();
                     }
-                    aux=aux.getSiguiente();
+                    aux = aux.getSiguiente();
                 }
             }
         }
 //      Retorna el elemento buscado, el cual es el aux.getSiguiente().getCliente()
         return buscado;
     }
-    
+
 //  Metodo que se encarga de eliminar un cliente dentro de la lista, utiliza un
 //  parametro de entrada tipo String cedula
-    public void elimina (String cedula) {
-        if(this.cabeza!=null){
-            if(cabeza.getCliente().getCedula().equals(cedula)){
+    public void elimina(String cedula) {
+        if (cabeza != null) {
+            if (cabeza.getCliente().getCedula().equals(cedula)) {
                 cabeza = cabeza.getSiguiente();
-            }else{
-                NodoClientes aux=cabeza;
-                while(aux.getSiguiente()!=null){
-                    if(aux.getSiguiente().getCliente().getCedula().equals(cedula)){
-                        aux.setSiguiente(aux.getSiguiente().getSiguiente());
-                    }
-                    if(aux.getSiguiente()!=null){
-                        aux=aux.getSiguiente();
-                    }
+            } else {
+                NodoClientes aux = cabeza;
+                
+                while (aux.getSiguiente() != null 
+                        && aux.getSiguiente().
+                       getCliente().getCedula() != cedula) {
+                    aux=aux.getSiguiente();
+                    
+                }
+                //Si es igual a la cedula lo elimana 
+                if (aux.getSiguiente() != null &&  aux.getSiguiente().
+                       getCliente().getCedula().equals(cedula)) {
+                    
+                    //CONDICION EL CLIENTE NO TIENE ALQUILERES ELIMINA
+                    aux.setSiguiente(aux.getSiguiente().getSiguiente());
+                    //CONDICION EL CLIENTE  TIENE ALQUILERES 
+                    
+                    
                 }
             }
         }
     }
-    
+
 //  Se crea el metodo tipo ArrayList de la listaClientes
     public ArrayList<NodoClientes> listaClientes() {
         ArrayList<NodoClientes> listaClientes = new ArrayList<>();
@@ -143,6 +152,5 @@ public class ListaClientes {
 //      contenido del NodoClientes
         return listaClientes;
     }
-    
-    
+
 }

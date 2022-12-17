@@ -729,12 +729,12 @@ public class Alquiler_frm extends javax.swing.JDialog {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        String solicitud = TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString();
+       /* String solicitud = TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString();
         Alquiler encontrar = cola_alquiler.buscar(solicitud);
         cola_alquiler.elimina(encontrar.getIdSolicitud());
         limpiar_cajas();
         vaciarTablaAlquiler();
-        llenarTablaAlquiler();
+        llenarTablaAlquiler();*/
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void TabDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabDatosMouseClicked
