@@ -3,6 +3,7 @@ package Controlador;
 import Modelo.NodoSolicitud;
 import Modelo.Solicitudes;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 
 public class PilaSolicitudes{
@@ -25,6 +26,12 @@ public class PilaSolicitudes{
         } else if (cima == null){
              cima = nodo;
         }
+    }
+    
+    public void estado (){
+        solicitud.setEstadoSolicitud("Registrada");
+        JOptionPane.showMessageDialog(null, "Su solicitud ha sido registrada "
+                + "con éxito");
     }
     
 //  Metodo que revisa que la pila este vacia o si contiene datos

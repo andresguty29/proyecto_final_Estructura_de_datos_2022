@@ -5,6 +5,7 @@ import Controlador.ListaVehiculos;
 import Controlador.ManejoArchivos;
 import Modelo.NodoSolicitud;
 import Controlador.PilaSolicitudes;
+import Modelo.Clientes;
 import Modelo.Solicitudes;
 import static Vista.Clientes_frm.modeloTabla;
 import java.text.SimpleDateFormat;
@@ -979,9 +980,9 @@ public class Solicitudes_frm extends javax.swing.JDialog {
                     cbxWifi.isSelected(),
                     cbxMonitoreoSatelital.isSelected()
             );
-         pila_solicitudes.push(solicitud);
-
+            pila_solicitudes.push(solicitud);
             resetearTablaSolicitudes();
+            pila_solicitudes.estado();     
         }
         limpiar_cajas();
     }//GEN-LAST:event_btnGuardActionPerformed
