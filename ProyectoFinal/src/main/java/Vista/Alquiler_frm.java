@@ -36,9 +36,9 @@ public class Alquiler_frm extends javax.swing.JDialog {
     public Alquiler_frm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        vaciarTablaAlquiler();
         llenarListaAlquiler();
         iniciarTablaAlquiler();
-
     }
 
     Alquiler_frm() {

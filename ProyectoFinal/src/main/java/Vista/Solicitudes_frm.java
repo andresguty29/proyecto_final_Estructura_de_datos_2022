@@ -961,7 +961,8 @@ public class Solicitudes_frm extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnAlquilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlquilarActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        new Alquiler_frm(null, true).show();
     }//GEN-LAST:event_btnAlquilarActionPerformed
 
     /**
