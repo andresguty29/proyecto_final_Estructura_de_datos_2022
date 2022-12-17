@@ -991,14 +991,15 @@ public class Vehiculos_frm extends javax.swing.JDialog {
                 && txtPrecioAlquiler.getText().isEmpty() == false) {
 
             Vehiculos vehiculo = new Vehiculos(
-                    txtNumeroPlaca.getText(),
-                    txtMarca.getText(),
+                    txtNumeroPlaca.getText().toUpperCase(),
+                    txtMarca.getText().toUpperCase(),
                     txtModelo.getText(),
                     Integer.parseInt(txtAnnio.getText()),
                     txtColor.getText(),
                     txtCilindrada.getText(),
                     cbxTipoCombustible.getSelectedItem().toString(),
                     Integer.parseInt(txtCapacidadPasajeros.getText()),
+                    
                     Double.parseDouble(txtPrecioAlquiler.getText()),
                     cbxEstado.getSelectedItem().toString(),
                     cbxArranqueSinLLave.isSelected(),
