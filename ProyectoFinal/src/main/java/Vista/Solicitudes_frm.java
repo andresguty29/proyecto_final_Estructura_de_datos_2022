@@ -113,7 +113,6 @@ public class Solicitudes_frm extends javax.swing.JDialog {
         txtCantMinimaPasajeros = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         btnConsultar = new javax.swing.JButton();
-        btnActualizar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TabDatos = new javax.swing.JTable();
         btnResetear = new javax.swing.JButton();
@@ -528,13 +527,6 @@ public class Solicitudes_frm extends javax.swing.JDialog {
             }
         });
 
-        btnActualizar.setText("Actualizar");
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
-            }
-        });
-
         TabDatos.setModel(modeloTabla);
         TabDatos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -551,6 +543,11 @@ public class Solicitudes_frm extends javax.swing.JDialog {
         });
 
         btnAlquilar.setText("Alquilar");
+        btnAlquilar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlquilarActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Menú Inicial");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -569,8 +566,6 @@ public class Solicitudes_frm extends javax.swing.JDialog {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 874, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(btnConsultar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnActualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnResetear)
                         .addGap(42, 42, 42)
@@ -587,7 +582,6 @@ public class Solicitudes_frm extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConsultar)
-                    .addComponent(btnActualizar)
                     .addComponent(btnResetear)
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -887,8 +881,8 @@ public class Solicitudes_frm extends javax.swing.JDialog {
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         // Consulta por placa 
-        String solicitud = JOptionPane.showInputDialog("Digite el número de placa");
-        NodoSolicitud encontrar = pila_solicitudes.buscar(solicitud);
+        String solicitud = JOptionPane.showInputDialog("Digite el número de solicitud");
+        NodoSolicitud encontrar = pila_solicitudes.buscarN_Placa(solicitud);
         if (encontrar == null) {
             JOptionPane.showMessageDialog(null, "No hay coincidencias");
         } else {
@@ -896,42 +890,6 @@ public class Solicitudes_frm extends javax.swing.JDialog {
             llenarTablaSolicitudesBusqueda(encontrar);
         }
     }//GEN-LAST:event_btnConsultarActionPerformed
-
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // TODO add your handling code here:
-        SimpleDateFormat standar = new SimpleDateFormat("dd-MM-yyyy");
-        String fecha = standar.format(calFechaSolicitud.getDate());
-        NodoSolicitud encontrar = pila_solicitudes.buscar(
-                TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString());
-
-        if (encontrar == null) {
-            JOptionPane.showMessageDialog(null, "No hay placa almacenada");
-        } else {
-            encontrar.getSolicitud().setEstadoSolicitud(cbxEstadoSolicitud.getSelectedItem().toString());
-            encontrar.getSolicitud().setFechaSolicitud(fecha);
-            encontrar.getSolicitud().setCedula(Integer.parseInt(txtCedula.getText()));
-            encontrar.getSolicitud().setNombre(txtNombre.getText());
-            encontrar.getSolicitud().setCategoria(cbxCategoria.getSelectedItem().toString());
-            encontrar.getSolicitud().setCantidadDias(Integer.parseInt(txtCantidadDias.getText()));
-            encontrar.getSolicitud().setCantidadMinimaPasajeros(Integer.parseInt(txtCantMinimaPasajeros.getText()));
-            encontrar.getSolicitud().setMarca(txtMarca.getText());
-            encontrar.getSolicitud().setModelo(txtModelo.getText());
-            encontrar.getSolicitud().setAnnio(txtannio.getText());
-            encontrar.getSolicitud().setArranqueSinLLave(cbxArranqueSinLLave.isSelected());
-            encontrar.getSolicitud().setCargadorInalambrico(cbxCargadorInalambrico.isSelected());
-            encontrar.getSolicitud().setNavegadorTraffico(cbxNavegadorTraffico.isSelected());
-            encontrar.getSolicitud().setSensores(cbxSensores.isSelected());
-            encontrar.getSolicitud().setCamaraTrasera(cbxCamaraTrasera.isSelected());
-            encontrar.getSolicitud().setWifi(cbxWifi.isSelected());
-            encontrar.getSolicitud().setMonitoreoSatelital(cbxMonitoreoSatelital.isSelected());
-
-            pila_solicitudes.Modificar(encontrar);
-
-            limpiar_cajas();
-            vaciarTablaSolicitudes();
-            llenarTablaSolicitudes();
-        }
-    }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void TabDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabDatosMouseClicked
         // TODO add your handling code here:
@@ -1002,6 +960,10 @@ public class Solicitudes_frm extends javax.swing.JDialog {
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnAlquilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlquilarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAlquilarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1055,7 +1017,6 @@ public class Solicitudes_frm extends javax.swing.JDialog {
     private javax.swing.JTable TabDatos;
     private javax.swing.JTextField annio;
     private javax.swing.JCheckBox arranqueSinLLave;
-    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAlquilar;
     private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnGuard;

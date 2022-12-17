@@ -5,53 +5,74 @@ import Modelo.Solicitudes;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-
-public class PilaSolicitudes{
+public class PilaSolicitudes {
 //    Atributos de la clase
+
     private static NodoSolicitud cima;
     private Solicitudes solicitud;
     int tamano = 0;
 
     public PilaSolicitudes() {
-        this.cima=null;
+        this.cima = null;
         tamano = 0;
     }
-   
+
 //  Metodo para agregar datos a una pila
-    public void push(Solicitudes d){
-        NodoSolicitud nodo = new NodoSolicitud (d);
-        if(cima != null){
+    public void push(Solicitudes d) {
+        NodoSolicitud nodo = new NodoSolicitud(d);
+        if (cima != null) {
             nodo.setNext(cima);
             cima = nodo;
-        } else if (cima == null){
-             cima = nodo;
+        } else if (cima == null) {
+            cima = nodo;
         }
     }
-    
-    public void estado (){
+
+    public void estado() {
         solicitud.setEstadoSolicitud("Registrada");
         JOptionPane.showMessageDialog(null, "Su solicitud ha sido registrada "
                 + "con éxito");
     }
-    
+
 //  Metodo que revisa que la pila este vacia o si contiene datos
-    public boolean vacia (){
+    public boolean vacia() {
         return cima == null;
     }
-    
+
 //  Metodo que busca un dato de entrada tipo String idSolicitud y revisa 
 //  si se encuentra dentro de la pila
-    public NodoSolicitud buscar(String idSolicitud){
+    public NodoSolicitud buscar(String idSolicitud) {
         NodoSolicitud nodo = null;
         return nodo;
     }
-    
-    
-    public void Modificar(NodoSolicitud nodo){
+
+    public void Modificar(NodoSolicitud nodo) {
 
     }
+
+    public NodoSolicitud buscarN_Placa(String id) {
+        
+        NodoSolicitud aux = cima;
+        boolean exist = false;
+        // Recorre la pila hasta llegar encontrar el node o llegar al final
+        // de la pila.
+        while (exist != true && aux != null) {
+            // Compara si el value del node es igual que al de reference.
+            if (aux.getSolicitud().getIdSolicitud().equals(id)) {
+                // Cambia el value de la bandera.
+                exist = true;
+
+            } else {
+                // Avanza al siguiente node.
+                aux = aux.getNext();
+            }
+        }
+
+        return aux;
+    }
+
     //MODIFICIAR SOLICITUDES 
-   /* public void pop(){
+    /* public void pop(){
         if (!Vacia()) {
             // Asigna como primer node al siguiente de la pila.
             this.cima = this.cima.getSiguiente();
@@ -127,7 +148,6 @@ public class PilaSolicitudes{
             System.out.println("El nodo indicado no existe");
         }
     } */
-    
 //  Se crea el metodo tipo ArrayList de la listaSolicitudes
     public static ArrayList<NodoSolicitud> listaSolicitudes() {
         ArrayList<NodoSolicitud> listaSolicitud = new ArrayList<>();

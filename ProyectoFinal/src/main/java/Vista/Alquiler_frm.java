@@ -111,7 +111,6 @@ public class Alquiler_frm extends javax.swing.JDialog {
         jPanel3 = new javax.swing.JPanel();
         btnConsultar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TabDatos = new javax.swing.JTable();
         btnResetear = new javax.swing.JButton();
@@ -469,13 +468,6 @@ public class Alquiler_frm extends javax.swing.JDialog {
             }
         });
 
-        btnEliminar.setText("Eliminar");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
-
         TabDatos.setModel(modeloTabla);
         TabDatos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -512,8 +504,6 @@ public class Alquiler_frm extends javax.swing.JDialog {
                         .addComponent(btnConsultar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnActualizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnResetear)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -531,7 +521,6 @@ public class Alquiler_frm extends javax.swing.JDialog {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConsultar)
                     .addComponent(btnActualizar)
-                    .addComponent(btnEliminar)
                     .addComponent(btnResetear)
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -727,16 +716,6 @@ public class Alquiler_frm extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-       /* String solicitud = TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString();
-        Alquiler encontrar = cola_alquiler.buscar(solicitud);
-        cola_alquiler.elimina(encontrar.getIdSolicitud());
-        limpiar_cajas();
-        vaciarTablaAlquiler();
-        llenarTablaAlquiler();*/
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
     private void TabDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabDatosMouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {
@@ -850,7 +829,6 @@ public class Alquiler_frm extends javax.swing.JDialog {
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnDevolverVehiculo;
-    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuard;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimp;

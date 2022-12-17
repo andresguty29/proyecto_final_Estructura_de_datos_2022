@@ -677,9 +677,9 @@ public class Clientes_frm extends javax.swing.JDialog {
             String cliente = TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString();
             
            //Busca si el cliente tiene solicitudes en estado refistrado
-           //lista_clientes.elimina(cliente); /*Elimina cliente seleccionado */
-            ColaAlquiler elimina = new ColaAlquiler();
-            elimina.ClienteEstadoReistrado(cliente);
+           lista_clientes.elimina(cliente); /*Elimina cliente seleccionado */
+//            ColaAlquiler elimina = new ColaAlquiler();
+//            elimina.ClienteEstadoReistrado(cliente);
             limpiar_cajas();
             vaciarTablaVehiculos();
             llenarTablaVehiculos();
