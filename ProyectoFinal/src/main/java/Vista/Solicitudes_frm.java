@@ -979,9 +979,7 @@ public class Solicitudes_frm extends javax.swing.JDialog {
                     cbxWifi.isSelected(),
                     cbxMonitoreoSatelital.isSelected()
             );
-//
-         //   NodoSolicitud nodo = new NodoSolicitud(solicitud);
-         //   pila_solicitudes.setCima(nodo);
+         pila_solicitudes.push(solicitud);
 
             resetearTablaSolicitudes();
         }

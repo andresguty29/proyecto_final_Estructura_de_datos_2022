@@ -17,13 +17,13 @@ public class PilaSolicitudes{
     }
    
 //  Metodo para agregar datos a una pila
-    public void push(NodoSolicitud d){
-
-        if(this.vacia()){
-            this.cima=d;
-        }else{
-            d.setNext(cima);
-            this.cima=d;
+    public void push(Solicitudes d){
+        NodoSolicitud nodo = new NodoSolicitud (d);
+        if(cima != null){
+            nodo.setNext(cima);
+            cima = nodo;
+        } else if (cima == null){
+             cima = nodo;
         }
     }
     

@@ -5,14 +5,12 @@ import Modelo.Solicitudes;
 
 public class NodoSolicitud {
 //    Atributos de la clase
-    private Solicitudes solicitud;
+    Solicitudes solicitud;
     private NodoSolicitud next;
 
 //    Constructor de la clase
-    public NodoSolicitud(Solicitudes solicitud, NodoSolicitud next) {
+    public NodoSolicitud(Solicitudes solicitud) {
         this.solicitud = solicitud;
-        this.next = null;
- 
     }
 //  Constructor vacio para ahorrar futuros problemas
     public NodoSolicitud() {
