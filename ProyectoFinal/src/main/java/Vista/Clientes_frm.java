@@ -1,5 +1,6 @@
 package Vista;
 
+import Controlador.ColaAlquiler;
 import Modelo.Clientes;
 import Modelo.Configuracion;
 import Controlador.ListaClientes;
@@ -674,7 +675,11 @@ public class Clientes_frm extends javax.swing.JDialog {
         // TODO add your handling code here:
         try {
             String cliente = TabDatos.getValueAt(TabDatos.getSelectedRow(), 0).toString();
-            lista_clientes.elimina(cliente);
+            
+           //Busca si el cliente tiene solicitudes en estado refistrado
+           //lista_clientes.elimina(cliente); /*Elimina cliente seleccionado */
+            ColaAlquiler elimina = new ColaAlquiler();
+            elimina.ClienteEstadoReistrado(cliente);
             limpiar_cajas();
             vaciarTablaVehiculos();
             llenarTablaVehiculos();

@@ -1,4 +1,3 @@
-
 package Controlador;
 
 import Modelo.Alquiler;
@@ -8,36 +7,37 @@ import javax.swing.JOptionPane;
 
 public class ColaAlquiler {
 //    Atributos de la clase
+
     private static NodoAlquiler frente;
     private static NodoAlquiler ultimo;
 
 //  Constructor vacio para ahorrar futuros problemas
     public ColaAlquiler() {
     }
-    
-    public void enCola(NodoAlquiler d){
-        if(frente==null){
-            frente=d;
-            ultimo=d;
-        }else{
+
+    public void enCola(NodoAlquiler d) {
+        if (frente == null) {
+            frente = d;
+            ultimo = d;
+        } else {
             ultimo.setAtras(d);
-            ultimo=d;
+            ultimo = d;
         }
     }
-    
+
     //Se saca la primera solicitud de la cola para luego "atenderla"
-    public NodoAlquiler atiende(){
-        NodoAlquiler aux=frente;
-        if(frente!=null){
-            frente=frente.getAtras();
+    public NodoAlquiler atiende() {
+        NodoAlquiler aux = frente;
+        if (frente != null) {
+            frente = frente.getAtras();
             aux.setAtras(null);
         }
         //Se retorna el aux siendo este el que esta en el frente
         return aux;
     }
-    
+
     //Se modifica la cola con una entrada Alquiler a
-    public void modificar(Alquiler a){
+    public void modificar(Alquiler a) {
         try {
             if (frente != null) {
                 NodoAlquiler aux = frente;
@@ -74,10 +74,9 @@ public class ColaAlquiler {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una linea");
         }
     }
-    
-    
+
     //Se eliminan solicitudes de la cola, con una entrada String idSolicitud
-   /* public void elimina (String idSolicitud) {
+    /* public void elimina (String idSolicitud) {
         try {
             if (frente != null) {
                 if (frente.getAtras().getAlquiler().getIdSolicitud().equals(idSolicitud)) {
@@ -105,33 +104,33 @@ public class ColaAlquiler {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una linea");
         }
     }
-*/
+     */
     //Se buscan solicitudes dentro de la cola con una entrada String solicitud
-    public Alquiler buscar(String solicitud){
-        Alquiler buscado=null;
-        if(this.frente!=null){
+    public Alquiler buscar(String solicitud) {
+        Alquiler buscado = null;
+        if (this.frente != null) {
 //          Si el dato de frente.getAlquiler().getIdSolicitud() es igual(equals)
 //          al parametro buscado(solicitud), entraria en esta condicional
 //          convirtiendo la variable "buscado" en frente.getAlquiler()
-            if(frente.getAlquiler().getIdSolicitud().equals(solicitud)){
-                buscado=frente.getAlquiler();
-            }else{
-                NodoAlquiler aux=this.frente;
+            if (frente.getAlquiler().getIdSolicitud().equals(solicitud)) {
+                buscado = frente.getAlquiler();
+            } else {
+                NodoAlquiler aux = this.frente;
 //              Se usa un while condicionante que determina que mientras 
 //              aux.getAtras() sea diferente a nulo, el ciclo se ejecuta
-                while(aux.getAtras()!=null){
-                    if(aux.getAtras().getAlquiler().getIdSolicitud()
-                            .equals(solicitud)){
-                        buscado=aux.getAtras().getAlquiler();
+                while (aux.getAtras() != null) {
+                    if (aux.getAtras().getAlquiler().getIdSolicitud()
+                            .equals(solicitud)) {
+                        buscado = aux.getAtras().getAlquiler();
                     }
-                    aux=aux.getAtras();
+                    aux = aux.getAtras();
                 }
             }
         }
 //      Se retorna el dato encontrado en el aux.getAtras().getAlquiler()
         return buscado;
     }
-    
+
     //Se crea el metodo tipo ArrayList de la listaAlquiler
     public static ArrayList<NodoAlquiler> listaAlquiler() {
         ArrayList<NodoAlquiler> listaAlquileres = new ArrayList<>();
@@ -145,5 +144,25 @@ public class ColaAlquiler {
 //      contenido del NodoAlquiler
         return listaAlquileres;
     }
-    
+
+    public void ClienteEstadoReistrado(String cedula) {
+        NodoAlquiler actual = frente;
+        boolean encontrado = false;
+        if (frente != null) {
+            while (actual != null && encontrado != true) {
+                if(actual.getAlquiler().getCedula().equals(cedula)){
+                    encontrado =true;
+                     //Se encontro al cliente entre los alquileres
+                     //CONDICION EL CLIENTE  TIENE ALQUILERES 
+                actual = actual.getAtras();
+                } 
+
+            }
+               //CONDICION EL CLIENTE NO TIENE ALQUILERES ELIMINA
+            if(!encontrado){
+               ListaClientes elimina = new ListaClientes();
+               elimina.elimina(cedula);
+            }
+        }
+    }
 }

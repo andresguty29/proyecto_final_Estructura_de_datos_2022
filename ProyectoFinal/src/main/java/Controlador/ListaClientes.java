@@ -135,6 +135,9 @@ public class ListaClientes {
                     
                     
                 }
+                else{
+                     JOptionPane.showMessageDialog(null, "No se encuentran clientes en la lista");
+                }
             }
         }
     }
