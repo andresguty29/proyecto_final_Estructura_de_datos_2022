@@ -2,6 +2,7 @@ package Controlador;
 
 import Modelo.Alquiler;
 import Modelo.NodoAlquiler;
+import Modelo.NodoClientes;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -22,6 +23,55 @@ public class ColaAlquiler {
         } else {
             ultimo.setAtras(d);
             ultimo = d;
+        }
+    }
+
+    public void colar(NodoAlquiler d) {
+        NodoClientes prio = new NodoClientes();
+        NodoAlquiler aux = frente;
+        String zafiro = "Zafiro";
+        String oro = "Oro";
+        String plata = "Plata";
+        String bronce = "Bronce";
+        String cedula = d.getAlquiler().getCedula();
+        while (prio.getCliente().getCedula().contains(cedula)) {
+            if (prio.getCliente().getCategoria().equals(bronce)) {
+                while (aux != null) {
+                    if (aux.getAlquiler().getCategoria()== bronce) {
+                        frente = d;
+                        frente.setAtras(aux);
+                    } else {
+                        aux = aux.getAtras();
+                    }
+                }
+            } else if (prio.getCliente().getCategoria().equals(plata)) {
+                while (aux != null) {
+                    if (aux.getAlquiler().getCategoria()== plata) {
+                        frente = d;
+                        frente.setAtras(aux);
+                    } else {
+                        aux = aux.getAtras();
+                    }
+                }
+            } else if (prio.getCliente().getCategoria().equals(oro)) {
+                while (aux != null) {
+                    if (aux.getAlquiler().getCategoria()== oro) {
+                        frente = d;
+                        frente.setAtras(aux);
+                    } else {
+                        aux = aux.getAtras();
+                    }
+                }
+            } else if (prio.getCliente().getCategoria().equals(zafiro)) {
+                while (aux != null) {
+                    if (aux.getAlquiler().getCategoria()== zafiro) {
+                        frente = d;
+                        frente.setAtras(aux);
+                    } else {
+                        aux = aux.getAtras();
+                    }
+                }
+            }
         }
     }
 
@@ -150,18 +200,18 @@ public class ColaAlquiler {
         boolean encontrado = false;
         if (frente != null) {
             while (actual != null && encontrado != true) {
-                if(actual.getAlquiler().getCedula().equals(cedula)){
-                    encontrado =true;
-                     //Se encontro al cliente entre los alquileres
-                     //CONDICION EL CLIENTE  TIENE ALQUILERES 
-                actual = actual.getAtras();
-                } 
+                if (actual.getAlquiler().getCedula().equals(cedula)) {
+                    encontrado = true;
+                    //Se encontro al cliente entre los alquileres
+                    //CONDICION EL CLIENTE  TIENE ALQUILERES 
+                    actual = actual.getAtras();
+                }
 
             }
-               //CONDICION EL CLIENTE NO TIENE ALQUILERES ELIMINA
-            if(!encontrado){
-               ListaClientes elimina = new ListaClientes();
-               elimina.elimina(cedula);
+            //CONDICION EL CLIENTE NO TIENE ALQUILERES ELIMINA
+            if (!encontrado) {
+                ListaClientes elimina = new ListaClientes();
+                elimina.elimina(cedula);
             }
         }
     }
